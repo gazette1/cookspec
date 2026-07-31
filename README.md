@@ -17,5 +17,8 @@ Status: scaffold. The layout engine and card renderer work against a fixture rec
 - `npm run preview` build and serve through the Cloudflare workerd runtime
 - `npm run deploy` deploy to Cloudflare (needs wrangler auth)
 
+## Deploys from GitHub
+Pushes to main run .github/workflows/deploy.yml, which builds the worker and deploys it to Cloudflare. The workflow skips (green, no deploy) until these repository secrets exist under Settings, Secrets and variables, Actions: CLOUDFLARE_API_TOKEN (create in the Cloudflare dashboard with the Edit Workers template), CLOUDFLARE_ACCOUNT_ID, DEEPSEEK_API_KEY, GEMINI_API_KEY, MOONSHOT_API_KEY, SCRAPER_API_TOKEN, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY.
+
 ## Where decisions live
 Product decisions, architecture, and phases live in the vault note "Cooking Instructions". Session logs live in the vault Daily Notes.

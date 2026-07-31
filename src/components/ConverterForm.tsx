@@ -144,10 +144,9 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
       ) : (
         <>
           <p className="build-note">
-            Article links, TikTok, YouTube, pasted text, photos, and uploaded videos compile live
-            today; direct Reel links wait on one more integration, so screen-record the Reel and
-            upload it meanwhile. The demo card below is the exemplar that started the project,
-            including two gram values the unit validator corrected.
+            Every input compiles live: article links, TikTok, Instagram Reels, YouTube, pasted
+            text, photos, and uploaded videos. The demo card below is the exemplar that started the
+            project, including two gram values the unit validator corrected.
           </p>
           <RecipeCard doc={demo} />
         </>

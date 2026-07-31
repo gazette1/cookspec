@@ -35,7 +35,7 @@ const corpus = JSON.parse(readFileSync(new URL("../eval/corpus.json", import.met
   entries: { id: string; url: string }[];
 };
 
-const WIRED = /^(tt|yt|art)-/;
+const WIRED = /^(tt|yt|art|ig)-/;
 const results: RunEntry[] = [];
 
 for (const entry of corpus.entries) {
@@ -48,6 +48,7 @@ for (const entry of corpus.entries) {
     const { doc, meta } = await compile(entry.url, {
       deepseekKey: env.DEEPSEEK_API_KEY,
       geminiKey: env.GEMINI_API_KEY,
+      apifyToken: env.SCRAPER_API_TOKEN,
     });
     const layout = layoutRecipe(doc);
     results.push({

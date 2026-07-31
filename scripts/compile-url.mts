@@ -30,7 +30,11 @@ if (/^[a-z]+-\d+$/.test(arg)) {
   input = entry.url;
 }
 
-const { doc, meta } = await compile(input, { deepseekKey: env.DEEPSEEK_API_KEY, geminiKey: env.GEMINI_API_KEY });
+const { doc, meta } = await compile(input, {
+  deepseekKey: env.DEEPSEEK_API_KEY,
+  geminiKey: env.GEMINI_API_KEY,
+  apifyToken: env.SCRAPER_API_TOKEN,
+});
 
 console.log(`dish: ${doc.dish}`);
 for (const note of doc.prepNotes) console.log(`prep: ${note}`);

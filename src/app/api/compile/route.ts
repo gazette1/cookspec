@@ -22,7 +22,11 @@ export async function POST(req: Request): Promise<NextResponse> {
   if (!deepseekKey) {
     return NextResponse.json({ error: "server is missing DEEPSEEK_API_KEY" }, { status: 500 });
   }
-  const env = { deepseekKey, geminiKey: process.env.GEMINI_API_KEY };
+  const env = {
+    deepseekKey,
+    geminiKey: process.env.GEMINI_API_KEY,
+    apifyToken: process.env.SCRAPER_API_TOKEN,
+  };
 
   try {
     let dedupeHash: string;

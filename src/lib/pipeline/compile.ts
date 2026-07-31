@@ -22,6 +22,7 @@ export interface CompileResult {
 export interface CompileEnv {
   deepseekKey: string;
   geminiKey?: string;
+  apifyToken?: string;
 }
 
 function isUrl(input: string): boolean {
@@ -50,9 +51,7 @@ export async function compile(input: string, env: CompileEnv): Promise<CompileRe
     case "tiktok":
       return compileTikTok(canonical, env, started);
     case "reel":
-      throw new Error(
-        "direct Reel links wait on the scraper integration; screen-record the Reel and upload it meanwhile",
-      );
+      return compileReel(canonical, env, started);
     default:
       throw new Error("unsupported source type");
   }
@@ -247,6 +246,93 @@ function bytesToBase64(bytes: Uint8Array): string {
   let bin = "";
   for (const b of bytes) bin += String.fromCharCode(b);
   return btoa(bin);
+}
+
+// Instagram Reels through the Apify scraper: pull caption, thumbnail, and
+// where possible the video itself, then extract like any other media. With
+// the full video in hand the card is a real extraction, not an inferred guess.
+async function compileReel(canonical: CanonicalResult, env: CompileEnv, started: number): Promise<CompileResult> {
+  if (!env.apifyToken) {
+    throw new Error("Instagram needs the scraper token; screen-record the Reel and upload it meanwhile");
+  }
+  if (!env.geminiKey) throw new Error("server is missing GEMINI_API_KEY for video sources");
+
+  const runRes = await fetch(
+    `https://api.apify.com/v2/acts/apify~instagram-scraper/run-sync-get-dataset-items?token=${encodeURIComponent(env.apifyToken)}&timeout=120&memory=1024`,
+    {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        directUrls: [canonical.canonicalUrl],
+        resultsType: "posts",
+        resultsLimit: 1,
+        addParentData: false,
+      }),
+    },
+  );
+  if (!runRes.ok) {
+    throw new Error(`Instagram scraper failed: HTTP ${runRes.status} ${(await runRes.text()).slice(0, 160)}`);
+  }
+  const items = (await runRes.json()) as {
+    caption?: string;
+    ownerUsername?: string;
+    videoUrl?: string;
+    displayUrl?: string;
+  }[];
+  const post = items[0];
+  if (!post) throw new Error("the scraper returned nothing for this Reel; it may be private");
+
+  const caption = post.caption ?? "";
+  const author = post.ownerUsername ? `@${post.ownerUsername}` : undefined;
+
+  const parts: GeminiPart[] = [];
+  let haveVideo = false;
+  if (post.videoUrl) {
+    try {
+      const vid = await fetch(post.videoUrl, { headers: { "user-agent": BROWSER_UA } });
+      if (vid.ok) {
+        const bytes = new Uint8Array(await vid.arrayBuffer());
+        if (bytes.byteLength > 0 && bytes.byteLength <= 19_000_000) {
+          parts.push({
+            inlineData: { mimeType: vid.headers.get("content-type") ?? "video/mp4", data: bytesToBase64(bytes) },
+          });
+          haveVideo = true;
+        }
+      }
+    } catch {
+      // fall through to thumbnail
+    }
+  }
+  if (!haveVideo && post.displayUrl) {
+    const img = await fetch(post.displayUrl, { headers: { "user-agent": BROWSER_UA } });
+    if (img.ok) {
+      const bytes = new Uint8Array(await img.arrayBuffer());
+      parts.push({
+        inlineData: { mimeType: img.headers.get("content-type") ?? "image/jpeg", data: bytesToBase64(bytes) },
+      });
+    }
+  }
+
+  const statedAmounts = (caption.match(/\d+\s*(g|kg|ml|l|cup|cups|tbsp|tsp|oz|lb|cloves?)\b/gi) ?? []).length;
+  const inferred = !haveVideo && statedAmounts < 3;
+
+  const captionBlock = caption ? ` The creator's caption: "${caption.slice(0, 3000)}".` : "";
+  return mediaExtract({
+    env,
+    parts,
+    contextText: haveVideo
+      ? `${VIDEO_CONTEXT}${captionBlock}`
+      : `Instagram Reel from ${author ?? "the creator"}.${captionBlock} Reconstruct the recipe from the caption and the attached thumbnail. If the caption contains the full recipe, restate it faithfully and completely. Use typical values with estimated true for anything not stated.`,
+    fallbackWatchText: haveVideo
+      ? VIDEO_WATCH_TEXT
+      : `Instagram Reel from ${author ?? "the creator"}.${captionBlock} Report the recipe as text: dish, ingredients with stated quantities, likely operations in order. Mark anything not stated.`,
+    source: { url: canonical.canonicalUrl, platform: "instagram.com", creatorHandle: author },
+    inferred,
+    sourceType: "reel",
+    canonicalUrl: canonical.canonicalUrl,
+    canonicalHash: await canonicalUrlHash(canonical.canonicalUrl),
+    started,
+  });
 }
 
 // TikTok without a scraper vendor: resolve the share link, read the public

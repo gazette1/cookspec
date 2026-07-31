@@ -102,8 +102,8 @@ function round(grams: number): number {
 
 export function validateQuantity(name: string, raw: RawQuantity): Quantity {
   const text = raw.text.trim();
-  // "650 g" already states its weight; appending "(650 g)" again is noise
-  const textStatesGrams = /(^|\s)\d+([.,]\d+)?\s*(g|kg|grams?|kilograms?)\b/i.test(text);
+  // "650 g" or "6 tsp (30g)" already states a weight; appending it again is noise
+  const textStatesGrams = /(^|[\s(])\d+([.,]\d+)?\s*(g|kg|grams?|kilograms?)\b/i.test(text);
   const stated = raw.grams ?? undefined;
   const expected =
     raw.amount != null && raw.unit ? expectedGrams(name, raw.amount, raw.unit) : undefined;

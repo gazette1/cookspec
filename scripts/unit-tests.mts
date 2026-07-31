@@ -52,6 +52,8 @@ const cocoa = validateQuantity("Hershey's cocoa powder", { text: "1/3 cup", amou
 check("cocoa 80 g for 1/3 cup gets corrected", [cocoa.provenance, cocoa.grams], ["corrected", 27]);
 const statedGrams = validateQuantity("chicken breast", { text: "650 g", amount: 650, unit: "g", grams: 650 });
 check("gram-stated text not duplicated", statedGrams.display, "650 g");
+const parenGrams = validateQuantity("olive oil", { text: "6 tsp (30g)", amount: 6, unit: "tsp", grams: 30 });
+check("parenthesized grams not duplicated", parenGrams.display, "6 tsp (30g)");
 const butter = validateQuantity("unsalted butter", { text: "4 oz", amount: 4, unit: "oz", grams: 115 });
 check("4 oz butter at 115 g passes within tolerance", [butter.provenance, butter.grams], ["stated", 115]);
 const guess = validateQuantity("ground beef", { text: "about 1 lb", amount: 1, unit: "lb", estimated: true });
