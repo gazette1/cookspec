@@ -1,8 +1,11 @@
 "use client";
 
+// The paste bar. Applying design.md Part 1 section 4.1: one field that detects
+// the type, a quiet sources line, no tabs, no account gate.
+
 import { useRef, useState } from "react";
 import type { RecipeDoc } from "@/lib/recipe/types.ts";
-import { RecipeCard } from "./RecipeCard";
+import { RecipeCard, type CardMeta } from "./RecipeCard";
 
 interface CompileMeta {
   sourceType: string;
@@ -13,7 +16,7 @@ interface CompileMeta {
   usage: { costUsd: number };
 }
 
-export function ConverterForm({ demo }: { demo: RecipeDoc }) {
+export function ConverterForm({ demo, demoMeta }: { demo: RecipeDoc; demoMeta?: CardMeta }) {
   const [input, setInput] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [dishHint, setDishHint] = useState("");
@@ -58,27 +61,33 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
         error?: string;
       };
       if (!res.ok || !data.doc) {
-        setError(data.error ?? `compile failed (HTTP ${res.status})`);
+        setError(data.error ?? `compile failed with HTTP ${res.status}; try the link again or paste the text`);
       } else {
         setDoc(data.doc);
         setMeta(data.meta ?? null);
         setPublicUrl(data.publicUrl ?? null);
       }
     } catch {
-      setError("network error, try again");
+      setError("network failed; check the connection and compile again");
     } finally {
       setBusy(false);
     }
   }
 
+  function onDrop(e: React.DragEvent) {
+    e.preventDefault();
+    const dropped = e.dataTransfer.files?.[0];
+    if (dropped && /^(image|video)\//.test(dropped.type)) setFile(dropped);
+  }
+
   return (
     <>
-      <form className="converter" onSubmit={onSubmit}>
+      <form className="converter" onSubmit={onSubmit} onDragOver={(e) => e.preventDefault()} onDrop={onDrop}>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="https://www.tiktok.com/@creator/video/... or paste the recipe text"
+          placeholder="paste a link, text, or drop a photo"
           aria-label="recipe link or text"
           disabled={busy || file !== null}
         />
@@ -86,7 +95,7 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
           {busy ? "Compiling" : "Compile"}
         </button>
       </form>
-      <div className="image-row">
+      <div className="image-row no-print">
         <label className="image-pick">
           <input
             ref={fileRef}
@@ -95,7 +104,7 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
             disabled={busy}
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           />
-          {file ? `file: ${file.name}` : "or upload a photo, or a screen recording of a Reel"}
+          {file ? `file: ${file.name}` : "or choose a photo or screen recording"}
         </label>
         {file ? (
           <>
@@ -104,7 +113,7 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
               className="hint-input"
               value={dishHint}
               onChange={(e) => setDishHint(e.target.value)}
-              placeholder="what is this? (optional, helps dish photos)"
+              placeholder="what dish is this, if the photo has no text"
               aria-label="dish name hint"
               disabled={busy}
             />
@@ -123,14 +132,15 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
           </>
         ) : null}
       </div>
+      <p className="sources-line">tiktok · reel · short · article · text · photo · video</p>
       {error ? <p className="compile-error">{error}</p> : null}
       {doc ? (
         <>
           {meta ? (
             <p className="build-note">
               {meta.cacheHit
-                ? "Served instantly from the library"
-                : `Compiled from ${meta.sourceType} in ${(meta.elapsedMs / 1000).toFixed(1)}s, model ${meta.model}, cost $${meta.usage.costUsd.toFixed(4)}`}
+                ? "Compiled. Served from the library."
+                : `Compiled from ${meta.sourceType} in ${(meta.elapsedMs / 1000).toFixed(1)}s at $${meta.usage.costUsd.toFixed(4)}.`}
               {publicUrl ? (
                 <>
                   {" "}
@@ -139,17 +149,10 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
               ) : null}
             </p>
           ) : null}
-          <RecipeCard doc={doc} />
+          <RecipeCard doc={doc} meta={meta ? { sourceLabel: meta.sourceType } : undefined} />
         </>
       ) : (
-        <>
-          <p className="build-note">
-            Every input compiles live: article links, TikTok, Instagram Reels, YouTube, pasted
-            text, photos, and uploaded videos. The demo card below is the exemplar that started the
-            project, including two gram values the unit validator corrected.
-          </p>
-          <RecipeCard doc={demo} />
-        </>
+        <RecipeCard doc={demo} meta={demoMeta} />
       )}
     </>
   );

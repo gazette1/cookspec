@@ -1,4 +1,4 @@
-// Recipe store, Supabase-backed. Falls back to the statically bundled seed
+﻿// Recipe store, Supabase-backed. Falls back to the statically bundled seed
 // pack when the environment has no Supabase credentials (fresh clones still
 // run). Reads use the anon key under RLS; anonymous conversion writes are
 // allowed by the interim policies and tightened when auth lands.
@@ -13,12 +13,14 @@ export interface StoredRecipe {
   attributionUrl?: string;
   license?: string;
   sourceType?: string;
+  compiledAt?: string;
 }
 
 interface RecipeRow {
   slug: string | null;
   source_url: string | null;
   source_type: string;
+  created_at?: string;
   recipe_json: RecipeDoc & { seedLicense?: string };
 }
 
@@ -40,6 +42,7 @@ function rowToStored(row: RecipeRow): StoredRecipe {
     attributionUrl: row.source_url ?? undefined,
     license: seedLicense,
     sourceType: row.source_type,
+    compiledAt: row.created_at ? row.created_at.slice(0, 10) : undefined,
   };
 }
 
@@ -57,7 +60,7 @@ export async function listPublicRecipes(): Promise<StoredRecipe[]> {
   }
   const { data, error } = await db
     .from("recipes")
-    .select("slug, source_url, source_type, recipe_json")
+    .select("slug, source_url, source_type, created_at, recipe_json")
     .eq("is_public", true)
     .order("dish_name");
   if (error) throw new Error(`recipes query failed: ${error.message}`);
@@ -74,7 +77,7 @@ export async function getRecipeBySlug(slug: string): Promise<StoredRecipe | null
   }
   const { data, error } = await db
     .from("recipes")
-    .select("slug, source_url, source_type, recipe_json")
+    .select("slug, source_url, source_type, created_at, recipe_json")
     .eq("slug", slug)
     .maybeSingle();
   if (error) throw new Error(`recipe query failed: ${error.message}`);
@@ -86,7 +89,7 @@ export async function findByCanonicalHash(hash: string): Promise<StoredRecipe | 
   if (!db) return null;
   const { data, error } = await db
     .from("recipes")
-    .select("slug, source_url, source_type, recipe_json")
+    .select("slug, source_url, source_type, created_at, recipe_json")
     .eq("canonical_url_hash", hash)
     .maybeSingle();
   if (error) throw new Error(`dedupe query failed: ${error.message}`);

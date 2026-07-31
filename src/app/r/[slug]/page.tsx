@@ -32,10 +32,13 @@ export default async function RecipePage({ params }: Props) {
         <span aria-hidden="true"> / </span>
         <Link href="/recipes">library</Link>
       </nav>
-      <RecipeCard doc={recipe.doc} />
+      <RecipeCard
+        doc={recipe.doc}
+        meta={{ sourceLabel: recipe.sourceType, compiledAt: recipe.compiledAt }}
+      />
       <p className="license-note no-print">
-        {recipe.license ? `${recipe.license}. ` : ""}Compiled by CookSpec;{" "}
-        <Link href="/">compile your own from any link</Link>.
+        {recipe.license ? `${recipe.license}. ` : ""}Compiled by Cookspec.{" "}
+        <Link href="/">Paste a link and compile your own.</Link>
       </p>
     </main>
   );

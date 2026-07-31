@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cookspec reference card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ---- tokens: Part 2, Color / Spacing / Motion ---- */
+:root{
+  --counter:#14110E; --counter-raised:#1F1A16; --counter-line:#2E2620;
+  --cream:#F4EDE1; --cream-shade:#E8DFCE; --ink:#1A1A18; --ink-soft:#1A1A18A6;
+  --rule:#1A1A1826; --rule-heavy:#1A1A1866;
+  --amber:#E0A32E; --amber-dim:#8A6420; --olive:#6E8B5A; --brick:#9C4A38;
+
+  --font-mono:'IBM Plex Mono',ui-monospace,monospace;
+  --font-sans:'IBM Plex Sans',system-ui,sans-serif;
+  --font-serif:'IBM Plex Serif',Georgia,serif;
+
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px;
+  --s6:32px; --s7:48px; --s8:64px; --s9:96px;
+
+  --ease-standard:cubic-bezier(.2,0,0,1);
+  --d-micro:120ms; --d-base:200ms;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--counter); color:var(--cream);
+  font-family:var(--font-sans); font-size:15px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  padding:var(--s9) var(--s5);
+  display:flex; justify-content:center;
+}
+.stage{width:100%; max-width:1100px}
+
+/* ---- micro-label: Part 2, Typography ---- */
+.micro{
+  font-family:var(--font-sans); font-size:11px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase;
+}
+
+/* ---- the card: one shadow in the whole product ---- */
+.card{
+  background:var(--cream); color:var(--ink); border-radius:2px;
+  padding:var(--s6);
+  box-shadow:0 24px 48px -12px #00000080, 0 2px 4px #0000004D;
+  -webkit-font-smoothing:auto;
+}
+
+/* ---- title block: stolen from datasheet headers ---- */
+.title-block{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:var(--s5); flex-wrap:wrap;
+}
+h1{
+  font-family:var(--font-serif); font-size:32px; font-weight:500;
+  letter-spacing:-.01em; line-height:1.15; margin:0;
+}
+.meta{display:flex; gap:var(--s5); flex-wrap:wrap}
+.meta div{display:flex; flex-direction:column; gap:2px}
+.meta .micro{color:var(--ink-soft)}
+.meta b{
+  font-family:var(--font-mono); font-size:13px; font-weight:400;
+  font-variant-numeric:tabular-nums;
+}
+.rule-heavy{border:0; border-top:2px solid var(--rule-heavy); margin:var(--s4) 0 0}
+.rule-heavy + .rule-thin{border:0; border-top:1px solid var(--rule-heavy); margin:2px 0 0}
+
+/* ---- validation strip: Part 2, Components ---- */
+.validation{display:flex; gap:var(--s5); flex-wrap:wrap; padding:var(--s3) 0 0}
+.seg{
+  background:none; border:0; padding:0 0 var(--s1); cursor:pointer;
+  display:flex; align-items:baseline; gap:var(--s2);
+  border-bottom:2px solid transparent; color:var(--ink);
+  transition:border-color var(--d-micro) var(--ease-standard);
+}
+.seg:hover{border-bottom-color:var(--rule)}
+.seg[aria-pressed="true"]{border-bottom-color:var(--amber)}
+.seg .n{font-family:var(--font-mono); font-size:13px; font-variant-numeric:tabular-nums}
+.seg .micro{color:var(--ink-soft)}
+.seg:focus-visible{outline:2px solid var(--amber); outline-offset:3px}
+
+/* ---- the merge table ---- */
+.scroller{overflow-x:auto; margin-top:var(--s5)}
+table{border-collapse:collapse; width:100%; min-width:760px}
+th,td{
+  padding:var(--s2) var(--s3); text-align:left; vertical-align:top;
+  border-bottom:1px solid var(--rule); line-height:1.35;
+}
+thead th{
+  border-bottom:2px solid var(--rule-heavy);
+  color:var(--ink-soft);
+  font-family:var(--font-sans); font-size:11px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase;
+}
+/* ingredient column pinned on horizontal scroll */
+td.ing,th.ing{
+  position:sticky; left:0; background:var(--cream);
+  font-family:var(--font-serif); font-size:15px; min-width:190px;
+}
+th.ing{background:var(--cream)}
+td.qty{
+  font-family:var(--font-mono); font-size:13px; text-align:right;
+  font-variant-numeric:tabular-nums; white-space:nowrap; min-width:120px;
+}
+td.qty .u{opacity:.6}
+td.op{
+  border-left:2px solid var(--rule-heavy);
+  vertical-align:middle; min-width:150px;
+}
+td.op .label{font-size:13px; font-weight:500}
+td.op .detail{
+  font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);
+  display:block; margin-top:2px; font-variant-numeric:tabular-nums;
+}
+/* heavy rule where the merge resolves into the dish */
+td.final{border-left:4px solid var(--rule-heavy)}
+td.final .label{font-family:var(--font-serif); font-size:18px; font-weight:500}
+tbody tr:last-child td{border-bottom:0}
+
+/* ---- cell states: no icons, no badges ---- */
+td.corrected{border-left:2px solid var(--olive)}
+td.corrected .was{
+  display:block; text-decoration:line-through; color:var(--ink-soft); margin-top:2px;
+}
+td.unresolved{background:#E0A32E1F}
+.why{
+  display:block; font-family:var(--font-sans); font-size:11px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft);
+  margin-top:var(--s1); text-align:right;
+}
+
+/* ---- footer: provenance ---- */
+.foot{
+  margin-top:var(--s5); padding-top:var(--s3);
+  border-top:1px solid var(--rule-heavy);
+  display:flex; justify-content:space-between; gap:var(--s4); flex-wrap:wrap;
+  color:var(--ink-soft);
+}
+.foot .micro{color:var(--ink-soft)}
+.foot a{color:var(--ink); text-decoration:underline; text-underline-offset:2px}
+
+/* ---- signature effect: merge assembly, once, 600ms total ---- */
+@keyframes rowIn{from{opacity:0} to{opacity:1}}
+@keyframes colIn{from{opacity:0; clip-path:inset(0 100% 0 0)} to{opacity:1; clip-path:inset(0 0 0 0)}}
+tbody tr{animation:rowIn 200ms var(--ease-standard) both}
+tbody tr:nth-child(1){animation-delay:0ms}
+tbody tr:nth-child(2){animation-delay:20ms}
+tbody tr:nth-child(3){animation-delay:40ms}
+tbody tr:nth-child(4){animation-delay:60ms}
+tbody tr:nth-child(5){animation-delay:80ms}
+tbody tr:nth-child(6){animation-delay:100ms}
+tbody tr:nth-child(7){animation-delay:120ms}
+td.op{animation:colIn 120ms var(--ease-standard) both}
+td.c1{animation-delay:200ms}
+td.c2{animation-delay:280ms}
+td.c3{animation-delay:360ms}
+td.c4{animation-delay:440ms}
+
+@media (prefers-reduced-motion:reduce){
+  tbody tr,td.op{animation:none}
+}
+
+/* ---- print: must fit one page ---- */
+@media print{
+  body{background:#fff; padding:0; display:block}
+  .card{box-shadow:none; padding:0}
+  .seg{border-bottom-color:transparent}
+  table{min-width:0}
+  td.ing{position:static}
+}
+
+@media (max-width:640px){
+  body{padding:var(--s5) var(--s3)}
+  .card{padding:var(--s5)}
+  h1{font-size:24px}
+}
+</style>
+</head>
+<body>
+<main class="stage">
+  <article class="card">
+
+    <!-- title block -->
+    <header class="title-block">
+      <h1>Buttermilk-style pancakes</h1>
+      <div class="meta">
+        <div><span class="micro">Yield</span><b>12 cakes</b></div>
+        <div><span class="micro">Source</span><b>Reel</b></div>
+        <div><span class="micro">Compiled</span><b>2026-07-31</b></div>
+        <div><span class="micro">Rev</span><b>A</b></div>
+      </div>
+    </header>
+    <hr class="rule-heavy"><hr class="rule-thin">
+
+    <!-- validation strip -->
+    <div class="validation">
+      <button class="seg" aria-pressed="true"><span class="n">7</span><span class="micro">Quantities</span></button>
+      <button class="seg" aria-pressed="false"><span class="n">2</span><span class="micro">Converted</span></button>
+      <button class="seg" aria-pressed="false"><span class="n">1</span><span class="micro">Correction</span></button>
+      <button class="seg" aria-pressed="false"><span class="n">1</span><span class="micro">Unresolved</span></button>
+    </div>
+
+    <!-- merge table -->
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th class="ing" scope="col">Ingredient</th>
+            <th scope="col" style="text-align:right">Mass</th>
+            <th scope="col" colspan="4">Operations</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ing">All-purpose flour</td>
+            <td class="qty">250 <span class="u">g</span></td>
+            <td class="op c1" rowspan="4">
+              <span class="label">Whisk dry</span>
+              <span class="detail">30 sec</span>
+            </td>
+            <td class="op c2" rowspan="7">
+              <span class="label">Fold to combine</span>
+              <span class="detail">lumps remain</span>
+            </td>
+            <td class="op c3" rowspan="7">
+              <span class="label">Rest</span>
+              <span class="detail">10 min</span>
+            </td>
+            <td class="op final c4" rowspan="7">
+              <span class="label">Griddle</span>
+              <span class="detail">190 C, 2 min per side</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="ing">Granulated sugar</td>
+            <td class="qty">25 <span class="u">g</span></td>
+          </tr>
+          <tr>
+            <td class="ing">Baking powder</td>
+            <td class="qty">12 <span class="u">g</span></td>
+          </tr>
+          <tr>
+            <td class="ing">Fine salt</td>
+            <td class="qty unresolved">
+              4 <span class="u">g</span>
+              <span class="why">Not stated, researched</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="ing">Eggs, large</td>
+            <td class="qty">100 <span class="u">g (2)</span></td>
+            <td class="op c1" rowspan="3">
+              <span class="label">Whisk wet</span>
+              <span class="detail">1 min, smooth</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="ing">Whole milk</td>
+            <td class="qty corrected">
+              480 <span class="u">g</span>
+              <span class="was">400 g</span>
+              <span class="why">2 cups at 1.03 g/mL</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="ing">Butter, melted</td>
+            <td class="qty">57 <span class="u">g</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- provenance -->
+    <footer class="foot">
+      <span class="micro">Compiled from <a href="#">@creator</a> at 00:42</span>
+      <span class="micro">Cookspec</span>
+    </footer>
+
+  </article>
+</main>
+</body>
+</html>

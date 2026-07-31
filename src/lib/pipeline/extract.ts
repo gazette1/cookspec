@@ -99,6 +99,7 @@ function toRecipeDoc(raw: RawExtraction, slug: string, source: RecipeSource | un
     prepNotes: raw.prepNotes ?? [],
     ingredients: orderIngredients(ingredients, steps),
     steps,
+    servings: raw.servings ?? undefined,
     inferred: inferred || undefined,
   };
 }

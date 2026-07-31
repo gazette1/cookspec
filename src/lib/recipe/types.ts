@@ -54,6 +54,8 @@ export interface RecipeDoc {
   ingredients: Ingredient[];
   /** Topologically ordered; the last step is the finished dish */
   steps: Step[];
+  /** Yield as the source states it, e.g. "4 servings" */
+  servings?: string;
   /** True when the whole recipe is a generated guess from a photo */
   inferred?: boolean;
 }
