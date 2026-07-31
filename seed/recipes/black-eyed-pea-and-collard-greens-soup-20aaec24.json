@@ -1,0 +1,174 @@
+{
+  "doc": {
+    "slug": "black-eyed-pea-and-collard-greens-soup",
+    "dish": "Black-Eyed Pea and Collard Greens Soup",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/black-eyed-pea-and-collard-greens-soup",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Wash collard greens, remove stems, and chop.",
+      "Drain and rinse black-eyed peas."
+    ],
+    "ingredients": [
+      {
+        "id": "vegetable_oil",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "1 tablespoon (14 g)",
+          "grams": 14,
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "onion",
+        "name": "onion, chopped",
+        "quantity": {
+          "display": "1 medium (110 g)",
+          "grams": 110,
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic_powder",
+        "name": "garlic powder",
+        "quantity": {
+          "display": "1/8 teaspoon (0.4 g)",
+          "grams": 0.4,
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "deli_ham",
+        "name": "deli ham, sliced",
+        "quantity": {
+          "display": "1/4 pound (115 g)",
+          "grams": 115,
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "collard_greens",
+        "name": "collard greens, stems removed and chopped",
+        "quantity": {
+          "display": "3 cups (about 1/2 pound) (225 g)",
+          "grams": 225,
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "broth",
+        "name": "low-sodium broth (chicken or vegetable)",
+        "quantity": {
+          "display": "1 can (14.5 ounce) (410 g)",
+          "grams": 410,
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_eyed_peas",
+        "name": "black-eyed peas, low-sodium",
+        "quantity": {
+          "display": "2 cans (15 ounce each) or 4 cups (850 g)",
+          "grams": 850,
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "to taste",
+          "provenance": "estimated",
+          "note": "The source gives no quantity; this is a typical value, not the creator's."
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "black pepper",
+        "quantity": {
+          "display": "to taste",
+          "provenance": "estimated",
+          "note": "The source gives no quantity; this is a typical value, not the creator's."
+        }
+      },
+      {
+        "id": "apple_cider_vinegar",
+        "name": "apple cider vinegar",
+        "quantity": {
+          "display": "2 teaspoons (10 g)",
+          "grams": 10,
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "saute_aromatics",
+        "label": "saute onion, garlic, and ham in oil until onion is clear, 3-5 min",
+        "inputs": [
+          "vegetable_oil",
+          "onion",
+          "garlic_powder",
+          "deli_ham"
+        ]
+      },
+      {
+        "id": "simmer_greens",
+        "label": "add collard greens and broth, cover and simmer 20 min until tender",
+        "inputs": [
+          "saute_aromatics",
+          "collard_greens",
+          "broth"
+        ]
+      },
+      {
+        "id": "mash_peas",
+        "label": "mash half of the black-eyed peas with a fork",
+        "inputs": [
+          "black_eyed_peas"
+        ]
+      },
+      {
+        "id": "combine_peas",
+        "label": "stir mashed and whole peas into soup, simmer 5 min",
+        "inputs": [
+          "simmer_greens",
+          "mash_peas"
+        ]
+      },
+      {
+        "id": "season",
+        "label": "season with salt and pepper to taste",
+        "inputs": [
+          "combine_peas",
+          "salt",
+          "black_pepper"
+        ]
+      },
+      {
+        "id": "finish",
+        "label": "stir in vinegar just before serving",
+        "inputs": [
+          "season",
+          "apple_cider_vinegar"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127082345id_/https://www.myplate.gov/recipes/black-eyed-pea-and-collard-greens-soup",
+    "attributionUrl": "https://www.myplate.gov/recipes/black-eyed-pea-and-collard-greens-soup",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127082345id_/https://www.myplate.gov/recipes/black-eyed-pea-and-collard-greens-soup",
+    "canonicalHash": "20aaec24ee71e5f495d01a1023a7665f99fbba2ed9264e201afb6144013ea89f",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0016
+  }
+}

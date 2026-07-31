@@ -1,0 +1,183 @@
+{
+  "doc": {
+    "slug": "eggs-over-kale-and-sweet-potato-grits",
+    "dish": "Eggs over Kale and Sweet Potato Grits",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/eggs-over-kale-and-sweet-potato-grits",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Preheat oven to 350°F.",
+      "Coat 4 individual soufflé dishes with 1 tsp vegetable oil."
+    ],
+    "ingredients": [
+      {
+        "id": "water",
+        "name": "water",
+        "quantity": {
+          "display": "1 1/2 cups (about 355 g)",
+          "grams": 355,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA water."
+        }
+      },
+      {
+        "id": "milk",
+        "name": "non-fat milk",
+        "quantity": {
+          "display": "1 cup (about 245 g)",
+          "grams": 245,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA whole milk."
+        }
+      },
+      {
+        "id": "grits",
+        "name": "quick-cooking grits",
+        "quantity": {
+          "display": "3/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "sweet_potato",
+        "name": "sweet potato",
+        "quantity": {
+          "display": "1 large",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 tsp",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "kale",
+        "name": "kale",
+        "quantity": {
+          "display": "2 cups chopped",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "vegetable_oil_for_kale",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "2 tsp (remaining) (about 9 g)",
+          "grams": 9,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "vegetable_oil_for_dishes",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "1 tsp (about 4.5 g)",
+          "grams": 4.5,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "eggs",
+        "name": "eggs",
+        "quantity": {
+          "display": "4",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "cook_sweet_potato",
+        "label": "microwave sweet potato until soft, 5-7 min",
+        "inputs": [
+          "sweet_potato"
+        ]
+      },
+      {
+        "id": "puree_sweet_potato",
+        "label": "peel, chunk, and puree sweet potato",
+        "inputs": [
+          "cook_sweet_potato"
+        ]
+      },
+      {
+        "id": "saute_kale",
+        "label": "sauté kale in oil, 5 min",
+        "inputs": [
+          "kale",
+          "vegetable_oil_for_kale"
+        ]
+      },
+      {
+        "id": "cook_grits",
+        "label": "boil water and milk, add grits and sweet potato puree, cook 5 min",
+        "inputs": [
+          "water",
+          "milk",
+          "grits",
+          "puree_sweet_potato",
+          "salt"
+        ]
+      },
+      {
+        "id": "combine_grits_and_kale",
+        "label": "remove from heat, stir in sautéed kale",
+        "inputs": [
+          "cook_grits",
+          "saute_kale"
+        ]
+      },
+      {
+        "id": "assemble_dishes",
+        "label": "divide grits mixture into oiled dishes, make depressions",
+        "inputs": [
+          "combine_grits_and_kale",
+          "vegetable_oil_for_dishes"
+        ]
+      },
+      {
+        "id": "add_eggs",
+        "label": "break one egg into each hollow",
+        "inputs": [
+          "assemble_dishes",
+          "eggs"
+        ]
+      },
+      {
+        "id": "bake",
+        "label": "bake uncovered 350°F, 30 min",
+        "inputs": [
+          "add_eggs"
+        ]
+      },
+      {
+        "id": "cool_and_serve",
+        "label": "cool 10 min before serving",
+        "inputs": [
+          "bake"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241112211449id_/https://www.myplate.gov/recipes/eggs-over-kale-and-sweet-potato-grits",
+    "attributionUrl": "https://www.myplate.gov/recipes/eggs-over-kale-and-sweet-potato-grits",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241112211449id_/https://www.myplate.gov/recipes/eggs-over-kale-and-sweet-potato-grits",
+    "canonicalHash": "741ff2bdbc346065833f1151cdc116d6fb74332d6797d4f10b8fd7f284659e7a",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0016
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "doc": {
+    "slug": "baked-trout",
+    "dish": "Baked Trout",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/baked-trout",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Preheat oven to 350°F.",
+      "Wash hands with soap and water."
+    ],
+    "ingredients": [
+      {
+        "id": "lime_juice",
+        "name": "lime juice",
+        "quantity": {
+          "display": "3 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "tomato",
+        "name": "tomato",
+        "quantity": {
+          "display": "1 medium",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "onion",
+        "name": "onion",
+        "quantity": {
+          "display": "1/2 medium",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cilantro",
+        "name": "cilantro",
+        "quantity": {
+          "display": "3 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "olive_oil",
+        "name": "olive oil",
+        "quantity": {
+          "display": "1/2 teaspoon (about 2.3 g)",
+          "grams": 2.3,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "black pepper",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "red_pepper",
+        "name": "red pepper",
+        "quantity": {
+          "display": "1/4 teaspoon, optional",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "trout_fillets",
+        "name": "trout fillets",
+        "quantity": {
+          "display": "2 pounds (about 905 g)",
+          "grams": 905,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 453.6 g per pound."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "mix_sauce",
+        "label": "mix sauce ingredients",
+        "inputs": [
+          "lime_juice",
+          "tomato",
+          "onion",
+          "cilantro",
+          "olive_oil",
+          "black_pepper",
+          "salt",
+          "red_pepper"
+        ]
+      },
+      {
+        "id": "place_fish",
+        "label": "pat fish dry and place in baking dish",
+        "inputs": [
+          "trout_fillets"
+        ]
+      },
+      {
+        "id": "pour_sauce",
+        "label": "pour sauce over fish",
+        "inputs": [
+          "mix_sauce",
+          "place_fish"
+        ]
+      },
+      {
+        "id": "bake",
+        "label": "bake 350°F, 15-20 min until fork-tender",
+        "inputs": [
+          "pour_sauce"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127002224id_/https://www.myplate.gov/recipes/baked-trout",
+    "attributionUrl": "https://www.myplate.gov/recipes/baked-trout",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127002224id_/https://www.myplate.gov/recipes/baked-trout",
+    "canonicalHash": "0781d2fc61937c37e2ee6cd38504db8dadc5b213f50818070193343dae4c8701",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0013
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "doc": {
+    "slug": "cinnamon-raisin-breakfast-mix",
+    "dish": "Cinnamon-Raisin Breakfast Mix",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/cinnamon-raisin-breakfast-mix",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Line a large baking sheet with paper towels.",
+      "Have a large microwavable bowl ready."
+    ],
+    "ingredients": [
+      {
+        "id": "margarine",
+        "name": "margarine, tub-style",
+        "quantity": {
+          "display": "1/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "corn_cereal",
+        "name": "square, whole-grain corn cereal",
+        "quantity": {
+          "display": "1 1/2 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "rice_cereal",
+        "name": "square, whole-grain rice cereal",
+        "quantity": {
+          "display": "1 1/2 cups (about 280 g)",
+          "grams": 280,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA long-grain rice."
+        }
+      },
+      {
+        "id": "wheat_cereal",
+        "name": "square, whole-grain wheat cereal",
+        "quantity": {
+          "display": "1 1/2 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "sugar",
+        "name": "sugar",
+        "quantity": {
+          "display": "1/4 cup (about 50 g)",
+          "grams": 50,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "ground_cinnamon",
+        "name": "ground cinnamon",
+        "quantity": {
+          "display": "1 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "raisins",
+        "name": "raisins or dried cranberries",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "mix_sugar_cinnamon",
+        "label": "mix sugar and cinnamon",
+        "inputs": [
+          "sugar",
+          "ground_cinnamon"
+        ]
+      },
+      {
+        "id": "melt_margarine",
+        "label": "microwave margarine 40 sec until melted",
+        "inputs": [
+          "margarine"
+        ]
+      },
+      {
+        "id": "coat_cereals",
+        "label": "stir cereals into melted margarine until coated",
+        "inputs": [
+          "melt_margarine",
+          "corn_cereal",
+          "rice_cereal",
+          "wheat_cereal"
+        ]
+      },
+      {
+        "id": "microwave_cereals",
+        "label": "microwave 2 min, stirring after 1 min",
+        "inputs": [
+          "coat_cereals"
+        ]
+      },
+      {
+        "id": "add_sugar_mixture",
+        "label": "sprinkle half sugar mixture, stir, then remaining, stir",
+        "inputs": [
+          "microwave_cereals",
+          "mix_sugar_cinnamon"
+        ]
+      },
+      {
+        "id": "microwave_final",
+        "label": "microwave 1 min",
+        "inputs": [
+          "add_sugar_mixture"
+        ]
+      },
+      {
+        "id": "add_raisins",
+        "label": "stir in raisins",
+        "inputs": [
+          "microwave_final",
+          "raisins"
+        ]
+      },
+      {
+        "id": "cool_and_serve",
+        "label": "spread on paper towels to cool",
+        "inputs": [
+          "add_raisins"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127052940id_/https://www.myplate.gov/recipes/cinnamon-raisin-breakfast-mix",
+    "attributionUrl": "https://www.myplate.gov/recipes/cinnamon-raisin-breakfast-mix",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127052940id_/https://www.myplate.gov/recipes/cinnamon-raisin-breakfast-mix",
+    "canonicalHash": "e2fe005916883332b4e7b09248a59217a0fd4d4e117a2d675d25e06bd0480bda",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0014
+  }
+}

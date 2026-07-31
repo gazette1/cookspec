@@ -1,0 +1,208 @@
+{
+  "doc": {
+    "slug": "barley-jambalaya",
+    "dish": "Barley Jambalaya",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/barley-jambalaya",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Rinse barley under cold water.",
+      "Peel, rinse, and dice onions; rinse and dice celery and bell pepper; peel and mince garlic.",
+      "Heat oil in a large pot over medium-high heat."
+    ],
+    "ingredients": [
+      {
+        "id": "canola_oil",
+        "name": "canola oil",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "onions",
+        "name": "onions",
+        "quantity": {
+          "display": "3 medium",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "celery",
+        "name": "celery stalks",
+        "quantity": {
+          "display": "2 small",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "bell_pepper",
+        "name": "bell pepper",
+        "quantity": {
+          "display": "1 cup diced",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic",
+        "name": "garlic",
+        "quantity": {
+          "display": "2 medium cloves",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "ground_turkey",
+        "name": "ground turkey",
+        "quantity": {
+          "display": "4 ounces (about 115 g)",
+          "grams": 115,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "diced_tomatoes",
+        "name": "diced tomatoes",
+        "quantity": {
+          "display": "2 (14.5-oz) cans (about 820 g)",
+          "grams": 820,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cayenne_pepper",
+        "name": "ground cayenne pepper",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "dried_oregano",
+        "name": "dried oregano",
+        "quantity": {
+          "display": "1 1/2 teaspoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "ground_black_pepper",
+        "name": "ground black pepper",
+        "quantity": {
+          "display": "1 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "barley",
+        "name": "instant pearl barley",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "water_for_barley",
+        "name": "water",
+        "quantity": {
+          "display": "4 cups (about 950 g)",
+          "grams": 950,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA water."
+        }
+      },
+      {
+        "id": "bay_leaves",
+        "name": "bay leaves",
+        "quantity": {
+          "display": "2 whole",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "cook_barley",
+        "label": "boil barley with water and bay leaves, then simmer 20-30 min until tender",
+        "inputs": [
+          "barley",
+          "water_for_barley",
+          "bay_leaves"
+        ]
+      },
+      {
+        "id": "saute_vegetables",
+        "label": "saute onions, celery, bell pepper, garlic in oil 5 min",
+        "inputs": [
+          "canola_oil",
+          "onions",
+          "celery",
+          "bell_pepper",
+          "garlic"
+        ]
+      },
+      {
+        "id": "cook_turkey",
+        "label": "add turkey, cook until 165°F, about 5 min",
+        "inputs": [
+          "saute_vegetables",
+          "ground_turkey"
+        ]
+      },
+      {
+        "id": "simmer_sauce",
+        "label": "add tomatoes and spices, simmer covered 15 min",
+        "inputs": [
+          "cook_turkey",
+          "diced_tomatoes",
+          "salt",
+          "cayenne_pepper",
+          "dried_oregano",
+          "ground_black_pepper"
+        ]
+      },
+      {
+        "id": "combine",
+        "label": "stir in cooked barley, simmer 5-10 min to blend flavors",
+        "inputs": [
+          "simmer_sauce",
+          "cook_barley"
+        ]
+      },
+      {
+        "id": "finish",
+        "label": "remove bay leaves and serve",
+        "inputs": [
+          "combine"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127020203id_/https://www.myplate.gov/recipes/barley-jambalaya",
+    "attributionUrl": "https://www.myplate.gov/recipes/barley-jambalaya",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127020203id_/https://www.myplate.gov/recipes/barley-jambalaya",
+    "canonicalHash": "fae1f18bbfae0b01575b8e93e7743e1820374a7519301aba41502672a018919b",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0019
+  }
+}

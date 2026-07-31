@@ -1,0 +1,173 @@
+{
+  "doc": {
+    "slug": "chicken-and-dumplings",
+    "dish": "Chicken and Dumplings",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/chicken-and-dumplings",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Have all ingredients measured and ready."
+    ],
+    "ingredients": [
+      {
+        "id": "flour_slurry",
+        "name": "flour, all purpose",
+        "quantity": {
+          "display": "2 tablespoons (about 15 g)",
+          "grams": 15,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "water_slurry",
+        "name": "water",
+        "quantity": {
+          "display": "2 tablespoons (about 30 g)",
+          "grams": 30,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA water."
+        }
+      },
+      {
+        "id": "chicken_broth",
+        "name": "chicken broth, low-sodium",
+        "quantity": {
+          "display": "1 cup (about 240 g)",
+          "grams": 240,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA broth."
+        }
+      },
+      {
+        "id": "chicken_cooked",
+        "name": "chicken, cooked and diced",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt_optional",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon (optional)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "black pepper",
+        "quantity": {
+          "display": "1 dash (1/16 teaspoon)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "flour_dumplings",
+        "name": "flour, all purpose",
+        "quantity": {
+          "display": "1/3 cup (about 40 g)",
+          "grams": 40,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "baking_powder",
+        "name": "baking powder",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt_dumplings",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "milk",
+        "name": "non-fat milk",
+        "quantity": {
+          "display": "2 tablespoons (about 31 g)",
+          "grams": 31,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA whole milk."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "make_slurry",
+        "label": "mix flour and water until smooth",
+        "inputs": [
+          "flour_slurry",
+          "water_slurry"
+        ]
+      },
+      {
+        "id": "make_broth",
+        "label": "stir in broth and cook over medium heat until thickened",
+        "inputs": [
+          "make_slurry",
+          "chicken_broth"
+        ]
+      },
+      {
+        "id": "add_chicken",
+        "label": "add chicken, salt, and pepper",
+        "inputs": [
+          "make_broth",
+          "chicken_cooked",
+          "salt_optional",
+          "black_pepper"
+        ]
+      },
+      {
+        "id": "make_dough",
+        "label": "combine flour, baking powder, and salt; stir in milk until dough forms",
+        "inputs": [
+          "flour_dumplings",
+          "baking_powder",
+          "salt_dumplings",
+          "milk"
+        ]
+      },
+      {
+        "id": "drop_dumplings",
+        "label": "drop dough by tablespoon onto gently boiling chicken mixture, making 4 dumplings",
+        "inputs": [
+          "add_chicken",
+          "make_dough"
+        ]
+      },
+      {
+        "id": "cook_dumplings",
+        "label": "cover tightly and cook slowly for 15 minutes without lifting lid",
+        "inputs": [
+          "drop_dumplings"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127074216id_/https://www.myplate.gov/recipes/chicken-and-dumplings",
+    "attributionUrl": "https://www.myplate.gov/recipes/chicken-and-dumplings",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127074216id_/https://www.myplate.gov/recipes/chicken-and-dumplings",
+    "canonicalHash": "00725c422867fe1d13c7b0cac4cbd96a245143bbca047c328cb3b9011fbe5961",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0015
+  }
+}

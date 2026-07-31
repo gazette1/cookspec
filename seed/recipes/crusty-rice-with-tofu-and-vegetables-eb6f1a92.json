@@ -1,0 +1,169 @@
+{
+  "doc": {
+    "slug": "crusty-rice-with-tofu-and-vegetables",
+    "dish": "Crusty Rice with Tofu and Vegetables",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/crusty-rice-tofu-and-vegetables",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Cook rice according to package directions and set aside to cool and dry out.",
+      "Shred carrot and slice scallions.",
+      "Preheat a large skillet over medium-high heat."
+    ],
+    "ingredients": [
+      {
+        "id": "water",
+        "name": "water",
+        "quantity": {
+          "display": "2 cups (about 475 g)",
+          "grams": 475,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA water."
+        }
+      },
+      {
+        "id": "brown_rice",
+        "name": "brown rice",
+        "quantity": {
+          "display": "1 cup (about 185 g)",
+          "grams": 185,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA long-grain rice."
+        }
+      },
+      {
+        "id": "tofu",
+        "name": "tofu",
+        "quantity": {
+          "display": "1 pound (about 455 g)",
+          "grams": 455,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 453.6 g per pound."
+        }
+      },
+      {
+        "id": "frozen_corn",
+        "name": "frozen corn",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "frozen_peas",
+        "name": "frozen peas",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "scallions",
+        "name": "scallions",
+        "quantity": {
+          "display": "6",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "carrot",
+        "name": "carrot",
+        "quantity": {
+          "display": "1",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "fresh_basil_leaves",
+        "name": "fresh basil leaves",
+        "quantity": {
+          "display": "1/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "prepared_rice",
+        "name": "prepared rice",
+        "quantity": {
+          "display": "3 cups (about 555 g)",
+          "grams": 555,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA long-grain rice."
+        }
+      },
+      {
+        "id": "vegetable_oil",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "2 tablespoons (about 27 g)",
+          "grams": 27,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "cook_rice",
+        "label": "cook rice in water until done",
+        "inputs": [
+          "water",
+          "brown_rice"
+        ]
+      },
+      {
+        "id": "mix_tofu_vegetables",
+        "label": "mix tofu, corn, peas, scallions, carrot, basil, and salt",
+        "inputs": [
+          "tofu",
+          "frozen_corn",
+          "frozen_peas",
+          "scallions",
+          "carrot",
+          "fresh_basil_leaves",
+          "salt"
+        ]
+      },
+      {
+        "id": "combine_rice_mixture",
+        "label": "combine cooled rice with tofu mixture",
+        "inputs": [
+          "cook_rice",
+          "mix_tofu_vegetables",
+          "prepared_rice"
+        ]
+      },
+      {
+        "id": "cook_crusty_rice",
+        "label": "heat oil in skillet, add rice mixture, press down, cover and cook 10 min, then flip and cook until crispy up to 20 min",
+        "inputs": [
+          "combine_rice_mixture",
+          "vegetable_oil"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127013637id_/https://www.myplate.gov/recipes/crusty-rice-tofu-and-vegetables",
+    "attributionUrl": "https://www.myplate.gov/recipes/crusty-rice-tofu-and-vegetables",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127013637id_/https://www.myplate.gov/recipes/crusty-rice-tofu-and-vegetables",
+    "canonicalHash": "eb6f1a920d15dc2ab4a82ef822d86cc825be245f74858744fe973582d8f1d914",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0015
+  }
+}

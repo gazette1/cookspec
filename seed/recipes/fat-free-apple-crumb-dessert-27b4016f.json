@@ -1,0 +1,129 @@
+{
+  "doc": {
+    "slug": "fat-free-apple-crumb-dessert",
+    "dish": "Fat-Free Apple Crumb Dessert",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/fat-free-apple-crumb-dessert",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Preheat oven to 350°F.",
+      "Spray a 9-inch square baking dish with nonstick cooking spray."
+    ],
+    "ingredients": [
+      {
+        "id": "apples",
+        "name": "apples",
+        "quantity": {
+          "display": "4 medium",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cooking_spray",
+        "name": "non-stick cooking spray",
+        "quantity": {
+          "display": "4 sprays",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "oatmeal",
+        "name": "oatmeal, quick cooking",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "brown_sugar",
+        "name": "brown sugar",
+        "quantity": {
+          "display": "1/4 cup (about 50 g)",
+          "grams": 50,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "cinnamon",
+        "name": "cinnamon",
+        "quantity": {
+          "display": "2 teaspoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "apple_juice",
+        "name": "100% apple juice",
+        "quantity": {
+          "display": "1/3 cup",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "prepare_apples",
+        "label": "wash, peel, and slice apples",
+        "inputs": [
+          "apples"
+        ]
+      },
+      {
+        "id": "arrange_apples",
+        "label": "spread apple slices in baking dish",
+        "inputs": [
+          "prepare_apples",
+          "cooking_spray"
+        ]
+      },
+      {
+        "id": "make_topping",
+        "label": "mix oatmeal, brown sugar, and cinnamon",
+        "inputs": [
+          "oatmeal",
+          "brown_sugar",
+          "cinnamon"
+        ]
+      },
+      {
+        "id": "assemble",
+        "label": "sprinkle topping over apples and pour juice over",
+        "inputs": [
+          "arrange_apples",
+          "make_topping",
+          "apple_juice"
+        ]
+      },
+      {
+        "id": "bake_covered",
+        "label": "cover and bake 350°F, 20-30 min",
+        "inputs": [
+          "assemble"
+        ]
+      },
+      {
+        "id": "bake_uncovered",
+        "label": "uncover and bake 350°F, 15-20 min",
+        "inputs": [
+          "bake_covered"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127021456id_/https://www.myplate.gov/recipes/fat-free-apple-crumb-dessert",
+    "attributionUrl": "https://www.myplate.gov/recipes/fat-free-apple-crumb-dessert",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127021456id_/https://www.myplate.gov/recipes/fat-free-apple-crumb-dessert",
+    "canonicalHash": "27b4016f13008f57868f5aee2d931c859de4394d528bea7782f28ffce4021e26",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0012
+  }
+}

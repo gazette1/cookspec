@@ -35,7 +35,7 @@ const DENSITIES: DensityEntry[] = [
   { match: /\bmilk\b/, gramsPerCup: 244, source: "USDA whole milk" },
   { match: /chicken (stock|broth)|vegetable (stock|broth)|\bstock\b|\bbroth\b/, gramsPerCup: 240, source: "USDA broth" },
   { match: /\bwater\b/, gramsPerCup: 237, source: "USDA water" },
-  { match: /olive oil|vegetable oil|\boil\b/, gramsPerCup: 216, source: "USDA olive oil" },
+  { match: /olive oil|vegetable oil|\boil\b/, gramsPerCup: 216, source: "USDA cooking oil density" },
   { match: /honey/, gramsPerCup: 339, source: "USDA honey" },
   { match: /uncooked rice|\brice\b/, gramsPerCup: 185, source: "USDA long-grain rice" },
   { match: /rolled oats|\boats\b/, gramsPerCup: 90, source: "King Arthur ingredient weight chart" },

@@ -1,0 +1,162 @@
+{
+  "doc": {
+    "slug": "garden-barley-soup",
+    "dish": "Garden Barley Soup",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/garden-barley-soup",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Chop zucchini, tomato, and green pepper before starting."
+    ],
+    "ingredients": [
+      {
+        "id": "tomato_juice",
+        "name": "tomato juice, low-sodium",
+        "quantity": {
+          "display": "46 us fluid ounces",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "beef_broth",
+        "name": "beef broth, reduced sodium",
+        "quantity": {
+          "display": "1 can (14.5 ounces) (about 410 g)",
+          "grams": 410,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "barley",
+        "name": "barley",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "sugar",
+        "name": "sugar",
+        "quantity": {
+          "display": "1/4 cup (about 50 g)",
+          "grams": 50,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "worcestershire_sauce",
+        "name": "Worcestershire sauce",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "bay_leaf",
+        "name": "bay leaf",
+        "quantity": {
+          "display": "1",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "thyme",
+        "name": "thyme leaves (crushed)",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "zucchini",
+        "name": "zucchini",
+        "quantity": {
+          "display": "2 cups coarsely chopped",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "tomato",
+        "name": "tomato",
+        "quantity": {
+          "display": "1 medium, chopped",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "green_pepper",
+        "name": "green pepper",
+        "quantity": {
+          "display": "1/2 cup chopped",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "combine_base",
+        "label": "combine tomato juice, broth, barley, sugar, and seasonings",
+        "inputs": [
+          "tomato_juice",
+          "beef_broth",
+          "barley",
+          "sugar",
+          "worcestershire_sauce",
+          "bay_leaf",
+          "thyme",
+          "salt"
+        ]
+      },
+      {
+        "id": "simmer_base",
+        "label": "bring to boil, reduce heat, cover, simmer 1 hour",
+        "inputs": [
+          "combine_base"
+        ]
+      },
+      {
+        "id": "add_vegetables",
+        "label": "add vegetables",
+        "inputs": [
+          "simmer_base",
+          "zucchini",
+          "tomato",
+          "green_pepper"
+        ]
+      },
+      {
+        "id": "simmer_final",
+        "label": "return to boil, reduce heat, cover, simmer 15-20 min until tender",
+        "inputs": [
+          "add_vegetables"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127053359id_/https://www.myplate.gov/recipes/garden-barley-soup",
+    "attributionUrl": "https://www.myplate.gov/recipes/garden-barley-soup",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127053359id_/https://www.myplate.gov/recipes/garden-barley-soup",
+    "canonicalHash": "3642cd8bd009c73a051741cf994f8e4452e74df62cd02e9c6c85b1702be31137",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0014
+  }
+}

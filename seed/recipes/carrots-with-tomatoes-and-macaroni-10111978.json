@@ -1,0 +1,171 @@
+{
+  "doc": {
+    "slug": "carrots-with-tomatoes-and-macaroni",
+    "dish": "Carrots with Tomatoes and Macaroni",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/carrots-tomatoes-and-macaroni",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Peel and slice carrots, chop onion, tomatoes, and parsley."
+    ],
+    "ingredients": [
+      {
+        "id": "olive_oil",
+        "name": "olive oil",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "onion",
+        "name": "onion",
+        "quantity": {
+          "display": "1 small",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "plum_tomatoes",
+        "name": "plum tomatoes",
+        "quantity": {
+          "display": "4",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "tomato_juice",
+        "name": "canned tomato juice, low-sodium",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "carrots",
+        "name": "carrots",
+        "quantity": {
+          "display": "6 large",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "black pepper",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "sugar",
+        "name": "sugar",
+        "quantity": {
+          "display": "1/4 teaspoon (about 1 g)",
+          "grams": 1,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "parsley",
+        "name": "fresh parsley, chopped",
+        "quantity": {
+          "display": "2 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "butter",
+        "name": "butter",
+        "quantity": {
+          "display": "1 teaspoon (about 4.7 g)",
+          "grams": 4.7,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA, 227 g per cup butter."
+        }
+      },
+      {
+        "id": "elbow_macaroni_cooked",
+        "name": "elbow macaroni, cooked",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "saute_onion",
+        "label": "cook onion in oil until soft",
+        "inputs": [
+          "olive_oil",
+          "onion"
+        ]
+      },
+      {
+        "id": "simmer_vegetables",
+        "label": "add tomatoes, juice, carrots, salt, pepper, sugar; cover and cook 5 min, then uncover and cook 5 min until carrots tender",
+        "inputs": [
+          "saute_onion",
+          "plum_tomatoes",
+          "tomato_juice",
+          "carrots",
+          "salt",
+          "black_pepper",
+          "sugar"
+        ]
+      },
+      {
+        "id": "add_parsley",
+        "label": "stir in parsley",
+        "inputs": [
+          "simmer_vegetables",
+          "parsley"
+        ]
+      },
+      {
+        "id": "butter_macaroni",
+        "label": "mix butter with cooked macaroni",
+        "inputs": [
+          "butter",
+          "elbow_macaroni_cooked"
+        ]
+      },
+      {
+        "id": "combine",
+        "label": "add macaroni to carrot mixture and stir together",
+        "inputs": [
+          "add_parsley",
+          "butter_macaroni"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127021444id_/https://www.myplate.gov/recipes/carrots-tomatoes-and-macaroni",
+    "attributionUrl": "https://www.myplate.gov/recipes/carrots-tomatoes-and-macaroni",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127021444id_/https://www.myplate.gov/recipes/carrots-tomatoes-and-macaroni",
+    "canonicalHash": "10111978e7279743dfd296559afb94fdc17f9064bb82cc813a3fba2c218f40be",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0015
+  }
+}

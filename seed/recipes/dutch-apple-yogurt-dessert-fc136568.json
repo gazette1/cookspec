@@ -1,0 +1,105 @@
+{
+  "doc": {
+    "slug": "dutch-apple-yogurt-dessert",
+    "dish": "Dutch Apple Yogurt Dessert",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/dutch-apple-yogurt-dessert",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [],
+    "ingredients": [
+      {
+        "id": "yogurt",
+        "name": "non-fat vanilla yogurt",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "applesauce",
+        "name": "unsweetened applesauce",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "raisins",
+        "name": "seedless raisins",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cinnamon",
+        "name": "ground cinnamon",
+        "quantity": {
+          "display": "1/8 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "brown_sugar",
+        "name": "brown sugar",
+        "quantity": {
+          "display": "1 teaspoon (about 4.2 g)",
+          "grams": 4.2,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "nuts",
+        "name": "nuts or crunchy cereal",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "combine",
+        "label": "combine all ingredients in a small bowl",
+        "inputs": [
+          "yogurt",
+          "applesauce",
+          "raisins",
+          "cinnamon",
+          "brown_sugar",
+          "nuts"
+        ]
+      },
+      {
+        "id": "chill",
+        "label": "cover and refrigerate until chilled",
+        "inputs": [
+          "combine"
+        ]
+      },
+      {
+        "id": "serve",
+        "label": "serve as snack or dessert",
+        "inputs": [
+          "chill"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127025129id_/https://www.myplate.gov/recipes/dutch-apple-yogurt-dessert",
+    "attributionUrl": "https://www.myplate.gov/recipes/dutch-apple-yogurt-dessert",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127025129id_/https://www.myplate.gov/recipes/dutch-apple-yogurt-dessert",
+    "canonicalHash": "fc1365687c68aeb82653b1034f7f090504c6866921164304dc222d8b4a8ffedb",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0009
+  }
+}

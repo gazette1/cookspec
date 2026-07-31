@@ -1,0 +1,169 @@
+{
+  "doc": {
+    "slug": "apple-coffee-cake",
+    "dish": "Apple Coffee Cake",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/apple-coffee-cake",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Preheat oven to 350°F.",
+      "Lightly oil a 13x9x2 inch pan."
+    ],
+    "ingredients": [
+      {
+        "id": "apples",
+        "name": "tart apples, cored, peeled, and chopped",
+        "quantity": {
+          "display": "5 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "sugar",
+        "name": "sugar",
+        "quantity": {
+          "display": "1 cup (about 200 g)",
+          "grams": 200,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "raisins",
+        "name": "raisins",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "pecans",
+        "name": "pecans, chopped",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "oil",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "1/4 cup (about 54 g)",
+          "grams": 54,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "vanilla",
+        "name": "vanilla",
+        "quantity": {
+          "display": "2 teaspoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "egg",
+        "name": "egg, beaten",
+        "quantity": {
+          "display": "1",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "flour",
+        "name": "all-purpose flour, sifted",
+        "quantity": {
+          "display": "2 1/2 cups (about 300 g)",
+          "grams": 300,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "baking_soda",
+        "name": "baking soda",
+        "quantity": {
+          "display": "1 1/2 teaspoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cinnamon",
+        "name": "ground cinnamon",
+        "quantity": {
+          "display": "2 teaspoons",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "combine_fruit",
+        "label": "combine apples, sugar, raisins, pecans; let stand 30 min",
+        "inputs": [
+          "apples",
+          "sugar",
+          "raisins",
+          "pecans"
+        ]
+      },
+      {
+        "id": "add_wet",
+        "label": "stir in oil, vanilla, egg",
+        "inputs": [
+          "combine_fruit",
+          "oil",
+          "vanilla",
+          "egg"
+        ]
+      },
+      {
+        "id": "mix_dry",
+        "label": "sift together flour, baking soda, cinnamon",
+        "inputs": [
+          "flour",
+          "baking_soda",
+          "cinnamon"
+        ]
+      },
+      {
+        "id": "combine_batter",
+        "label": "stir dry into wet mixture about 1/3 at a time",
+        "inputs": [
+          "add_wet",
+          "mix_dry"
+        ]
+      },
+      {
+        "id": "bake",
+        "label": "bake 350°F, 35-40 min",
+        "inputs": [
+          "combine_batter"
+        ]
+      },
+      {
+        "id": "cool_serve",
+        "label": "cool slightly before serving",
+        "inputs": [
+          "bake"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241126235644id_/https://www.myplate.gov/recipes/apple-coffee-cake",
+    "attributionUrl": "https://www.myplate.gov/recipes/apple-coffee-cake",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241126235644id_/https://www.myplate.gov/recipes/apple-coffee-cake",
+    "canonicalHash": "8023052b46c70485a0a05805a84b01cd40afe8fb5677a6784c6ba13bfc6c2e51",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0014
+  }
+}

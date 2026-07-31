@@ -1,0 +1,156 @@
+{
+  "doc": {
+    "slug": "curried-squash-stew",
+    "dish": "Curried Squash Stew",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/curried-squash-stew",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Peel and chop the onion, mince the garlic, chop the celery including leaves, and chop the zucchini and butternut squash.",
+      "Drain and rinse the beans or chickpeas.",
+      "Have all ingredients ready before starting to cook."
+    ],
+    "ingredients": [
+      {
+        "id": "vegetable_oil",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "onion",
+        "name": "yellow onion",
+        "quantity": {
+          "display": "1",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic",
+        "name": "garlic",
+        "quantity": {
+          "display": "2 cloves",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "celery",
+        "name": "celery stalk",
+        "quantity": {
+          "display": "1 stalk",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "ground_cinnamon",
+        "name": "ground cinnamon",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "zucchini",
+        "name": "zucchini",
+        "quantity": {
+          "display": "1 large",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "curry_powder",
+        "name": "curry powder",
+        "quantity": {
+          "display": "2 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "butternut_squash",
+        "name": "butternut squash",
+        "quantity": {
+          "display": "3 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "diced_tomatoes",
+        "name": "low-sodium diced tomatoes",
+        "quantity": {
+          "display": "1 can (14.5 ounce) (about 410 g)",
+          "grams": 410,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "white_beans",
+        "name": "low-sodium white beans or chickpeas",
+        "quantity": {
+          "display": "1 can (15.5 ounce) (about 440 g)",
+          "grams": 440,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "saute_aromatics",
+        "label": "heat oil and saute onion, garlic, celery with cinnamon, 10 min",
+        "inputs": [
+          "vegetable_oil",
+          "onion",
+          "garlic",
+          "celery",
+          "ground_cinnamon"
+        ]
+      },
+      {
+        "id": "add_zucchini_curry",
+        "label": "add zucchini and curry powder, cook 10 min",
+        "inputs": [
+          "saute_aromatics",
+          "zucchini",
+          "curry_powder"
+        ]
+      },
+      {
+        "id": "add_squash_tomatoes_beans",
+        "label": "add butternut squash, tomatoes, and beans, cover and cook 10 min",
+        "inputs": [
+          "add_zucchini_curry",
+          "butternut_squash",
+          "diced_tomatoes",
+          "white_beans"
+        ]
+      },
+      {
+        "id": "finish",
+        "label": "serve stew with cooked brown rice",
+        "inputs": [
+          "add_squash_tomatoes_beans"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127034721id_/https://www.myplate.gov/recipes/curried-squash-stew",
+    "attributionUrl": "https://www.myplate.gov/recipes/curried-squash-stew",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127034721id_/https://www.myplate.gov/recipes/curried-squash-stew",
+    "canonicalHash": "56ebb88e2a9a78d9488ba9f3dafcc554134b9485387d9efd8d0c7886b7f0d9ef",
+    "model": "deepseek-chat",
+    "attempts": 2,
+    "costUsd": 0.0029
+  }
+}

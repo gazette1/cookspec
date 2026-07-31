@@ -1,0 +1,150 @@
+{
+  "doc": {
+    "slug": "baked-fish",
+    "dish": "Baked Fish",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/baked-fish-0",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Preheat oven to 350°F.",
+      "Thaw frozen fish according to package directions, if using frozen fillets.",
+      "Wash hands with soap and water."
+    ],
+    "ingredients": [
+      {
+        "id": "cod_fillets",
+        "name": "cod fillets",
+        "quantity": {
+          "display": "1 pound (about 455 g)",
+          "grams": 455,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 453.6 g per pound."
+        }
+      },
+      {
+        "id": "paprika",
+        "name": "paprika",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic_powder",
+        "name": "garlic powder",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "onion_powder",
+        "name": "onion powder",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "ground black pepper",
+        "quantity": {
+          "display": "1/8 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "oregano",
+        "name": "dried oregano",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "thyme",
+        "name": "dried thyme",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "lemon_juice",
+        "name": "lemon juice",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "margarine",
+        "name": "margarine, melted",
+        "quantity": {
+          "display": "1 1/2 tablespoons",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "place_fish",
+        "label": "place fish in baking dish",
+        "inputs": [
+          "cod_fillets"
+        ]
+      },
+      {
+        "id": "mix_seasonings",
+        "label": "mix seasonings",
+        "inputs": [
+          "paprika",
+          "garlic_powder",
+          "onion_powder",
+          "black_pepper",
+          "oregano",
+          "thyme"
+        ]
+      },
+      {
+        "id": "season_fish",
+        "label": "season fish with spice mixture and lemon juice",
+        "inputs": [
+          "place_fish",
+          "mix_seasonings",
+          "lemon_juice"
+        ]
+      },
+      {
+        "id": "drizzle_margarine",
+        "label": "drizzle margarine over fish",
+        "inputs": [
+          "season_fish",
+          "margarine"
+        ]
+      },
+      {
+        "id": "bake_fish",
+        "label": "bake 350°F, 20-25 min until flakes easily",
+        "inputs": [
+          "drizzle_margarine"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127021546id_/https://www.myplate.gov/recipes/baked-fish-0",
+    "attributionUrl": "https://www.myplate.gov/recipes/baked-fish-0",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127021546id_/https://www.myplate.gov/recipes/baked-fish-0",
+    "canonicalHash": "6a712530be91779ed6fb14b6170332fe42a271bd0b6ecb4db79df7c060c6b48b",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0014
+  }
+}

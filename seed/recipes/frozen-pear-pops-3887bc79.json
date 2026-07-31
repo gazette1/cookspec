@@ -1,0 +1,113 @@
+{
+  "doc": {
+    "slug": "frozen-pear-pops",
+    "dish": "Frozen Pear Pops",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/frozen-pear-pops",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Drain canned pears and chop into small pieces.",
+      "Thaw frozen orange juice concentrate."
+    ],
+    "ingredients": [
+      {
+        "id": "canned_pears",
+        "name": "canned pears, drained and chopped",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "low_fat_yogurt",
+        "name": "low fat yogurt",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "orange_juice_concentrate",
+        "name": "frozen orange juice concentrate, thawed",
+        "quantity": {
+          "display": "6 ounces (about 170 g)",
+          "grams": 170,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "paper_cups",
+        "name": "small paper cups",
+        "quantity": {
+          "display": "4",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "popsicle_sticks",
+        "name": "popsicle sticks",
+        "quantity": {
+          "display": "4",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "chop_pears",
+        "label": "chop pears into small pieces",
+        "inputs": [
+          "canned_pears"
+        ]
+      },
+      {
+        "id": "mix_fruit_yogurt_juice",
+        "label": "mix fruit, yogurt, and orange juice",
+        "inputs": [
+          "chop_pears",
+          "low_fat_yogurt",
+          "orange_juice_concentrate"
+        ]
+      },
+      {
+        "id": "divide_into_cups",
+        "label": "divide into 4 small paper cups and insert sticks",
+        "inputs": [
+          "mix_fruit_yogurt_juice",
+          "paper_cups",
+          "popsicle_sticks"
+        ]
+      },
+      {
+        "id": "freeze",
+        "label": "freeze until solid",
+        "inputs": [
+          "divide_into_cups"
+        ]
+      },
+      {
+        "id": "enjoy",
+        "label": "enjoy as a frozen treat",
+        "inputs": [
+          "freeze"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127013755id_/https://www.myplate.gov/recipes/frozen-pear-pops",
+    "attributionUrl": "https://www.myplate.gov/recipes/frozen-pear-pops",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127013755id_/https://www.myplate.gov/recipes/frozen-pear-pops",
+    "canonicalHash": "3887bc79ea9f4f1c7a8177a7720f643044f9983a8afcaf4747b043c3b78a2b63",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.001
+  }
+}

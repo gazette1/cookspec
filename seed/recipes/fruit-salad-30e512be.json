@@ -1,0 +1,102 @@
+{
+  "doc": {
+    "slug": "fruit-salad",
+    "dish": "Fruit Salad",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/fruit-salad",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Drain the fruit cocktail.",
+      "Chill the yogurt if not already cold."
+    ],
+    "ingredients": [
+      {
+        "id": "fruit_cocktail",
+        "name": "fruit cocktail, drained",
+        "quantity": {
+          "display": "1 can (15 ounces) (about 425 g)",
+          "grams": 425,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "bananas",
+        "name": "bananas, sliced",
+        "quantity": {
+          "display": "2",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "oranges",
+        "name": "oranges, cut into bite-size pieces",
+        "quantity": {
+          "display": "2",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "apples",
+        "name": "apples, cut into bite-size pieces",
+        "quantity": {
+          "display": "2",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "yogurt",
+        "name": "yogurt, low-fat piña colada",
+        "quantity": {
+          "display": "1 (8 ounce) container (about 225 g)",
+          "grams": 225,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "mix_fruit",
+        "label": "mix fruit cocktail, bananas, oranges, and apples in a large bowl",
+        "inputs": [
+          "fruit_cocktail",
+          "bananas",
+          "oranges",
+          "apples"
+        ]
+      },
+      {
+        "id": "add_yogurt",
+        "label": "add yogurt and mix well",
+        "inputs": [
+          "mix_fruit",
+          "yogurt"
+        ]
+      },
+      {
+        "id": "chill",
+        "label": "chill in refrigerator before serving",
+        "inputs": [
+          "add_yogurt"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127084701id_/https://www.myplate.gov/recipes/fruit-salad",
+    "attributionUrl": "https://www.myplate.gov/recipes/fruit-salad",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127084701id_/https://www.myplate.gov/recipes/fruit-salad",
+    "canonicalHash": "30e512be73be7251fdc7453dcd4beab6284d23ef27b4a103cdd2374eab815fe0",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0009
+  }
+}

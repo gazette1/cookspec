@@ -1,0 +1,135 @@
+{
+  "doc": {
+    "slug": "beef-and-vegetable-soup",
+    "dish": "Beef and Vegetable Soup",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/beef-and-vegetable-soup",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Dice the onion.",
+      "Drain the canned corn, carrots, potatoes, and tomatoes if needed."
+    ],
+    "ingredients": [
+      {
+        "id": "ground_beef",
+        "name": "ground beef",
+        "quantity": {
+          "display": "1 pound (about 455 g)",
+          "grams": 455,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 453.6 g per pound."
+        }
+      },
+      {
+        "id": "corn",
+        "name": "low-sodium whole kernel corn",
+        "quantity": {
+          "display": "1 1/2 cans (about 23 ounces)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "carrots",
+        "name": "low-sodium carrots",
+        "quantity": {
+          "display": "1 can (about 15 ounces)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "potatoes",
+        "name": "low-sodium sliced potatoes",
+        "quantity": {
+          "display": "1 can (about 15 ounces)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "diced_tomatoes",
+        "name": "low-sodium diced tomatoes",
+        "quantity": {
+          "display": "1 can (about 15 ounces)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "onion",
+        "name": "onion",
+        "quantity": {
+          "display": "1 small, diced",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "macaroni",
+        "name": "macaroni",
+        "quantity": {
+          "display": "1/2 cup, dry",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic_powder",
+        "name": "garlic powder",
+        "quantity": {
+          "display": "1 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "onion_powder",
+        "name": "onion powder",
+        "quantity": {
+          "display": "1 teaspoon",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "brown_beef",
+        "label": "brown ground beef over medium heat, 8-10 min, drain fat",
+        "inputs": [
+          "ground_beef"
+        ]
+      },
+      {
+        "id": "add_vegetables",
+        "label": "add corn, carrots, potatoes, tomatoes, and onion to pot, cook 25 min over medium heat, stirring every 10 min",
+        "inputs": [
+          "brown_beef",
+          "corn",
+          "carrots",
+          "potatoes",
+          "diced_tomatoes",
+          "onion"
+        ]
+      },
+      {
+        "id": "add_macaroni_and_seasonings",
+        "label": "add macaroni, garlic powder, and onion powder, cook 20 min over medium heat, stirring every 10 min",
+        "inputs": [
+          "add_vegetables",
+          "macaroni",
+          "garlic_powder",
+          "onion_powder"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127063559id_/https://www.myplate.gov/recipes/beef-and-vegetable-soup",
+    "attributionUrl": "https://www.myplate.gov/recipes/beef-and-vegetable-soup",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127063559id_/https://www.myplate.gov/recipes/beef-and-vegetable-soup",
+    "canonicalHash": "cfeeae029b9d8d0f7911a83f115fb753106d1630b86c9be7fd24ee10ab9eaaf1",
+    "model": "deepseek-chat",
+    "attempts": 2,
+    "costUsd": 0.0026
+  }
+}

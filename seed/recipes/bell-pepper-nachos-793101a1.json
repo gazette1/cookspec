@@ -1,0 +1,128 @@
+{
+  "doc": {
+    "slug": "bell-pepper-nachos",
+    "dish": "Bell Pepper Nachos",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/bell-pepper-nachos",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Preheat oven to 350°F.",
+      "Wash hands with soap and water.",
+      "Line a large baking sheet with foil."
+    ],
+    "ingredients": [
+      {
+        "id": "bell_peppers",
+        "name": "bell peppers, any color",
+        "quantity": {
+          "display": "4",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salsa",
+        "name": "salsa",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "seasoning",
+        "name": "seasoning (chili powder, garlic powder, ground cumin, pepper)",
+        "quantity": {
+          "display": "2 teaspoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cooked_chicken",
+        "name": "cooked chicken, shredded or chopped",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "beans",
+        "name": "canned or cooked beans, drained",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cheddar_cheese",
+        "name": "cheddar cheese, shredded",
+        "quantity": {
+          "display": "3/4 cup",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "prepare_peppers",
+        "label": "wash, seed, and cut bell peppers into bite-sized pieces",
+        "inputs": [
+          "bell_peppers"
+        ]
+      },
+      {
+        "id": "arrange_peppers",
+        "label": "arrange pepper pieces in single layer on foil-lined baking sheet",
+        "inputs": [
+          "prepare_peppers"
+        ]
+      },
+      {
+        "id": "make_filling",
+        "label": "combine salsa, seasoning, chicken, and beans in bowl",
+        "inputs": [
+          "salsa",
+          "seasoning",
+          "cooked_chicken",
+          "beans"
+        ]
+      },
+      {
+        "id": "assemble",
+        "label": "spoon filling over peppers and top with cheese",
+        "inputs": [
+          "arrange_peppers",
+          "make_filling",
+          "cheddar_cheese"
+        ]
+      },
+      {
+        "id": "bake",
+        "label": "bake at 350°F for 15 minutes until heated through and cheese melted",
+        "inputs": [
+          "assemble"
+        ]
+      },
+      {
+        "id": "serve",
+        "label": "serve warm",
+        "inputs": [
+          "bake"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127054213id_/https://www.myplate.gov/recipes/bell-pepper-nachos",
+    "attributionUrl": "https://www.myplate.gov/recipes/bell-pepper-nachos",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127054213id_/https://www.myplate.gov/recipes/bell-pepper-nachos",
+    "canonicalHash": "793101a12d6a20c5643c9720a659dbde13e9905046e3b29a3f914541bce978b0",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0012
+  }
+}

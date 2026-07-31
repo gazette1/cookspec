@@ -1,0 +1,101 @@
+{
+  "doc": {
+    "slug": "apple-wedges-with-pumpkin-almond-butter",
+    "dish": "Apple Wedges with Pumpkin Almond Butter",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/apple-wedges-pumpkin-almond-butter",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "If using fresh pumpkin, roast and puree it beforehand.",
+      "Refrigerate dip for at least 30 minutes to allow flavors to meld."
+    ],
+    "ingredients": [
+      {
+        "id": "pumpkin_puree",
+        "name": "pumpkin puree",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "almond_butter",
+        "name": "almond butter",
+        "quantity": {
+          "display": "1/3 cup (about 76 g)",
+          "grams": 76,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA, 227 g per cup butter."
+        }
+      },
+      {
+        "id": "maple_syrup",
+        "name": "maple syrup",
+        "quantity": {
+          "display": "2 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cinnamon",
+        "name": "cinnamon",
+        "quantity": {
+          "display": "1/8 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "golden_delicious_apple_slices",
+        "name": "golden delicious apple slices",
+        "quantity": {
+          "display": "24 slices",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "granny_smith_apple_slices",
+        "name": "granny smith apple slices",
+        "quantity": {
+          "display": "24 slices",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "mix_dip",
+        "label": "mix dip ingredients",
+        "inputs": [
+          "pumpkin_puree",
+          "almond_butter",
+          "maple_syrup",
+          "cinnamon"
+        ]
+      },
+      {
+        "id": "serve_with_apples",
+        "label": "serve with apple slices",
+        "inputs": [
+          "mix_dip",
+          "golden_delicious_apple_slices",
+          "granny_smith_apple_slices"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127031925id_/https://www.myplate.gov/recipes/apple-wedges-pumpkin-almond-butter",
+    "attributionUrl": "https://www.myplate.gov/recipes/apple-wedges-pumpkin-almond-butter",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127031925id_/https://www.myplate.gov/recipes/apple-wedges-pumpkin-almond-butter",
+    "canonicalHash": "60d5f50d44b168f91856c82778fa672743e8b490d94954595b642d6a561a1545",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.001
+  }
+}

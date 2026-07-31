@@ -1,0 +1,183 @@
+{
+  "doc": {
+    "slug": "avocado-black-bean-taquitos",
+    "dish": "Avocado Black Bean Taquitos",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/avocado-black-bean-taquitos",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Preheat air fryer to 400°F."
+    ],
+    "ingredients": [
+      {
+        "id": "avocado",
+        "name": "avocado",
+        "quantity": {
+          "display": "1 ripe, fresh avocado, halved, pitted, peeled, and mashed",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_beans",
+        "name": "canned black beans, rinsed",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cumin",
+        "name": "cumin",
+        "quantity": {
+          "display": "1/2 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic_powder",
+        "name": "garlic powder",
+        "quantity": {
+          "display": "1 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "corn_tortillas",
+        "name": "corn tortillas",
+        "quantity": {
+          "display": "10 (6-inch)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cherry_tomatoes",
+        "name": "rainbow cherry tomatoes, chopped",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "bell_peppers",
+        "name": "red or yellow bell peppers, seeded and diced",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "jalapeno",
+        "name": "fresh jalapeño, seeded and minced",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "onion",
+        "name": "onion, minced",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "lime_juice",
+        "name": "fresh lime juice",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cilantro",
+        "name": "fresh cilantro leaves, chopped",
+        "quantity": {
+          "display": "2 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "greek_yogurt",
+        "name": "plain non-fat Greek yogurt",
+        "quantity": {
+          "display": "1/2 cup (4 oz)",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "make_filling",
+        "label": "mash avocado and black beans with seasonings",
+        "inputs": [
+          "avocado",
+          "black_beans",
+          "cumin",
+          "garlic_powder",
+          "salt"
+        ]
+      },
+      {
+        "id": "assemble_taquitos",
+        "label": "spread filling on tortillas and roll tightly",
+        "inputs": [
+          "make_filling",
+          "corn_tortillas"
+        ]
+      },
+      {
+        "id": "air_fry_taquitos",
+        "label": "air fry at 400°F, 5 min per side",
+        "inputs": [
+          "assemble_taquitos"
+        ]
+      },
+      {
+        "id": "make_pico_de_gallo",
+        "label": "combine tomatoes, peppers, jalapeño, onion, cilantro, lime juice",
+        "inputs": [
+          "cherry_tomatoes",
+          "bell_peppers",
+          "jalapeno",
+          "onion",
+          "lime_juice",
+          "cilantro"
+        ]
+      },
+      {
+        "id": "finish_dish",
+        "label": "top taquitos with pico de gallo and yogurt",
+        "inputs": [
+          "air_fry_taquitos",
+          "make_pico_de_gallo",
+          "greek_yogurt"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127054141id_/https://www.myplate.gov/recipes/avocado-black-bean-taquitos",
+    "attributionUrl": "https://www.myplate.gov/recipes/avocado-black-bean-taquitos",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127054141id_/https://www.myplate.gov/recipes/avocado-black-bean-taquitos",
+    "canonicalHash": "21c8855e50b8ea4ba84583d2fd3fca094cb5cd1cb01c58ee2834a3b88135badd",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0017
+  }
+}

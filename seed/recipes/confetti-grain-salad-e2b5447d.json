@@ -1,0 +1,160 @@
+{
+  "doc": {
+    "slug": "confetti-grain-salad",
+    "dish": "Confetti Grain Salad",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/confetti-grain-salad",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Wash rice before cooking."
+    ],
+    "ingredients": [
+      {
+        "id": "brown_rice",
+        "name": "brown rice, uncooked",
+        "quantity": {
+          "display": "1 1/2 cups (about 280 g)",
+          "grams": 280,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA long-grain rice."
+        }
+      },
+      {
+        "id": "water",
+        "name": "water",
+        "quantity": {
+          "display": "3 cups (about 710 g)",
+          "grams": 710,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA water."
+        }
+      },
+      {
+        "id": "lemon_juice",
+        "name": "lemon juice",
+        "quantity": {
+          "display": "2 lemons, juiced",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "mixed_vegetables",
+        "name": "mixed vegetables, cut into small pieces",
+        "quantity": {
+          "display": "1 1/2 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "black pepper",
+        "quantity": {
+          "display": "1 dash",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "olive_oil",
+        "name": "olive oil",
+        "quantity": {
+          "display": "1/4 cup (about 54 g)",
+          "grams": 54,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "green_onions",
+        "name": "green onions (scallions)",
+        "quantity": {
+          "display": "3",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "fresh_parsley",
+        "name": "fresh parsley, minced",
+        "quantity": {
+          "display": "1/4 cup",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "cook_rice",
+        "label": "cook rice in water until absorbed, about 45 min",
+        "inputs": [
+          "brown_rice",
+          "water"
+        ]
+      },
+      {
+        "id": "cool_rice",
+        "label": "cool rice in bowl",
+        "inputs": [
+          "cook_rice"
+        ]
+      },
+      {
+        "id": "add_lemon",
+        "label": "stir lemon juice into rice",
+        "inputs": [
+          "cool_rice",
+          "lemon_juice"
+        ]
+      },
+      {
+        "id": "combine_salad",
+        "label": "mix vegetables, salt, pepper, oil into rice",
+        "inputs": [
+          "add_lemon",
+          "mixed_vegetables",
+          "salt",
+          "black_pepper",
+          "olive_oil"
+        ]
+      },
+      {
+        "id": "chill_salad",
+        "label": "chill at least 1 hour",
+        "inputs": [
+          "combine_salad"
+        ]
+      },
+      {
+        "id": "garnish",
+        "label": "garnish with green onions and parsley",
+        "inputs": [
+          "chill_salad",
+          "green_onions",
+          "fresh_parsley"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127060708id_/https://www.myplate.gov/recipes/confetti-grain-salad",
+    "attributionUrl": "https://www.myplate.gov/recipes/confetti-grain-salad",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127060708id_/https://www.myplate.gov/recipes/confetti-grain-salad",
+    "canonicalHash": "e2b5447d90ae2d335c76cc15105a168fc7d50753fb48fe1a5e987b75f52a9956",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0014
+  }
+}

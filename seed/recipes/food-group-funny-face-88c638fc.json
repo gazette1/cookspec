@@ -1,0 +1,114 @@
+{
+  "doc": {
+    "slug": "food-group-funny-face",
+    "dish": "Food Group Funny Face",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/food-group-funny-face",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water."
+    ],
+    "ingredients": [
+      {
+        "id": "peanut_butter",
+        "name": "peanut butter",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA, 227 g per cup butter."
+        }
+      },
+      {
+        "id": "graham_cracker",
+        "name": "graham cracker",
+        "quantity": {
+          "display": "1 large",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cheddar_cheese",
+        "name": "cheddar cheese",
+        "quantity": {
+          "display": "1 tablespoon shredded",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "raisins",
+        "name": "raisins",
+        "quantity": {
+          "display": "3",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "peas",
+        "name": "peas",
+        "quantity": {
+          "display": "2 large green",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "grape_half",
+        "name": "grape",
+        "quantity": {
+          "display": "1/2 cut in half",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "spread_peanut_butter",
+        "label": "spread peanut butter on cracker in face shape",
+        "inputs": [
+          "peanut_butter",
+          "graham_cracker"
+        ]
+      },
+      {
+        "id": "add_hair",
+        "label": "sprinkle cheese on top for hair",
+        "inputs": [
+          "spread_peanut_butter",
+          "cheddar_cheese"
+        ]
+      },
+      {
+        "id": "add_mouth",
+        "label": "place raisins on cracker for mouth",
+        "inputs": [
+          "add_hair",
+          "raisins"
+        ]
+      },
+      {
+        "id": "add_eyes_and_nose",
+        "label": "use peas for eyes and grape half for nose",
+        "inputs": [
+          "add_mouth",
+          "peas",
+          "grape_half"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127012756id_/https://www.myplate.gov/recipes/food-group-funny-face",
+    "attributionUrl": "https://www.myplate.gov/recipes/food-group-funny-face",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127012756id_/https://www.myplate.gov/recipes/food-group-funny-face",
+    "canonicalHash": "88c638fc556d5ce80525ed8a3453c3aa0b1ceb8e38ab7b1272ab86b44877239d",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.001
+  }
+}

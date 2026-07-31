@@ -1,0 +1,153 @@
+{
+  "doc": {
+    "slug": "corn-toasties",
+    "dish": "Corn Toasties",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/corn-toasties",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Preheat griddle or frying pan to warm."
+    ],
+    "ingredients": [
+      {
+        "id": "cornmeal",
+        "name": "cornmeal",
+        "quantity": {
+          "display": "2 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "flour",
+        "name": "all-purpose flour, sifted",
+        "quantity": {
+          "display": "1 cup (about 120 g)",
+          "grams": 120,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "sugar",
+        "name": "sugar",
+        "quantity": {
+          "display": "2 tablespoons (about 25 g)",
+          "grams": 25,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via King Arthur ingredient weight chart."
+        }
+      },
+      {
+        "id": "baking_powder",
+        "name": "baking powder",
+        "quantity": {
+          "display": "1 1/2 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "baking_soda",
+        "name": "baking soda",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "buttermilk",
+        "name": "buttermilk",
+        "quantity": {
+          "display": "3/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "egg_mix",
+        "name": "dry egg mix, mixed with water",
+        "quantity": {
+          "display": "1/4 cup dry egg mix mixed with 1/4 cup water (or 1 egg)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "vegetable_oil",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "2 tablespoons (about 27 g)",
+          "grams": 27,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "mix_dry",
+        "label": "combine dry ingredients",
+        "inputs": [
+          "cornmeal",
+          "flour",
+          "sugar",
+          "baking_powder",
+          "salt",
+          "baking_soda"
+        ]
+      },
+      {
+        "id": "mix_wet",
+        "label": "beat wet ingredients until blended",
+        "inputs": [
+          "buttermilk",
+          "egg_mix",
+          "vegetable_oil"
+        ]
+      },
+      {
+        "id": "combine",
+        "label": "stir wet into dry until well mixed",
+        "inputs": [
+          "mix_dry",
+          "mix_wet"
+        ]
+      },
+      {
+        "id": "knead_roll_cut",
+        "label": "knead 10 times, roll to 1/4 inch, cut with 3/4-inch cutter",
+        "inputs": [
+          "combine"
+        ]
+      },
+      {
+        "id": "cook",
+        "label": "cook on warm ungreased griddle 10 min per side",
+        "inputs": [
+          "knead_roll_cut"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127071348id_/https://www.myplate.gov/recipes/corn-toasties",
+    "attributionUrl": "https://www.myplate.gov/recipes/corn-toasties",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127071348id_/https://www.myplate.gov/recipes/corn-toasties",
+    "canonicalHash": "b3a15895f2bf0db21b58fd042fc5322e49a0c81c66e0a72b6bc2581f3933f297",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0014
+  }
+}

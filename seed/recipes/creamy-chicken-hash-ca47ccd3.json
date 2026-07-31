@@ -1,0 +1,209 @@
+{
+  "doc": {
+    "slug": "creamy-chicken-hash",
+    "dish": "Creamy Chicken Hash",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/creamy-chicken-hash",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "Shred the potato and set aside."
+    ],
+    "ingredients": [
+      {
+        "id": "butter_for_vegetables",
+        "name": "butter",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA, 227 g per cup butter."
+        }
+      },
+      {
+        "id": "onion",
+        "name": "onion, finely chopped",
+        "quantity": {
+          "display": "1/2 small",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "green_bell_pepper",
+        "name": "green bell pepper, finely chopped",
+        "quantity": {
+          "display": "1/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "red_bell_pepper",
+        "name": "red bell pepper, finely chopped",
+        "quantity": {
+          "display": "1/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "celery",
+        "name": "celery, finely chopped",
+        "quantity": {
+          "display": "1/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic",
+        "name": "garlic clove, finely chopped",
+        "quantity": {
+          "display": "1 small",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "butter_for_potatoes",
+        "name": "butter",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA, 227 g per cup butter."
+        }
+      },
+      {
+        "id": "russet_potato",
+        "name": "russet potato, scrubbed",
+        "quantity": {
+          "display": "1 medium (6 ounces)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cooking_spray",
+        "name": "canola cooking spray",
+        "quantity": {
+          "display": "2 sprays",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "chicken",
+        "name": "skinless cooked chicken breast, diced",
+        "quantity": {
+          "display": "2 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "milk",
+        "name": "2% milk",
+        "quantity": {
+          "display": "2 tablespoons (about 31 g)",
+          "grams": 31,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA whole milk."
+        }
+      },
+      {
+        "id": "cayenne",
+        "name": "cayenne pepper",
+        "quantity": {
+          "display": "1/8 teaspoon (a pinch or to taste)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "to taste",
+          "provenance": "estimated",
+          "note": "The source gives no quantity; this is a typical value, not the creator's."
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "freshly ground black pepper",
+        "quantity": {
+          "display": "to taste",
+          "provenance": "estimated",
+          "note": "The source gives no quantity; this is a typical value, not the creator's."
+        }
+      },
+      {
+        "id": "barbecue_sauce",
+        "name": "prepared barbecue sauce",
+        "quantity": {
+          "display": "4 tablespoons",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "saute_vegetables",
+        "label": "heat 1 tbsp butter in skillet; saute onion, peppers, celery, garlic 5 min",
+        "inputs": [
+          "butter_for_vegetables",
+          "onion",
+          "green_bell_pepper",
+          "red_bell_pepper",
+          "celery",
+          "garlic"
+        ]
+      },
+      {
+        "id": "cook_potatoes",
+        "label": "push vegetables aside; add remaining butter and potatoes; cook 3 min, scraping and spraying with cooking spray if needed",
+        "inputs": [
+          "saute_vegetables",
+          "butter_for_potatoes",
+          "russet_potato",
+          "cooking_spray"
+        ]
+      },
+      {
+        "id": "combine_chicken",
+        "label": "mix in chicken, milk, cayenne, salt, pepper; flatten into cake; cut into 4 sections",
+        "inputs": [
+          "cook_potatoes",
+          "chicken",
+          "milk",
+          "cayenne",
+          "salt",
+          "black_pepper"
+        ]
+      },
+      {
+        "id": "brown_hash",
+        "label": "cover and cook until potatoes tender and hash browned, 3-5 min, turning to brown both sides",
+        "inputs": [
+          "combine_chicken"
+        ]
+      },
+      {
+        "id": "serve",
+        "label": "divide among plates; drizzle with barbecue sauce",
+        "inputs": [
+          "brown_hash",
+          "barbecue_sauce"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127083208id_/https://www.myplate.gov/recipes/creamy-chicken-hash",
+    "attributionUrl": "https://www.myplate.gov/recipes/creamy-chicken-hash",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127083208id_/https://www.myplate.gov/recipes/creamy-chicken-hash",
+    "canonicalHash": "ca47ccd37a097415415b6b7db1e073890496b2eda445e8c1da897c2fff2bcc33",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.002
+  }
+}

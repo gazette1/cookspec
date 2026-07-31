@@ -1,0 +1,98 @@
+{
+  "doc": {
+    "slug": "2-step-chicken",
+    "dish": "2-Step Chicken",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/2-step-chicken",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [],
+    "ingredients": [
+      {
+        "id": "vegetable_oil",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "chicken_breasts",
+        "name": "chicken breasts, boneless, skinless",
+        "quantity": {
+          "display": "2",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "cream_of_chicken_soup",
+        "name": "cream of chicken soup, reduced-sodium",
+        "quantity": {
+          "display": "1 can (10.75 ounces) (about 305 g)",
+          "grams": 305,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "water",
+        "name": "water",
+        "quantity": {
+          "display": "1/2 cup (about 120 g)",
+          "grams": 120,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA water."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "heat_oil",
+        "label": "heat oil in skillet over medium-high",
+        "inputs": [
+          "vegetable_oil"
+        ]
+      },
+      {
+        "id": "sear_chicken",
+        "label": "add chicken and cook 10 minutes",
+        "inputs": [
+          "heat_oil",
+          "chicken_breasts"
+        ]
+      },
+      {
+        "id": "make_sauce",
+        "label": "stir soup and water in skillet, heat to boil",
+        "inputs": [
+          "cream_of_chicken_soup",
+          "water"
+        ]
+      },
+      {
+        "id": "combine_and_simmer",
+        "label": "return chicken to skillet, reduce heat to low, simmer 10 minutes until 165°F",
+        "inputs": [
+          "sear_chicken",
+          "make_sauce"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241126235234id_/https://www.myplate.gov/recipes/2-step-chicken",
+    "attributionUrl": "https://www.myplate.gov/recipes/2-step-chicken",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241126235234id_/https://www.myplate.gov/recipes/2-step-chicken",
+    "canonicalHash": "1b8cc6660e77137a9081161c09e11bbc0271a7f42a736c1ef7b12689d8c3c107",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0009
+  }
+}

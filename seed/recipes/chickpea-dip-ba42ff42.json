@@ -1,0 +1,118 @@
+{
+  "doc": {
+    "slug": "chickpea-dip",
+    "dish": "Chickpea Dip",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/chickpea-dip",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [],
+    "ingredients": [
+      {
+        "id": "garlic_cloves",
+        "name": "garlic cloves",
+        "quantity": {
+          "display": "3",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "yogurt",
+        "name": "yogurt, plain, fat-free",
+        "quantity": {
+          "display": "1/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "lemon_juice",
+        "name": "lemon juice, fresh",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "olive_oil",
+        "name": "olive oil",
+        "quantity": {
+          "display": "1 teaspoon (about 4.5 g)",
+          "grams": 4.5,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "paprika",
+        "name": "paprika",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "black pepper",
+        "quantity": {
+          "display": "1/8 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "chickpeas",
+        "name": "chickpeas, low-sodium, drained",
+        "quantity": {
+          "display": "1 can (15 ounces) (about 425 g)",
+          "grams": 425,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "blend_all",
+        "label": "blend all ingredients until smooth",
+        "inputs": [
+          "garlic_cloves",
+          "yogurt",
+          "lemon_juice",
+          "olive_oil",
+          "salt",
+          "paprika",
+          "black_pepper",
+          "chickpeas"
+        ]
+      },
+      {
+        "id": "serve",
+        "label": "serve at room temperature with dippers",
+        "inputs": [
+          "blend_all"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127014606id_/https://www.myplate.gov/recipes/chickpea-dip",
+    "attributionUrl": "https://www.myplate.gov/recipes/chickpea-dip",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127014606id_/https://www.myplate.gov/recipes/chickpea-dip",
+    "canonicalHash": "ba42ff4219d36fc0bd1534110e3078675a3533cf038dba01ebc23fc33035d30e",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0011
+  }
+}

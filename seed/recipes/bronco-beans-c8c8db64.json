@@ -1,0 +1,155 @@
+{
+  "doc": {
+    "slug": "bronco-beans",
+    "dish": "Bronco Beans",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/bronco-beans",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Peel and chop onions, garlic; core, seed, and chop bell pepper; chop jalapenos.",
+      "Drain and rinse beans with cold water."
+    ],
+    "ingredients": [
+      {
+        "id": "vegetable_oil",
+        "name": "vegetable oil",
+        "quantity": {
+          "display": "1 tablespoon (about 14 g)",
+          "grams": 14,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA olive oil."
+        }
+      },
+      {
+        "id": "onions",
+        "name": "yellow onions",
+        "quantity": {
+          "display": "2",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "bell_pepper",
+        "name": "bell pepper",
+        "quantity": {
+          "display": "1",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "jalapeno_peppers",
+        "name": "jalapeno peppers",
+        "quantity": {
+          "display": "2",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic",
+        "name": "garlic",
+        "quantity": {
+          "display": "4 cloves",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "dried_oregano",
+        "name": "dried oregano",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "dried_thyme",
+        "name": "dried thyme",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "chili_powder",
+        "name": "chili powder",
+        "quantity": {
+          "display": "1 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "beans",
+        "name": "assorted low-sodium beans (black, kidney, white, chickpeas)",
+        "quantity": {
+          "display": "4 cans (15.5 ounce)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "diced_tomatoes",
+        "name": "low-sodium diced tomatoes",
+        "quantity": {
+          "display": "2 cans (14.5 ounce)",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "water",
+        "name": "water",
+        "quantity": {
+          "display": "1 1/2 cups (about 355 g)",
+          "grams": 355,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA water."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "saute_aromatics",
+        "label": "heat oil and saute aromatics 15 min",
+        "inputs": [
+          "vegetable_oil",
+          "onions",
+          "bell_pepper",
+          "jalapeno_peppers",
+          "garlic",
+          "dried_oregano",
+          "dried_thyme",
+          "chili_powder"
+        ]
+      },
+      {
+        "id": "simmer_beans",
+        "label": "add beans, tomatoes, water; simmer 1.5 hours",
+        "inputs": [
+          "saute_aromatics",
+          "beans",
+          "diced_tomatoes",
+          "water"
+        ]
+      },
+      {
+        "id": "finish",
+        "label": "serve immediately or refrigerate",
+        "inputs": [
+          "simmer_beans"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127013105id_/https://www.myplate.gov/recipes/bronco-beans",
+    "attributionUrl": "https://www.myplate.gov/recipes/bronco-beans",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127013105id_/https://www.myplate.gov/recipes/bronco-beans",
+    "canonicalHash": "c8c8db644c13812922f5686cc6e6677a51b05c12866ec114d75d11a1c785e35e",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0015
+  }
+}

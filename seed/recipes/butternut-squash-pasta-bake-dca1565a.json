@@ -1,0 +1,162 @@
+{
+  "doc": {
+    "slug": "butternut-squash-pasta-bake",
+    "dish": "Butternut Squash Pasta Bake",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/butternut-squash-pasta-bake",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Preheat oven to 425°F.",
+      "Wash hands with soap and water."
+    ],
+    "ingredients": [
+      {
+        "id": "butternut_squash",
+        "name": "butternut squash",
+        "quantity": {
+          "display": "2 1/2 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "shallot",
+        "name": "shallot",
+        "quantity": {
+          "display": "3 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "sage",
+        "name": "sage",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic_clove",
+        "name": "garlic clove",
+        "quantity": {
+          "display": "1 clove",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "salt",
+        "name": "salt",
+        "quantity": {
+          "display": "1/8 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "black_pepper",
+        "name": "black pepper",
+        "quantity": {
+          "display": "1/4 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "low_sodium_vegetable_broth",
+        "name": "low-sodium vegetable broth",
+        "quantity": {
+          "display": "1/2 cup (about 120 g)",
+          "grams": 120,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA broth."
+        }
+      },
+      {
+        "id": "whole_wheat_shell_pasta",
+        "name": "whole wheat shell pasta",
+        "quantity": {
+          "display": "4 ounces (about 115 g)",
+          "grams": 115,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      },
+      {
+        "id": "low_fat_ricotta",
+        "name": "low-fat ricotta",
+        "quantity": {
+          "display": "3/4 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "low_fat_mozzarella",
+        "name": "low-fat mozzarella",
+        "quantity": {
+          "display": "2 ounces (about 57 g)",
+          "grams": 57,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via 28.35 g per ounce."
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "roast_squash",
+        "label": "roast squash at 425°F, 45 min",
+        "inputs": [
+          "butternut_squash"
+        ]
+      },
+      {
+        "id": "cook_pasta",
+        "label": "boil pasta until tender, drain",
+        "inputs": [
+          "whole_wheat_shell_pasta"
+        ]
+      },
+      {
+        "id": "make_puree",
+        "label": "puree squash with shallot, sage, garlic, salt, pepper, broth",
+        "inputs": [
+          "roast_squash",
+          "shallot",
+          "sage",
+          "garlic_clove",
+          "salt",
+          "black_pepper",
+          "low_sodium_vegetable_broth"
+        ]
+      },
+      {
+        "id": "assemble",
+        "label": "layer puree, pasta, ricotta, puree, pasta, puree, mozzarella",
+        "inputs": [
+          "make_puree",
+          "cook_pasta",
+          "low_fat_ricotta",
+          "low_fat_mozzarella"
+        ]
+      },
+      {
+        "id": "bake",
+        "label": "bake at 375°F, 25 min",
+        "inputs": [
+          "assemble"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241126235123id_/https://www.myplate.gov/recipes/butternut-squash-pasta-bake",
+    "attributionUrl": "https://www.myplate.gov/recipes/butternut-squash-pasta-bake",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241126235123id_/https://www.myplate.gov/recipes/butternut-squash-pasta-bake",
+    "canonicalHash": "dca1565adde48758df2ad640c3b56b733fedf530ca8dc6f0e7531532bd5bbb94",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0015
+  }
+}

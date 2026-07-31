@@ -1,0 +1,153 @@
+{
+  "doc": {
+    "slug": "chicken-rice-and-fruit-salad",
+    "dish": "Chicken, Rice, and Fruit Salad",
+    "source": {
+      "url": "https://www.myplate.gov/recipes/chicken-rice-and-fruit-salad",
+      "platform": "myplate.gov",
+      "creatorHandle": "USDA MyPlate Kitchen"
+    },
+    "prepNotes": [
+      "Wash hands with soap and water.",
+      "If not using leftover rice, cook rice according to package directions without salt, then chill."
+    ],
+    "ingredients": [
+      {
+        "id": "parsley_dried",
+        "name": "parsley, dried",
+        "quantity": {
+          "display": "2 teaspoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "ground_black_pepper",
+        "name": "ground black pepper",
+        "quantity": {
+          "display": "1/2 teaspoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "garlic_finely_chopped",
+        "name": "garlic, finely chopped",
+        "quantity": {
+          "display": "1/4 clove",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "ranch_dressing_fat_free",
+        "name": "ranch dressing, fat-free",
+        "quantity": {
+          "display": "1 tablespoon",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "mayonnaise_fat_free",
+        "name": "mayonnaise, fat-free",
+        "quantity": {
+          "display": "2 tablespoons",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "brown_rice_cooked",
+        "name": "brown rice, cooked",
+        "quantity": {
+          "display": "1 cup (about 185 g)",
+          "grams": 185,
+          "provenance": "stated",
+          "note": "Gram weight computed from the stated volume via USDA long-grain rice."
+        }
+      },
+      {
+        "id": "apple_or_cantaloupe_chunks",
+        "name": "apple or cantaloupe, cut into chunks",
+        "quantity": {
+          "display": "1 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "grape_halves",
+        "name": "grape halves, red or purple, cut into chunks",
+        "quantity": {
+          "display": "1/3 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "celery_chopped",
+        "name": "celery, chopped",
+        "quantity": {
+          "display": "1/2 cup",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "chicken_cooked",
+        "name": "chicken, cooked, cut into bite-size pieces",
+        "quantity": {
+          "display": "1 1/4 cups",
+          "provenance": "stated"
+        }
+      },
+      {
+        "id": "lettuce_leaves",
+        "name": "lettuce leaves",
+        "quantity": {
+          "display": "6 leaves",
+          "provenance": "stated"
+        }
+      }
+    ],
+    "steps": [
+      {
+        "id": "mix_dressing",
+        "label": "mix parsley, pepper, garlic, dressing, and mayonnaise",
+        "inputs": [
+          "parsley_dried",
+          "ground_black_pepper",
+          "garlic_finely_chopped",
+          "ranch_dressing_fat_free",
+          "mayonnaise_fat_free"
+        ]
+      },
+      {
+        "id": "combine_salad",
+        "label": "add rice, fruit, celery, and chicken to dressing; stir gently",
+        "inputs": [
+          "mix_dressing",
+          "brown_rice_cooked",
+          "apple_or_cantaloupe_chunks",
+          "grape_halves",
+          "celery_chopped",
+          "chicken_cooked"
+        ]
+      },
+      {
+        "id": "serve_on_lettuce",
+        "label": "serve cold on lettuce leaves",
+        "inputs": [
+          "combine_salad",
+          "lettuce_leaves"
+        ]
+      }
+    ]
+  },
+  "seed": {
+    "fetchUrl": "https://web.archive.org/web/20241127082022id_/https://www.myplate.gov/recipes/chicken-rice-and-fruit-salad",
+    "attributionUrl": "https://www.myplate.gov/recipes/chicken-rice-and-fruit-salad",
+    "license": "US government work (USDA MyPlate Kitchen), public domain under 17 USC 105; retrieved via Internet Archive"
+  },
+  "meta": {
+    "sourceType": "article",
+    "canonicalUrl": "https://web.archive.org/web/20241127082022id_/https://www.myplate.gov/recipes/chicken-rice-and-fruit-salad",
+    "canonicalHash": "f6a1e60d2100cc8ef86923874e7d129a17b6b7c698ac5ebb65b825e60d9990e8",
+    "model": "deepseek-chat",
+    "attempts": 1,
+    "costUsd": 0.0015
+  }
+}
