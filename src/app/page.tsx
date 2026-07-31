@@ -1,5 +1,5 @@
-import { RecipeCard } from "@/components/RecipeCard";
-import { brownies } from "@/lib/recipe/fixtures/brownies";
+import { ConverterForm } from "@/components/ConverterForm";
+import { brownies } from "@/lib/recipe/fixtures/brownies.ts";
 
 const INPUT_TYPES = ["TikTok", "Reels", "Shorts", "YouTube", "Articles", "Pasted text", "Photos"];
 
@@ -16,22 +16,7 @@ export default function Home() {
           <li key={t}>{t}</li>
         ))}
       </ul>
-      <form className="converter">
-        <input
-          type="url"
-          disabled
-          placeholder="https://www.tiktok.com/@creator/video/..."
-          aria-label="recipe link"
-        />
-        <button type="button" disabled>
-          Compile
-        </button>
-      </form>
-      <p className="build-note">
-        Converter under construction. The card below is rendered live by the layout engine from
-        structured data, including two gram values the unit validator corrected.
-      </p>
-      <RecipeCard doc={brownies} />
+      <ConverterForm demo={brownies} />
     </main>
   );
 }

@@ -1,4 +1,4 @@
-import type { RecipeDoc } from "../types";
+import type { RecipeDoc } from "../types.ts";
 
 // The exemplar from the post that started the project: espresso brownies in
 // Cooking for Engineers notation. Two gram values failed unit validation and

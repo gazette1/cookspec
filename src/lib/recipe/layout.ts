@@ -1,4 +1,4 @@
-import type { RecipeDoc } from "./types";
+import type { RecipeDoc } from "./types.ts";
 
 // Turns a RecipeDoc DAG into the Cooking for Engineers merged-cell grid.
 //

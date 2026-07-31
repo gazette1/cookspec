@@ -127,6 +127,12 @@ h1 {
   margin: 0 0 40px;
 }
 
+.compile-error {
+  font-size: 0.875rem;
+  color: var(--accent);
+  margin: 0 0 24px;
+}
+
 @media print {
   body {
     background: #fff;
