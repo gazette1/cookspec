@@ -126,21 +126,19 @@
   margin-right: var(--s2);
 }
 
-.scroller {
-  overflow-x: auto;
+.wideWrap {
   margin-top: var(--s5);
 }
 
-.scrollerHidden {
+.wideHidden {
   display: none;
 }
 
-/* Revision B: fixed layout compresses to the container; the board never cuts
-   off and the scroller never engages in practice. */
+/* Revision C: the table keeps natural proportions; BoardScaler reduces the
+   whole board uniformly to fit the card. */
 .table {
   border-collapse: collapse;
   width: 100%;
-  table-layout: fixed;
 }
 
 .table th,
@@ -173,7 +171,7 @@ th.ing {
   background: var(--cream);
   font-family: var(--font-serif);
   font-size: 15px;
-  overflow-wrap: break-word;
+  min-width: 190px;
 }
 
 .qty {
@@ -181,7 +179,8 @@ th.ing {
   font-size: 13px;
   text-align: right;
   font-variant-numeric: tabular-nums;
-  overflow-wrap: break-word;
+  white-space: nowrap;
+  min-width: 120px;
 }
 
 .num {
@@ -196,12 +195,13 @@ th.ing {
   display: block;
   color: var(--ink-soft);
   margin-top: 2px;
+  white-space: normal;
 }
 
 .op {
   border-left: 2px solid var(--rule-heavy);
   vertical-align: middle;
-  overflow-wrap: break-word;
+  min-width: 150px;
 }
 
 .opEmpty {
@@ -473,10 +473,6 @@ th.ing {
     border-bottom-color: transparent;
   }
 
-  .scroller {
-    overflow-x: visible;
-  }
-
   td.ing,
   th.ing {
     position: static;
@@ -495,7 +491,7 @@ th.ing {
     display: none;
   }
 
-  .scrollerHidden {
+  .wideHidden {
     display: block;
   }
 }

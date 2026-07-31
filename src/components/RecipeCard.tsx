@@ -8,6 +8,7 @@
 import { useEffect, useState } from "react";
 import type { Ingredient, RecipeDoc, Step } from "@/lib/recipe/types";
 import { layoutRecipe } from "@/lib/recipe/layout";
+import { BoardScaler } from "./BoardScaler";
 import styles from "./RecipeCard.module.css";
 
 export interface CardMeta {
@@ -226,15 +227,9 @@ export function RecipeCard({ doc, meta }: { doc: RecipeDoc; meta?: CardMeta }) {
         </p>
       ) : null}
 
-      <div className={`${styles.scroller} ${view === "steps" ? styles.scrollerHidden : ""}`}>
+      <div className={`${styles.wideWrap} ${view === "steps" ? styles.wideHidden : ""}`}>
+        <BoardScaler active={view === "wide"} naturalWidth={Math.max(760, 310 + 150 * opCols)}>
         <table className={styles.table}>
-          <colgroup>
-            <col style={{ width: "21%" }} />
-            <col style={{ width: "13%" }} />
-            {Array.from({ length: opCols }, (_, c) => (
-              <col key={c} style={{ width: `${66 / Math.max(opCols, 1)}%` }} />
-            ))}
-          </colgroup>
           <thead>
             <tr>
               <th className={styles.ing} scope="col">
@@ -279,6 +274,7 @@ export function RecipeCard({ doc, meta }: { doc: RecipeDoc; meta?: CardMeta }) {
             ))}
           </tbody>
         </table>
+        </BoardScaler>
       </div>
 
       {view === "steps" ? (

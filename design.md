@@ -451,13 +451,15 @@ Explicit refusals. These matter as much as the positive specs.
 ## Amendments
 
 Revision B, 2026-07-31, from Russ after seeing revision A live: the wide view
-must never cut off horizontally. The merge table compresses to its container
-by construction (fixed table layout, proportional columns, wrapping operation
-labels) so the final dish column is always on screen at any width. Horizontal
-scroll inside the card remains only as a last-resort safety net and should
-never engage in practice. The pinned ingredient column rule becomes moot at
-desktop widths and stays for the safety net case. Step view remains the phone
-default.
+must never cut off horizontally.
+
+Revision C, 2026-07-31, from Russ correcting revision B: do not compress the
+columns to fit. The board keeps its natural proportions and the whole table
+scales down uniformly until it fits the card, like a drawing reduced onto the
+sheet. A mono scale stamp above the board states the reduction (scale 0.69:1)
+and a view 1:1 control switches to natural size with in-card scroll for close
+reading. The pinned ingredient column applies in the 1:1 view. Step view
+remains the phone default.
 
 ---
 

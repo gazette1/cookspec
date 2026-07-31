@@ -1,0 +1,60 @@
+.stamp {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 var(--s2);
+  font-variant-numeric: tabular-nums;
+}
+
+.stamp button {
+  font: inherit;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: 0 0 2px;
+  cursor: pointer;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.stamp button:hover {
+  border-bottom-color: var(--rule);
+}
+
+.stamp button[aria-pressed="true"] {
+  border-bottom-color: var(--amber);
+}
+
+.fit {
+  overflow: hidden;
+}
+
+.scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.inner {
+  min-width: 100%;
+  transform-origin: top left;
+}
+
+@media print {
+  .fit,
+  .scroll {
+    overflow: visible;
+    height: auto !important;
+  }
+
+  .inner {
+    transform: none !important;
+    width: 100%;
+  }
+}
