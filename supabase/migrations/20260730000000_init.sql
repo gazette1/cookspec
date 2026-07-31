@@ -16,7 +16,7 @@ create table public.recipes (
   canonical_url_hash text unique,
   source_url text,
   source_type text not null check (
-    source_type in ('tiktok', 'reel', 'shorts', 'youtube', 'article', 'text', 'image', 'dish_photo')
+    source_type in ('tiktok', 'reel', 'shorts', 'youtube', 'article', 'text', 'image', 'dish_photo', 'video_upload')
   ),
   source_platform text,
   creator_handle text,

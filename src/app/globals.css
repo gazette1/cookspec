@@ -175,6 +175,82 @@ h1 {
   cursor: pointer;
 }
 
+.crumbs {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  margin: 0 0 24px;
+}
+
+.crumbs a {
+  color: var(--text-2);
+  text-decoration: none;
+  border-bottom: 1px solid var(--surface-border);
+  transition: color 150ms var(--ease);
+}
+
+.crumbs a:hover {
+  color: var(--accent);
+}
+
+.library-link {
+  font-size: 0.875rem;
+  margin: 0 0 24px;
+}
+
+.library-link a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.recipe-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  max-width: 620px;
+}
+
+.recipe-list li {
+  border-bottom: 1px solid var(--surface-border);
+}
+
+.recipe-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 4px;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 150ms var(--ease);
+}
+
+.recipe-list a:hover .recipe-name {
+  color: var(--accent);
+}
+
+.recipe-name {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+}
+
+.recipe-meta {
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.license-note {
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  max-width: 620px;
+  margin: 16px 0 0;
+}
+
+.license-note a {
+  color: var(--text-2);
+}
+
 @media print {
   body {
     background: #fff;
@@ -183,7 +259,9 @@ h1 {
 
   .converter,
   .input-chips,
-  .build-note {
+  .build-note,
+  .image-row,
+  .no-print {
     display: none;
   }
 }

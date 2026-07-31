@@ -1,0 +1,45 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { RecipeCard } from "@/components/RecipeCard";
+import { getRecipeBySlug, listPublicRecipes } from "@/lib/store.ts";
+
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+export async function generateStaticParams() {
+  const recipes = await listPublicRecipes();
+  return recipes.map((r) => ({ slug: r.doc.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const recipe = await getRecipeBySlug(slug);
+  if (!recipe) return { title: "Recipe not found | CookSpec" };
+  return {
+    title: `${recipe.doc.dish} | CookSpec`,
+    description: `${recipe.doc.dish} compiled into one engineering table: ${recipe.doc.ingredients.length} ingredients, ${recipe.doc.steps.length} operations.`,
+  };
+}
+
+export default async function RecipePage({ params }: Props) {
+  const { slug } = await params;
+  const recipe = await getRecipeBySlug(slug);
+  if (!recipe) notFound();
+
+  return (
+    <main>
+      <nav className="crumbs no-print">
+        <Link href="/">CookSpec</Link>
+        <span aria-hidden="true"> / </span>
+        <Link href="/recipes">library</Link>
+      </nav>
+      <RecipeCard doc={recipe.doc} />
+      <p className="license-note no-print">
+        {recipe.license}. Compiled by CookSpec;{" "}
+        <Link href="/">compile your own from any link</Link>.
+      </p>
+    </main>
+  );
+}

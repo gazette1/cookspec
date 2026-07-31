@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ConverterForm } from "@/components/ConverterForm";
 import { brownies } from "@/lib/recipe/fixtures/brownies.ts";
 
@@ -16,6 +17,9 @@ export default function Home() {
           <li key={t}>{t}</li>
         ))}
       </ul>
+      <p className="library-link">
+        <Link href="/recipes">Browse the recipe library</Link>
+      </p>
       <ConverterForm demo={brownies} />
     </main>
   );

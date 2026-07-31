@@ -84,11 +84,11 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
           <input
             ref={fileRef}
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             disabled={busy}
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
           />
-          {file ? `photo: ${file.name}` : "or upload a photo of a recipe or a dish"}
+          {file ? `file: ${file.name}` : "or upload a photo, or a screen recording of a Reel"}
         </label>
         {file ? (
           <>
@@ -130,8 +130,9 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
       ) : (
         <>
           <p className="build-note">
-            Article links, TikTok, YouTube, pasted text, and photos compile live today; Instagram
-            Reels are being wired. The demo card below is the exemplar that started the project,
+            Article links, TikTok, YouTube, pasted text, photos, and uploaded videos compile live
+            today; direct Reel links wait on one more integration, so screen-record the Reel and
+            upload it meanwhile. The demo card below is the exemplar that started the project,
             including two gram values the unit validator corrected.
           </p>
           <RecipeCard doc={demo} />

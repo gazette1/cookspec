@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { compile, compileImage, type CompileResult } from "@/lib/pipeline/compile.ts";
+import { compile, compileImage, compileVideoFile, type CompileResult } from "@/lib/pipeline/compile.ts";
 
 export const maxDuration = 120;
 
@@ -20,18 +20,26 @@ export async function POST(req: Request): Promise<NextResponse> {
   }
 
   if (typeof body.image === "string" && body.image.length > 0) {
-    if (body.image.length > 8_000_000) {
-      return NextResponse.json({ error: "image too large; keep it under 5 MB" }, { status: 400 });
+    const mimeType = typeof body.mimeType === "string" ? body.mimeType : "image/jpeg";
+    const isVideo = mimeType.startsWith("video/");
+    if (body.image.length > (isVideo ? 26_000_000 : 8_000_000)) {
+      return NextResponse.json(
+        { error: isVideo ? "video too large; keep it under 18 MB" : "image too large; keep it under 5 MB" },
+        { status: 400 },
+      );
     }
     try {
-      const result = await compileImage(
-        {
-          base64: body.image,
-          mimeType: typeof body.mimeType === "string" ? body.mimeType : "image/jpeg",
-          dishHint: typeof body.dishHint === "string" && body.dishHint.trim() ? body.dishHint.trim() : undefined,
-        },
-        { deepseekKey, geminiKey: process.env.GEMINI_API_KEY },
-      );
+      const env = { deepseekKey, geminiKey: process.env.GEMINI_API_KEY };
+      const result = isVideo
+        ? await compileVideoFile({ base64: body.image, mimeType }, env)
+        : await compileImage(
+            {
+              base64: body.image,
+              mimeType,
+              dishHint: typeof body.dishHint === "string" && body.dishHint.trim() ? body.dishHint.trim() : undefined,
+            },
+            env,
+          );
       return NextResponse.json(result);
     } catch (err) {
       const message = err instanceof Error ? err.message : "compile failed";

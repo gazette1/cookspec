@@ -101,6 +101,48 @@ export async function compileImage(
   };
 }
 
+// Screen-recording upload: the Reels fallback until the scraper vendor lands,
+// and a general path for any saved cooking video. Gemini watches the clip the
+// same way it watches a YouTube URL.
+export async function compileVideoFile(
+  video: { base64: string; mimeType: string },
+  env: CompileEnv,
+): Promise<CompileResult> {
+  const started = Date.now();
+  if (!env.geminiKey) throw new Error("server is missing GEMINI_API_KEY for video sources");
+
+  const watch = await geminiGenerate({
+    apiKey: env.geminiKey,
+    parts: [
+      { inlineData: { mimeType: video.mimeType, data: video.base64 } },
+      {
+        text: "Watch this cooking video. Report exactly what it teaches, as text: the dish name, every ingredient with its quantity as spoken or shown on screen (write 'not stated' when the video gives none), and the operations in order with times, temperatures, and which ingredients each operation combines. Include any on-screen text. Do not invent quantities.",
+      },
+    ],
+  });
+
+  const { doc, meta } = await extractRecipe({
+    apiKey: env.deepseekKey,
+    sourceMaterial: `Convert this recipe transcribed from an uploaded cooking video:\n\n${watch.content.slice(0, 16000)}`,
+    source: { platform: "upload" },
+  });
+
+  return {
+    doc,
+    meta: {
+      ...meta,
+      model: `${watch.model} + ${meta.model}`,
+      usage: {
+        inputTokens: meta.usage.inputTokens + watch.usage.inputTokens,
+        outputTokens: meta.usage.outputTokens + watch.usage.outputTokens,
+        costUsd: meta.usage.costUsd + watch.usage.costUsd,
+      },
+      sourceType: "video_upload",
+      elapsedMs: Date.now() - started,
+    },
+  };
+}
+
 function bytesToBase64(bytes: Uint8Array): string {
   if (typeof Buffer !== "undefined") return Buffer.from(bytes).toString("base64");
   let bin = "";
