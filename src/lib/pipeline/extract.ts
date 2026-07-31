@@ -5,7 +5,7 @@
 import { layoutRecipe } from "../recipe/layout.ts";
 import type { Ingredient, RecipeDoc, RecipeSource, Step } from "../recipe/types.ts";
 import { validateQuantity, type RawQuantity } from "../recipe/validate.ts";
-import { deepseekJson, type LlmUsage } from "./llm.ts";
+import { deepseekJson, geminiGenerate, type LlmUsage } from "./llm.ts";
 
 export interface ExtractionMeta {
   model: string;
@@ -31,9 +31,11 @@ interface RawExtraction {
   prepNotes?: string[];
   ingredients: RawIngredient[];
   steps: RawStep[];
+  /** Media paths set this when the source shows a dish but no recipe text */
+  inferredGuess?: boolean;
 }
 
-const SYSTEM_PROMPT = `You convert recipes into a strict machine-readable DAG for the Cooking for Engineers table notation. Output only JSON.
+export const STRUCTURING_RULES = `You convert recipes into a strict machine-readable DAG for the Cooking for Engineers table notation. Output only JSON.
 
 Rules:
 - ingredients: every ingredient the recipe uses. List order does not matter; it is fixed later in code.
@@ -173,48 +175,72 @@ export function slugify(dish: string): string {
     .slice(0, 60);
 }
 
+/**
+ * Parse and validate one model response into a RecipeDoc, or throw with a
+ * repairable reason. Shared by the text structurer and the single-call media
+ * paths.
+ */
+export function finalizeExtraction(
+  jsonText: string,
+  opts: { source?: RecipeSource; inferred?: boolean },
+): RecipeDoc {
+  let raw: RawExtraction;
+  try {
+    raw = JSON.parse(jsonText.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, "")) as RawExtraction;
+  } catch {
+    throw new Error("output was not valid JSON");
+  }
+  if (!raw.dish || !Array.isArray(raw.ingredients) || !Array.isArray(raw.steps) || raw.steps.length === 0) {
+    throw new Error("missing dish, ingredients, or steps");
+  }
+  const inferred = (opts.inferred ?? false) || raw.inferredGuess === true;
+  const doc = toRecipeDoc(splitDividedIngredients(raw), slugify(raw.dish), opts.source, inferred);
+  const dagError = validateDag(doc);
+  if (dagError !== null) throw new Error(dagError);
+  return doc;
+}
+
+const REPAIR_REMINDER =
+  "Remember: every ingredient is used exactly once, every non-final step is consumed exactly once. Output the full corrected JSON.";
+
 export async function extractRecipe(opts: {
   apiKey: string;
   sourceMaterial: string;
   source?: RecipeSource;
   inferred?: boolean;
+  /** When set, the first two attempts run on the faster Gemini flash-lite */
+  fastGeminiKey?: string;
 }): Promise<{ doc: RecipeDoc; meta: ExtractionMeta }> {
   const usage: LlmUsage = { inputTokens: 0, outputTokens: 0, costUsd: 0 };
+  const modelsUsed: string[] = [];
   let attempts = 0;
-  let model = "";
   let lastError = "";
   let user = opts.sourceMaterial;
 
   while (attempts < 3) {
     attempts += 1;
-    const result = await deepseekJson({ apiKey: opts.apiKey, system: SYSTEM_PROMPT, user });
-    model = result.model;
+    // fast structurer first, DeepSeek as the reliability anchor on the last try
+    const useFast = opts.fastGeminiKey !== undefined && attempts < 3;
+    const result = useFast
+      ? await geminiGenerate({
+          apiKey: opts.fastGeminiKey as string,
+          model: "gemini-flash-lite-latest",
+          jsonOutput: true,
+          parts: [{ text: `${STRUCTURING_RULES}\n\n${user}` }],
+        })
+      : await deepseekJson({ apiKey: opts.apiKey, system: STRUCTURING_RULES, user });
+    if (!modelsUsed.includes(result.model)) modelsUsed.push(result.model);
     usage.inputTokens += result.usage.inputTokens;
     usage.outputTokens += result.usage.outputTokens;
     usage.costUsd += result.usage.costUsd;
 
-    let raw: RawExtraction;
     try {
-      raw = JSON.parse(result.content) as RawExtraction;
-    } catch {
-      lastError = "output was not valid JSON";
-      user = `${opts.sourceMaterial}\n\nYour previous output was not valid JSON. Output the full corrected JSON.`;
-      continue;
+      const doc = finalizeExtraction(result.content, { source: opts.source, inferred: opts.inferred });
+      return { doc, meta: { model: modelsUsed.join(" + "), attempts, usage } };
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : String(err);
+      user = `${opts.sourceMaterial}\n\nYour previous JSON failed validation: ${lastError}. ${REPAIR_REMINDER}`;
     }
-
-    if (!raw.dish || !Array.isArray(raw.ingredients) || !Array.isArray(raw.steps) || raw.steps.length === 0) {
-      lastError = "missing dish, ingredients, or steps";
-      user = `${opts.sourceMaterial}\n\nYour previous JSON was missing dish, ingredients, or steps. Output the full corrected JSON.`;
-      continue;
-    }
-
-    const doc = toRecipeDoc(splitDividedIngredients(raw), slugify(raw.dish), opts.source, opts.inferred ?? false);
-    const dagError = validateDag(doc);
-    if (dagError === null) {
-      return { doc, meta: { model, attempts, usage } };
-    }
-    lastError = dagError;
-    user = `${opts.sourceMaterial}\n\nYour previous JSON failed DAG validation: ${dagError}. Remember: every ingredient is used exactly once, every non-final step is consumed exactly once, and each step's inputs must cover contiguous rows (reorder the ingredient list if needed). Output the full corrected JSON.`;
   }
 
   throw new Error(`extraction failed after ${attempts} attempts: ${lastError}`);

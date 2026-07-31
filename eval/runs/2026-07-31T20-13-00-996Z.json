@@ -1,0 +1,111 @@
+{
+  "stamp": "2026-07-31T20:13:00.996Z",
+  "results": [
+    {
+      "id": "tt-1",
+      "ok": true,
+      "dish": "Chicken Breast & Broccolini over Lemon Garlic Cream Sauce",
+      "rows": 26,
+      "cols": 4,
+      "ingredients": 26,
+      "steps": 5,
+      "attempts": 1,
+      "costUsd": 0.0069,
+      "elapsedMs": 18612,
+      "inferred": true
+    },
+    {
+      "id": "tt-2",
+      "ok": true,
+      "dish": "One-Pot Cajun Honey Butter Chicken and Rice",
+      "rows": 12,
+      "cols": 5,
+      "ingredients": 12,
+      "steps": 6,
+      "attempts": 1,
+      "costUsd": 0.0041,
+      "elapsedMs": 15237,
+      "inferred": true
+    },
+    {
+      "id": "tt-3",
+      "ok": true,
+      "dish": "Stick of Butter Chicken & Rice",
+      "rows": 10,
+      "cols": 5,
+      "ingredients": 10,
+      "steps": 5,
+      "attempts": 1,
+      "costUsd": 0.0036,
+      "elapsedMs": 14849,
+      "inferred": true
+    },
+    {
+      "id": "ig-1",
+      "ok": false,
+      "error": "skipped: path not wired (needs scraper vendor)"
+    },
+    {
+      "id": "ig-2",
+      "ok": false,
+      "error": "skipped: path not wired (needs scraper vendor)"
+    },
+    {
+      "id": "ig-3",
+      "ok": false,
+      "error": "skipped: path not wired (needs scraper vendor)"
+    },
+    {
+      "id": "yt-1",
+      "ok": true,
+      "dish": "Crispy Cheesy Ground Beef Tacos",
+      "rows": 7,
+      "cols": 4,
+      "ingredients": 7,
+      "steps": 3,
+      "attempts": 1,
+      "costUsd": 0.0026,
+      "elapsedMs": 14772,
+      "inferred": false
+    },
+    {
+      "id": "yt-2",
+      "ok": true,
+      "dish": "Creamy Chicken Mushroom Fettuccine",
+      "rows": 10,
+      "cols": 6,
+      "ingredients": 10,
+      "steps": 6,
+      "attempts": 1,
+      "costUsd": 0.0036,
+      "elapsedMs": 11056,
+      "inferred": false
+    },
+    {
+      "id": "art-1",
+      "ok": true,
+      "dish": "Marry Me Chicken",
+      "rows": 13,
+      "cols": 5,
+      "ingredients": 13,
+      "steps": 6,
+      "attempts": 1,
+      "costUsd": 0.004,
+      "elapsedMs": 4041,
+      "inferred": false
+    },
+    {
+      "id": "art-2",
+      "ok": true,
+      "dish": "One-Pan Tuscan Chicken",
+      "rows": 14,
+      "cols": 4,
+      "ingredients": 14,
+      "steps": 4,
+      "attempts": 1,
+      "costUsd": 0.0041,
+      "elapsedMs": 4291,
+      "inferred": false
+    }
+  ]
+}

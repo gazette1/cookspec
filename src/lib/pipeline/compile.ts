@@ -1,11 +1,13 @@
-// Orchestrator: one input string (URL or pasted text) in, RecipeDoc plus run
-// metadata out. Platform routing follows the canonicalizer.
+// Orchestrator: one input (URL, text, image, or video file) in, RecipeDoc
+// plus run metadata out. Media paths are single-call by default (Gemini sees
+// the media and emits the structured JSON directly), with a two-step
+// watch-then-structure fallback when validation rejects both fast attempts.
 
 import { canonicalizeUrl, canonicalUrlHash, type CanonicalResult } from "../recipe/canonical.ts";
-import type { RecipeDoc } from "../recipe/types.ts";
+import type { RecipeDoc, RecipeSource } from "../recipe/types.ts";
 import { BROWSER_UA, fetchArticle } from "./article.ts";
-import { extractRecipe, type ExtractionMeta } from "./extract.ts";
-import { geminiGenerate } from "./llm.ts";
+import { extractRecipe, finalizeExtraction, STRUCTURING_RULES, type ExtractionMeta } from "./extract.ts";
+import { geminiGenerate, type GeminiPart, type LlmUsage } from "./llm.ts";
 
 export interface CompileResult {
   doc: RecipeDoc;
@@ -32,6 +34,7 @@ export async function compile(input: string, env: CompileEnv): Promise<CompileRe
   if (!isUrl(input)) {
     const { doc, meta } = await extractRecipe({
       apiKey: env.deepseekKey,
+      fastGeminiKey: env.geminiKey,
       sourceMaterial: `Convert this recipe:\n\n${input.trim().slice(0, 16000)}`,
     });
     return { doc, meta: { ...meta, sourceType: "text", elapsedMs: Date.now() - started } };
@@ -47,100 +50,196 @@ export async function compile(input: string, env: CompileEnv): Promise<CompileRe
     case "tiktok":
       return compileTikTok(canonical, env, started);
     case "reel":
-      throw new Error(`the reel path is not wired yet; article URLs, TikTok, YouTube, and pasted text work today`);
+      throw new Error(
+        "direct Reel links wait on the scraper integration; screen-record the Reel and upload it meanwhile",
+      );
     default:
-      throw new Error(`unsupported source type`);
+      throw new Error("unsupported source type");
   }
 }
 
-// Image upload: recipe screenshots, cookbook pages, or plated-dish photos.
-// Gemini reports whether the image contains recipe text or only a dish; dish
-// photos produce a generated recipe flagged inferred, keyed to the user's
-// name-the-dish hint when given.
-export async function compileImage(
-  image: { base64: string; mimeType: string; dishHint?: string },
+async function compileArticle(
+  input: string,
+  canonical: CanonicalResult,
   env: CompileEnv,
+  started: number,
 ): Promise<CompileResult> {
-  const started = Date.now();
-  if (!env.geminiKey) throw new Error("server is missing GEMINI_API_KEY for image sources");
+  const article = await fetchArticle(input.trim());
 
-  const look = await geminiGenerate({
-    apiKey: env.geminiKey,
-    parts: [
-      { inlineData: { mimeType: image.mimeType, data: image.base64 } },
-      {
-        text: `Look at this image.${image.dishHint ? ` The user says it shows: ${image.dishHint}.` : ""}\n\nIf it contains recipe text (a screenshot, cookbook page, or app screen), start your reply with RECIPE_TEXT on its own line, then transcribe the recipe faithfully and completely: dish, every ingredient with its stated quantity, and the instructions in order. Mark anything unreadable "not stated".\n\nIf it shows only prepared food with no recipe text, start your reply with DISH_PHOTO on its own line, name the dish${image.dishHint ? " (trust the user's name unless the photo clearly contradicts it)" : ""}, then write a standard recipe for it: typical ingredients with typical quantities and the usual operations in order.`,
-      },
-    ],
-  });
+  let material: string;
+  if (article.kind === "jsonld" && article.recipe) {
+    const r = article.recipe;
+    material = [
+      `Convert this recipe. Structured data from the page:`,
+      `Title: ${r.name ?? article.title ?? "unknown"}`,
+      r.recipeYield ? `Yield: ${r.recipeYield}` : "",
+      `Ingredients:`,
+      ...(r.recipeIngredient ?? []).map((i) => `- ${i}`),
+      `Instructions:`,
+      ...(r.recipeInstructions ?? []).map((s, n) => `${n + 1}. ${s}`),
+    ]
+      .filter(Boolean)
+      .join("\n");
+  } else {
+    material = `Convert the recipe contained in this page text:\n\nTitle: ${article.title ?? "unknown"}\n\n${article.text ?? ""}`;
+  }
 
-  const isDishPhoto = /^\s*DISH_PHOTO/m.test(look.content.slice(0, 200));
-  const material = look.content.replace(/^\s*(RECIPE_TEXT|DISH_PHOTO)\s*/m, "").slice(0, 16000);
-
+  const host = new URL(canonical.canonicalUrl).hostname.replace(/^www\./, "");
   const { doc, meta } = await extractRecipe({
     apiKey: env.deepseekKey,
-    sourceMaterial: isDishPhoto
-      ? `Convert this generated standard recipe (from a dish photo, quantities are typical values):\n\n${material}`
-      : `Convert this recipe transcribed from an image:\n\n${material}`,
-    inferred: isDishPhoto,
+    fastGeminiKey: env.geminiKey,
+    sourceMaterial: material,
+    source: { url: canonical.canonicalUrl, platform: host, creatorHandle: article.author },
   });
 
   return {
     doc,
     meta: {
       ...meta,
-      model: `${look.model} + ${meta.model}`,
-      usage: {
-        inputTokens: meta.usage.inputTokens + look.usage.inputTokens,
-        outputTokens: meta.usage.outputTokens + look.usage.outputTokens,
-        costUsd: meta.usage.costUsd + look.usage.costUsd,
-      },
-      sourceType: isDishPhoto ? "dish_photo" : "image",
+      sourceType: "article",
+      canonicalUrl: canonical.canonicalUrl,
+      canonicalHash: await canonicalUrlHash(canonical.canonicalUrl),
       elapsedMs: Date.now() - started,
     },
   };
 }
 
-// Screen-recording upload: the Reels fallback until the scraper vendor lands,
-// and a general path for any saved cooking video. Gemini watches the clip the
-// same way it watches a YouTube URL.
+interface MediaExtractOpts {
+  env: CompileEnv;
+  /** Media parts (video fileData, image or video inlineData, thumbnails) */
+  parts: GeminiPart[];
+  /** Path-specific preamble prepended to the structuring rules */
+  contextText: string;
+  /** Prose watch prompt for the two-step fallback */
+  fallbackWatchText: string;
+  source?: RecipeSource;
+  inferred?: boolean;
+  sourceType: string | ((doc: RecipeDoc) => string);
+  canonicalUrl?: string;
+  canonicalHash?: string;
+  started: number;
+}
+
+// Single Gemini call: media in, structured recipe JSON out. Two fast
+// attempts, then the reliable two-step fallback (Gemini transcribes, DeepSeek
+// structures). Validation gates every road.
+async function mediaExtract(o: MediaExtractOpts): Promise<CompileResult> {
+  if (!o.env.geminiKey) throw new Error("server is missing GEMINI_API_KEY for media sources");
+
+  const usage: LlmUsage = { inputTokens: 0, outputTokens: 0, costUsd: 0 };
+  const modelsUsed: string[] = [];
+  const singlePrompt = `${o.contextText}\n\n${STRUCTURING_RULES}\n\nOutput only the JSON object.`;
+  let promptText = singlePrompt;
+  let lastError = "";
+
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
+    const res = await geminiGenerate({
+      apiKey: o.env.geminiKey,
+      jsonOutput: true,
+      parts: [...o.parts, { text: promptText }],
+    });
+    if (!modelsUsed.includes(res.model)) modelsUsed.push(res.model);
+    usage.inputTokens += res.usage.inputTokens;
+    usage.outputTokens += res.usage.outputTokens;
+    usage.costUsd += res.usage.costUsd;
+    try {
+      const doc = finalizeExtraction(res.content, { source: o.source, inferred: o.inferred });
+      return makeMediaResult(o, doc, modelsUsed, attempt, usage);
+    } catch (err) {
+      lastError = err instanceof Error ? err.message : String(err);
+      promptText = `${singlePrompt}\n\nYour previous JSON failed validation: ${lastError}. Output the full corrected JSON.`;
+    }
+  }
+
+  const watch = await geminiGenerate({ apiKey: o.env.geminiKey, parts: [...o.parts, { text: o.fallbackWatchText }] });
+  if (!modelsUsed.includes(watch.model)) modelsUsed.push(watch.model);
+  usage.inputTokens += watch.usage.inputTokens;
+  usage.outputTokens += watch.usage.outputTokens;
+  usage.costUsd += watch.usage.costUsd;
+
+  const { doc, meta } = await extractRecipe({
+    apiKey: o.env.deepseekKey,
+    sourceMaterial: `Convert this recipe transcribed from the source:\n\n${watch.content.slice(0, 16000)}`,
+    source: o.source,
+    inferred: o.inferred,
+  });
+  for (const m of meta.model.split(" + ")) if (!modelsUsed.includes(m)) modelsUsed.push(m);
+  usage.inputTokens += meta.usage.inputTokens;
+  usage.outputTokens += meta.usage.outputTokens;
+  usage.costUsd += meta.usage.costUsd;
+
+  return makeMediaResult(o, doc, modelsUsed, 2 + meta.attempts, usage);
+}
+
+function makeMediaResult(
+  o: MediaExtractOpts,
+  doc: RecipeDoc,
+  modelsUsed: string[],
+  attempts: number,
+  usage: LlmUsage,
+): CompileResult {
+  return {
+    doc,
+    meta: {
+      model: modelsUsed.join(" + "),
+      attempts,
+      usage,
+      sourceType: typeof o.sourceType === "function" ? o.sourceType(doc) : o.sourceType,
+      canonicalUrl: o.canonicalUrl,
+      canonicalHash: o.canonicalHash,
+      elapsedMs: Date.now() - o.started,
+    },
+  };
+}
+
+const VIDEO_WATCH_TEXT =
+  "Watch this cooking video. Report exactly what it teaches, as text: the dish name, every ingredient with its quantity as spoken or shown on screen (write 'not stated' when the video gives none), and the operations in order with times, temperatures, and which ingredients each operation combines. Include any on-screen text. Do not invent quantities.";
+
+const VIDEO_CONTEXT =
+  "You are watching a cooking video. Extract the recipe it actually teaches: quantities as spoken or shown on screen, operations with their times and temperatures. Where the video states no quantity, use your typical value and set estimated true on that qty.";
+
+async function compileYouTube(canonical: CanonicalResult, env: CompileEnv, started: number): Promise<CompileResult> {
+  return mediaExtract({
+    env,
+    parts: [{ fileData: { fileUri: canonical.canonicalUrl } }],
+    contextText: VIDEO_CONTEXT,
+    fallbackWatchText: VIDEO_WATCH_TEXT,
+    source: { url: canonical.canonicalUrl, platform: "youtube.com" },
+    sourceType: canonical.sourceType,
+    canonicalUrl: canonical.canonicalUrl,
+    canonicalHash: await canonicalUrlHash(canonical.canonicalUrl),
+    started,
+  });
+}
+
 export async function compileVideoFile(
   video: { base64: string; mimeType: string },
   env: CompileEnv,
 ): Promise<CompileResult> {
-  const started = Date.now();
-  if (!env.geminiKey) throw new Error("server is missing GEMINI_API_KEY for video sources");
-
-  const watch = await geminiGenerate({
-    apiKey: env.geminiKey,
-    parts: [
-      { inlineData: { mimeType: video.mimeType, data: video.base64 } },
-      {
-        text: "Watch this cooking video. Report exactly what it teaches, as text: the dish name, every ingredient with its quantity as spoken or shown on screen (write 'not stated' when the video gives none), and the operations in order with times, temperatures, and which ingredients each operation combines. Include any on-screen text. Do not invent quantities.",
-      },
-    ],
-  });
-
-  const { doc, meta } = await extractRecipe({
-    apiKey: env.deepseekKey,
-    sourceMaterial: `Convert this recipe transcribed from an uploaded cooking video:\n\n${watch.content.slice(0, 16000)}`,
+  return mediaExtract({
+    env,
+    parts: [{ inlineData: { mimeType: video.mimeType, data: video.base64 } }],
+    contextText: VIDEO_CONTEXT,
+    fallbackWatchText: VIDEO_WATCH_TEXT,
     source: { platform: "upload" },
+    sourceType: "video_upload",
+    started: Date.now(),
   });
+}
 
-  return {
-    doc,
-    meta: {
-      ...meta,
-      model: `${watch.model} + ${meta.model}`,
-      usage: {
-        inputTokens: meta.usage.inputTokens + watch.usage.inputTokens,
-        outputTokens: meta.usage.outputTokens + watch.usage.outputTokens,
-        costUsd: meta.usage.costUsd + watch.usage.costUsd,
-      },
-      sourceType: "video_upload",
-      elapsedMs: Date.now() - started,
-    },
-  };
+export async function compileImage(
+  image: { base64: string; mimeType: string; dishHint?: string },
+  env: CompileEnv,
+): Promise<CompileResult> {
+  const hint = image.dishHint ? ` The user says it shows: ${image.dishHint}.` : "";
+  return mediaExtract({
+    env,
+    parts: [{ inlineData: { mimeType: image.mimeType, data: image.base64 } }],
+    contextText: `Look at this image.${hint} If it contains recipe text (a screenshot, cookbook page, or app screen), extract that recipe faithfully. If it shows only prepared food with no recipe text, name the dish${image.dishHint ? " (trust the user's name unless the photo clearly contradicts it)" : ""}, generate a standard recipe for it with typical quantities marked estimated, and set the top-level JSON key inferredGuess to true.`,
+    fallbackWatchText: `Look at this image.${hint} If it contains recipe text, transcribe the recipe faithfully and completely: dish, every ingredient with its stated quantity, the instructions in order. If it shows only prepared food, name the dish and write a standard recipe for it with typical quantities.`,
+    sourceType: (doc) => (doc.inferred ? "dish_photo" : "image"),
+    started: Date.now(),
+  });
 }
 
 function bytesToBase64(bytes: Uint8Array): string {
@@ -180,7 +279,7 @@ async function compileTikTok(canonical: CanonicalResult, env: CompileEnv, starte
   const caption = oembed.title ?? "";
   const author = oembed.author_unique_id ? `@${oembed.author_unique_id}` : oembed.author_name;
 
-  const parts: Parameters<typeof geminiGenerate>[0]["parts"] = [];
+  const parts: GeminiPart[] = [];
   if (oembed.thumbnail_url) {
     const img = await fetch(oembed.thumbnail_url, { headers: { "user-agent": BROWSER_UA } });
     if (img.ok) {
@@ -190,122 +289,21 @@ async function compileTikTok(canonical: CanonicalResult, env: CompileEnv, starte
       });
     }
   }
-  parts.push({
-    text: `TikTok cooking video caption from ${author ?? "the creator"}: "${caption}".\n\nFrom this caption and the attached thumbnail, report the recipe as text: the dish, the ingredients with quantities where the caption states them, and the likely operations in order. If the caption contains the full recipe, restate it faithfully and completely. For anything the caption does not state, mark it "not stated". Do not invent quantities.`,
-  });
-
-  const watch = await geminiGenerate({ apiKey: env.geminiKey, parts });
 
   // Captions with almost no stated amounts mean the card is a labeled guess.
   const statedAmounts = (caption.match(/\d+\s*(g|kg|ml|l|cup|cups|tbsp|tsp|oz|lb|cloves?)\b/gi) ?? []).length;
   const inferred = statedAmounts < 3;
 
-  const { doc, meta } = await extractRecipe({
-    apiKey: env.deepseekKey,
-    sourceMaterial: `Convert this recipe reconstructed from a TikTok caption and thumbnail:\n\n${watch.content.slice(0, 16000)}`,
+  return mediaExtract({
+    env,
+    parts,
+    contextText: `TikTok cooking video caption from ${author ?? "the creator"}: "${caption}". Reconstruct the recipe from this caption and the attached thumbnail. If the caption contains the full recipe, restate it faithfully and completely. Use typical values with estimated true for anything the caption does not state.`,
+    fallbackWatchText: `TikTok cooking video caption from ${author ?? "the creator"}: "${caption}".\n\nFrom this caption and the attached thumbnail, report the recipe as text: the dish, the ingredients with quantities where the caption states them, and the likely operations in order. For anything the caption does not state, mark it "not stated". Do not invent quantities.`,
     source: { url: videoUrl, platform: "tiktok.com", creatorHandle: author ?? undefined },
     inferred,
+    sourceType: "tiktok",
+    canonicalUrl: videoUrl,
+    canonicalHash: await canonicalUrlHash(videoUrl),
+    started,
   });
-
-  return {
-    doc,
-    meta: {
-      ...meta,
-      model: `${watch.model} + ${meta.model}`,
-      usage: {
-        inputTokens: meta.usage.inputTokens + watch.usage.inputTokens,
-        outputTokens: meta.usage.outputTokens + watch.usage.outputTokens,
-        costUsd: meta.usage.costUsd + watch.usage.costUsd,
-      },
-      sourceType: "tiktok",
-      canonicalUrl: videoUrl,
-      canonicalHash: await canonicalUrlHash(videoUrl),
-      elapsedMs: Date.now() - started,
-    },
-  };
-}
-
-// YouTube: Gemini watches the video directly (no scraper needed), produces a
-// faithful transcription of the recipe, and DeepSeek structures it. Model
-// routing keeps the cheap structurer and its tested prompt for every source.
-async function compileYouTube(canonical: CanonicalResult, env: CompileEnv, started: number): Promise<CompileResult> {
-  if (!env.geminiKey) throw new Error("server is missing GEMINI_API_KEY for video sources");
-
-  const watch = await geminiGenerate({
-    apiKey: env.geminiKey,
-    parts: [
-      { fileData: { fileUri: canonical.canonicalUrl } },
-      {
-        text: "Watch this cooking video. Report exactly what it teaches, as text: the dish name, every ingredient with its quantity as spoken or shown on screen (write 'not stated' when the video gives none), and the operations in order with times, temperatures, and which ingredients each operation combines. Include any on-screen text. Do not invent quantities.",
-      },
-    ],
-  });
-
-  const { doc, meta } = await extractRecipe({
-    apiKey: env.deepseekKey,
-    sourceMaterial: `Convert this recipe transcribed from a cooking video:\n\n${watch.content.slice(0, 16000)}`,
-    source: { url: canonical.canonicalUrl, platform: "youtube.com" },
-  });
-
-  return {
-    doc,
-    meta: {
-      ...meta,
-      model: `${watch.model} + ${meta.model}`,
-      usage: {
-        inputTokens: meta.usage.inputTokens + watch.usage.inputTokens,
-        outputTokens: meta.usage.outputTokens + watch.usage.outputTokens,
-        costUsd: meta.usage.costUsd + watch.usage.costUsd,
-      },
-      sourceType: canonical.sourceType,
-      canonicalUrl: canonical.canonicalUrl,
-      canonicalHash: await canonicalUrlHash(canonical.canonicalUrl),
-      elapsedMs: Date.now() - started,
-    },
-  };
-}
-
-async function compileArticle(
-  input: string,
-  canonical: CanonicalResult,
-  env: CompileEnv,
-  started: number,
-): Promise<CompileResult> {
-  const article = await fetchArticle(input.trim());
-
-  let material: string;
-  if (article.kind === "jsonld" && article.recipe) {
-    const r = article.recipe;
-    material = [
-      `Convert this recipe. Structured data from the page:`,
-      `Title: ${r.name ?? article.title ?? "unknown"}`,
-      r.recipeYield ? `Yield: ${r.recipeYield}` : "",
-      `Ingredients:`,
-      ...(r.recipeIngredient ?? []).map((i) => `- ${i}`),
-      `Instructions:`,
-      ...(r.recipeInstructions ?? []).map((s, n) => `${n + 1}. ${s}`),
-    ]
-      .filter(Boolean)
-      .join("\n");
-  } else {
-    material = `Convert the recipe contained in this page text:\n\nTitle: ${article.title ?? "unknown"}\n\n${article.text ?? ""}`;
-  }
-
-  const host = new URL(canonical.canonicalUrl).hostname.replace(/^www\./, "");
-  const { doc, meta } = await extractRecipe({
-    apiKey: env.deepseekKey,
-    sourceMaterial: material,
-    source: { url: canonical.canonicalUrl, platform: host, creatorHandle: article.author },
-  });
-
-  return {
-    doc,
-    meta: {
-      ...meta,
-      sourceType: "article",
-      canonicalUrl: canonical.canonicalUrl,
-      canonicalHash: await canonicalUrlHash(canonical.canonicalUrl),
-      elapsedMs: Date.now() - started,
-    },
-  };
 }

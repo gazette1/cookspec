@@ -21,6 +21,7 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
   const [error, setError] = useState<string | null>(null);
   const [doc, setDoc] = useState<RecipeDoc | null>(null);
   const [meta, setMeta] = useState<CompileMeta | null>(null);
+  const [publicUrl, setPublicUrl] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const ready = file !== null || input.trim().length >= 4;
@@ -50,12 +51,18 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(body),
       });
-      const data = (await res.json()) as { doc?: RecipeDoc; meta?: CompileMeta; error?: string };
+      const data = (await res.json()) as {
+        doc?: RecipeDoc;
+        meta?: CompileMeta;
+        publicUrl?: string;
+        error?: string;
+      };
       if (!res.ok || !data.doc) {
         setError(data.error ?? `compile failed (HTTP ${res.status})`);
       } else {
         setDoc(data.doc);
         setMeta(data.meta ?? null);
+        setPublicUrl(data.publicUrl ?? null);
       }
     } catch {
       setError("network error, try again");
@@ -121,8 +128,15 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
         <>
           {meta ? (
             <p className="build-note">
-              Compiled from {meta.sourceType} in {(meta.elapsedMs / 1000).toFixed(1)}s
-              {meta.cacheHit ? ", served from cache" : `, model ${meta.model}, cost $${meta.usage.costUsd.toFixed(4)}`}.
+              {meta.cacheHit
+                ? "Served instantly from the library"
+                : `Compiled from ${meta.sourceType} in ${(meta.elapsedMs / 1000).toFixed(1)}s, model ${meta.model}, cost $${meta.usage.costUsd.toFixed(4)}`}
+              {publicUrl ? (
+                <>
+                  {" "}
+                  <a href={publicUrl}>Permanent page</a>
+                </>
+              ) : null}
             </p>
           ) : null}
           <RecipeCard doc={doc} />

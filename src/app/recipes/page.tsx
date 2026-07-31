@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: "Every public recipe on CookSpec, compiled into one engineering table each.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function RecipesPage() {
   const recipes = await listPublicRecipes();
 
@@ -22,8 +24,8 @@ export default async function RecipesPage() {
       </p>
       <ul className="recipe-list">
         {recipes.map((r) => (
-          <li key={r.doc.slug}>
-            <Link href={`/r/${r.doc.slug}`}>
+          <li key={r.slug}>
+            <Link href={`/r/${r.slug}`}>
               <span className="recipe-name">{r.doc.dish}</span>
               <span className="recipe-meta">
                 {r.doc.ingredients.length} ingredients, {r.doc.steps.length} operations

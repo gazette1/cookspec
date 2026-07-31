@@ -2,16 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { RecipeCard } from "@/components/RecipeCard";
-import { getRecipeBySlug, listPublicRecipes } from "@/lib/store.ts";
+import { getRecipeBySlug } from "@/lib/store.ts";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  const recipes = await listPublicRecipes();
-  return recipes.map((r) => ({ slug: r.doc.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -37,7 +34,7 @@ export default async function RecipePage({ params }: Props) {
       </nav>
       <RecipeCard doc={recipe.doc} />
       <p className="license-note no-print">
-        {recipe.license}. Compiled by CookSpec;{" "}
+        {recipe.license ? `${recipe.license}. ` : ""}Compiled by CookSpec;{" "}
         <Link href="/">compile your own from any link</Link>.
       </p>
     </main>

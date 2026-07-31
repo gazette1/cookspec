@@ -20,6 +20,7 @@ create table public.recipes (
   ),
   source_platform text,
   creator_handle text,
+  slug text unique,
   dish_name text not null,
   recipe_json jsonb not null,
   is_public boolean not null default true,

@@ -82,6 +82,8 @@ export async function geminiGenerate(opts: {
         generationConfig: {
           maxOutputTokens: opts.maxTokens ?? 4000,
           temperature: 0.2,
+          // extraction is validation-gated; deep internal thinking only adds latency
+          thinkingConfig: { thinkingLevel: "low" },
           ...(opts.jsonOutput ? { responseMimeType: "application/json" } : {}),
         },
       }),
