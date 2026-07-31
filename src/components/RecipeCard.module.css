@@ -41,6 +41,11 @@
   color: var(--paper-2);
 }
 
+.tableScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -94,6 +99,33 @@
   color: inherit;
 }
 
+@media (max-width: 640px) {
+  .card {
+    padding: 14px 14px 12px;
+    border-radius: 12px;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .table {
+    font-size: 0.8125rem;
+  }
+
+  .table td {
+    padding: 5px 7px;
+  }
+
+  .ingredient {
+    min-width: 150px;
+  }
+
+  .step {
+    min-width: 48px;
+  }
+}
+
 @media print {
   .card {
     background: #fff;
@@ -101,5 +133,9 @@
     border-radius: 0;
     max-width: none;
     animation: none;
+  }
+
+  .tableScroll {
+    overflow-x: visible;
   }
 }

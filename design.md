@@ -44,7 +44,14 @@ Base 4px. Scale: 4, 8, 12, 16, 24, 32, 48, 64, 96. Page gutter 24. Content measu
 1. Paper on counter: the compiled card is cream paper with one soft shadow, 0 6px 24px rgba(0, 0, 0, 0.35), square-ruled table cells inside a 14px-radius sheet. Print CSS strips the counter and shadow entirely; the card must print clean on white.
 2. Compile stamp: correction footnote markers render in accent and are the only colored marks inside the paper, so the eye lands on what the validator changed.
 
-## Components
+## Mobile adaptation
+
+- Breakpoint: 640px for scale, 560px for form stacking. Spacing tightens one step (page gutter 16, card padding 14), display drops one step (h1 32px, card title 20px), body stays 16px.
+- The table never reflows and never loses columns: the notation is the product. On narrow screens the paper card keeps its width and the table scrolls horizontally inside the card (overflow-x auto on an inner wrapper, touch momentum on). The page body never scrolls horizontally.
+- Minimum legibility inside the scrolling table: ingredient cells at least 150px wide, step cells at least 48px, table font one step down.
+- Converter stacks: full-width input above a full-width pill button under 560px.
+- Library rows wrap: dish name on its own line, meta below, when the row cannot fit both.
+- Browser chrome color matches the counter (#14110C).
 
 - CTA button: solid #EFA352 pill, 14px sans 600, text #1A1408, no gradient, no glow.
 - Input: #201C15 surface, 1.5px #3A342A border, 10px radius, 16px text, placeholder #7D7668. Focus: border #EFA352.

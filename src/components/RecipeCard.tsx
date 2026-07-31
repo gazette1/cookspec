@@ -22,8 +22,9 @@ export function RecipeCard({ doc }: { doc: RecipeDoc }) {
         {doc.dish}
         {doc.inferred ? <span className={styles.inferredTag}> (inferred, unverified)</span> : null}
       </figcaption>
-      <table className={styles.table}>
-        <tbody>
+      <div className={styles.tableScroll}>
+        <table className={styles.table}>
+          <tbody>
           {doc.prepNotes.map((note) => (
             <tr key={note}>
               <td className={styles.prep} colSpan={layout.columns}>
@@ -49,8 +50,9 @@ export function RecipeCard({ doc }: { doc: RecipeDoc }) {
               )}
             </tr>
           ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
       {footnotes.length > 0 ? (
         <ol className={styles.footnotes}>
           {footnotes.map((i) => (
