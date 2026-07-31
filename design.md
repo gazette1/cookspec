@@ -448,6 +448,19 @@ Explicit refusals. These matter as much as the positive specs.
 
 ---
 
+## Amendments
+
+Revision B, 2026-07-31, from Russ after seeing revision A live: the wide view
+must never cut off horizontally. The merge table compresses to its container
+by construction (fixed table layout, proportional columns, wrapping operation
+labels) so the final dish column is always on screen at any width. Horizontal
+scroll inside the card remains only as a last-resort safety net and should
+never engage in practice. The pinned ingredient column rule becomes moot at
+desktop widths and stays for the safety net case. Step view remains the phone
+default.
+
+---
+
 ## Part 3. Reference implementation
 
 Saved at `reference/card.html`. Static merge table, no network, no framework.

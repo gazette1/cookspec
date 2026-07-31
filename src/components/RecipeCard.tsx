@@ -63,9 +63,9 @@ function QtyCell({ ing, filter, as: Tag = "td" }: { ing: Ingredient; filter: Fil
   const body = (
     <>
       {q.grams !== undefined ? (
-        <>
+        <span className={styles.num}>
           {q.grams} <span className={styles.u}>g</span>
-        </>
+        </span>
       ) : (
         q.display
       )}
@@ -228,6 +228,13 @@ export function RecipeCard({ doc, meta }: { doc: RecipeDoc; meta?: CardMeta }) {
 
       <div className={`${styles.scroller} ${view === "steps" ? styles.scrollerHidden : ""}`}>
         <table className={styles.table}>
+          <colgroup>
+            <col style={{ width: "21%" }} />
+            <col style={{ width: "13%" }} />
+            {Array.from({ length: opCols }, (_, c) => (
+              <col key={c} style={{ width: `${66 / Math.max(opCols, 1)}%` }} />
+            ))}
+          </colgroup>
           <thead>
             <tr>
               <th className={styles.ing} scope="col">

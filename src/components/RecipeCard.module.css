@@ -135,10 +135,12 @@
   display: none;
 }
 
+/* Revision B: fixed layout compresses to the container; the board never cuts
+   off and the scroller never engages in practice. */
 .table {
   border-collapse: collapse;
   width: 100%;
-  min-width: 760px;
+  table-layout: fixed;
 }
 
 .table th,
@@ -171,7 +173,7 @@ th.ing {
   background: var(--cream);
   font-family: var(--font-serif);
   font-size: 15px;
-  min-width: 190px;
+  overflow-wrap: break-word;
 }
 
 .qty {
@@ -179,8 +181,11 @@ th.ing {
   font-size: 13px;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  overflow-wrap: break-word;
+}
+
+.num {
   white-space: nowrap;
-  min-width: 120px;
 }
 
 .u {
@@ -196,7 +201,7 @@ th.ing {
 .op {
   border-left: 2px solid var(--rule-heavy);
   vertical-align: middle;
-  min-width: 150px;
+  overflow-wrap: break-word;
 }
 
 .opEmpty {
@@ -470,10 +475,6 @@ th.ing {
 
   .scroller {
     overflow-x: visible;
-  }
-
-  .table {
-    min-width: 0;
   }
 
   td.ing,
