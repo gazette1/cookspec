@@ -19,7 +19,7 @@ export interface ArticleContent {
   text?: string;
 }
 
-const BROWSER_UA =
+export const BROWSER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36";
 
 const PRIVATE_HOST = /^(localhost|127\.|10\.|192\.168\.|169\.254\.|0\.|\[::1\]|.*\.local)$|^172\.(1[6-9]|2\d|3[01])\./i;

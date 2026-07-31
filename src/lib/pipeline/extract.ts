@@ -45,6 +45,7 @@ Rules:
 - Divided use: if an ingredient goes into more than one step ("1 tsp salt, divided"), create a separate ingredient entry per use (salt_for_chicken, salt_for_sauce) with the portion each step actually gets; if the source does not state the split, give your best split and set estimated true on those qty objects.
 - prepNotes: zero to three short whole-recipe preparations that happen before the table (pan prep, oven preheat).
 - Do not invent ingredients. Do not drop any ingredient the source lists.
+- If the source marks a quantity as not stated, do not echo "not stated": put your typical value for this dish in text ("about 1 lb") and set estimated true.
 
 Output JSON with keys: dish, servings, prepNotes, ingredients, steps.`;
 

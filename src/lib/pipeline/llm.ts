@@ -71,7 +71,7 @@ export async function geminiGenerate(opts: {
   jsonOutput?: boolean;
   maxTokens?: number;
 }): Promise<LlmResult> {
-  const model = opts.model ?? "gemini-2.5-flash";
+  const model = opts.model ?? "gemini-flash-latest";
   const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(opts.apiKey)}`,
     {
