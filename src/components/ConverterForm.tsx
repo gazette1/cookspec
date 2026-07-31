@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { RecipeDoc } from "@/lib/recipe/types.ts";
 import { RecipeCard } from "./RecipeCard";
 
@@ -15,21 +15,40 @@ interface CompileMeta {
 
 export function ConverterForm({ demo }: { demo: RecipeDoc }) {
   const [input, setInput] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [dishHint, setDishHint] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [doc, setDoc] = useState<RecipeDoc | null>(null);
   const [meta, setMeta] = useState<CompileMeta | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  const ready = file !== null || input.trim().length >= 4;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (busy || input.trim().length < 4) return;
+    if (busy || !ready) return;
     setBusy(true);
     setError(null);
     try {
+      let body: Record<string, string>;
+      if (file) {
+        const dataUrl = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as string);
+          reader.onerror = () => reject(reader.error);
+          reader.readAsDataURL(file);
+        });
+        const base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
+        body = { image: base64, mimeType: file.type || "image/jpeg" };
+        if (dishHint.trim()) body.dishHint = dishHint.trim();
+      } else {
+        body = { input };
+      }
       const res = await fetch("/api/compile", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ input }),
+        body: JSON.stringify(body),
       });
       const data = (await res.json()) as { doc?: RecipeDoc; meta?: CompileMeta; error?: string };
       if (!res.ok || !data.doc) {
@@ -54,12 +73,49 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="https://www.tiktok.com/@creator/video/... or paste the recipe text"
           aria-label="recipe link or text"
-          disabled={busy}
+          disabled={busy || file !== null}
         />
-        <button type="submit" disabled={busy || input.trim().length < 4}>
+        <button type="submit" disabled={busy || !ready}>
           {busy ? "Compiling" : "Compile"}
         </button>
       </form>
+      <div className="image-row">
+        <label className="image-pick">
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            disabled={busy}
+            onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+          />
+          {file ? `photo: ${file.name}` : "or upload a photo of a recipe or a dish"}
+        </label>
+        {file ? (
+          <>
+            <input
+              type="text"
+              className="hint-input"
+              value={dishHint}
+              onChange={(e) => setDishHint(e.target.value)}
+              placeholder="what is this? (optional, helps dish photos)"
+              aria-label="dish name hint"
+              disabled={busy}
+            />
+            <button
+              type="button"
+              className="clear-file"
+              disabled={busy}
+              onClick={() => {
+                setFile(null);
+                setDishHint("");
+                if (fileRef.current) fileRef.current.value = "";
+              }}
+            >
+              clear
+            </button>
+          </>
+        ) : null}
+      </div>
       {error ? <p className="compile-error">{error}</p> : null}
       {doc ? (
         <>
@@ -74,9 +130,9 @@ export function ConverterForm({ demo }: { demo: RecipeDoc }) {
       ) : (
         <>
           <p className="build-note">
-            Article links and pasted text compile live today; video links are being wired. The demo
-            card below is the exemplar that started the project, including two gram values the unit
-            validator corrected.
+            Article links, TikTok, YouTube, pasted text, and photos compile live today; Instagram
+            Reels are being wired. The demo card below is the exemplar that started the project,
+            including two gram values the unit validator corrected.
           </p>
           <RecipeCard doc={demo} />
         </>

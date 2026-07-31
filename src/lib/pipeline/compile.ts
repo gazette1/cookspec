@@ -53,6 +53,54 @@ export async function compile(input: string, env: CompileEnv): Promise<CompileRe
   }
 }
 
+// Image upload: recipe screenshots, cookbook pages, or plated-dish photos.
+// Gemini reports whether the image contains recipe text or only a dish; dish
+// photos produce a generated recipe flagged inferred, keyed to the user's
+// name-the-dish hint when given.
+export async function compileImage(
+  image: { base64: string; mimeType: string; dishHint?: string },
+  env: CompileEnv,
+): Promise<CompileResult> {
+  const started = Date.now();
+  if (!env.geminiKey) throw new Error("server is missing GEMINI_API_KEY for image sources");
+
+  const look = await geminiGenerate({
+    apiKey: env.geminiKey,
+    parts: [
+      { inlineData: { mimeType: image.mimeType, data: image.base64 } },
+      {
+        text: `Look at this image.${image.dishHint ? ` The user says it shows: ${image.dishHint}.` : ""}\n\nIf it contains recipe text (a screenshot, cookbook page, or app screen), start your reply with RECIPE_TEXT on its own line, then transcribe the recipe faithfully and completely: dish, every ingredient with its stated quantity, and the instructions in order. Mark anything unreadable "not stated".\n\nIf it shows only prepared food with no recipe text, start your reply with DISH_PHOTO on its own line, name the dish${image.dishHint ? " (trust the user's name unless the photo clearly contradicts it)" : ""}, then write a standard recipe for it: typical ingredients with typical quantities and the usual operations in order.`,
+      },
+    ],
+  });
+
+  const isDishPhoto = /^\s*DISH_PHOTO/m.test(look.content.slice(0, 200));
+  const material = look.content.replace(/^\s*(RECIPE_TEXT|DISH_PHOTO)\s*/m, "").slice(0, 16000);
+
+  const { doc, meta } = await extractRecipe({
+    apiKey: env.deepseekKey,
+    sourceMaterial: isDishPhoto
+      ? `Convert this generated standard recipe (from a dish photo, quantities are typical values):\n\n${material}`
+      : `Convert this recipe transcribed from an image:\n\n${material}`,
+    inferred: isDishPhoto,
+  });
+
+  return {
+    doc,
+    meta: {
+      ...meta,
+      model: `${look.model} + ${meta.model}`,
+      usage: {
+        inputTokens: meta.usage.inputTokens + look.usage.inputTokens,
+        outputTokens: meta.usage.outputTokens + look.usage.outputTokens,
+        costUsd: meta.usage.costUsd + look.usage.costUsd,
+      },
+      sourceType: isDishPhoto ? "dish_photo" : "image",
+      elapsedMs: Date.now() - started,
+    },
+  };
+}
+
 function bytesToBase64(bytes: Uint8Array): string {
   if (typeof Buffer !== "undefined") return Buffer.from(bytes).toString("base64");
   let bin = "";
