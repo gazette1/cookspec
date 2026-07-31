@@ -1,0 +1,141 @@
+/* Theme: applying design.md (counter, surface, honey accent, paper card) */
+
+:root {
+  --counter: #14110c;
+  --surface: #201c15;
+  --surface-border: #3a342a;
+  --text: #f4efe6;
+  --text-2: #a69f92;
+  --placeholder: #7d7668;
+  --accent: #efa352;
+  --accent-hover: #d98d3f;
+  --on-accent: #1a1408;
+  --paper: #fbf6e3;
+  --ink: #26231b;
+  --paper-2: #5c5648;
+  --marker: #b8722c;
+  --font-serif: Charter, "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-sans: "Segoe UI", "Avenir Next", system-ui, sans-serif;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--counter);
+  font: 16px/1.55 var(--font-sans);
+}
+
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 2.5rem;
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+
+.tagline {
+  max-width: 620px;
+  margin: 0 0 24px;
+  font-size: 1.125rem;
+  color: var(--text-2);
+}
+
+.input-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.input-chips li {
+  font-size: 0.875rem;
+  color: var(--text-2);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 999px;
+  padding: 5px 14px;
+}
+
+.converter {
+  display: flex;
+  gap: 10px;
+  max-width: 620px;
+  margin-bottom: 12px;
+}
+
+.converter input {
+  flex: 1;
+  font: 16px/1.4 var(--font-sans);
+  padding: 11px 14px;
+  border: 1.5px solid var(--surface-border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color 150ms var(--ease);
+}
+
+.converter input::placeholder {
+  color: var(--placeholder);
+}
+
+.converter input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.converter button {
+  font: 600 0.875rem/1 var(--font-sans);
+  padding: 0 22px;
+  border: none;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  cursor: pointer;
+  transition: background-color 150ms var(--ease);
+}
+
+.converter button:hover:enabled {
+  background: var(--accent-hover);
+}
+
+.converter input:disabled,
+.converter button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.build-note {
+  font-size: 0.8125rem;
+  color: var(--text-2);
+  margin: 0 0 40px;
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .converter,
+  .input-chips,
+  .build-note {
+    display: none;
+  }
+}

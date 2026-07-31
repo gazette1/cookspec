@@ -1,0 +1,15 @@
+{
+  "description": "Benchmark links Russ picked on 2026-07-30. Every extraction pipeline change is measured against these ten before it ships.",
+  "entries": [
+    { "id": "tt-1", "url": "https://www.tiktok.com/t/ZP8tcHNQo/", "notes": "dish unknown until fetched" },
+    { "id": "tt-2", "url": "https://www.tiktok.com/t/ZP8tcUCs8/", "notes": "dish unknown until fetched" },
+    { "id": "tt-3", "url": "https://www.tiktok.com/t/ZP8tcXXKu/", "notes": "dish unknown until fetched" },
+    { "id": "ig-1", "url": "https://www.instagram.com/reel/DaDh4o8PFvG/?igsh=MWZvb2VjcWgwdzV0MQ==", "notes": "dish unknown until fetched" },
+    { "id": "ig-2", "url": "https://www.instagram.com/reel/DSvLer9kp1t/?igsh=MTY3Z3A4dnFkNHhwNA==", "notes": "dish unknown until fetched" },
+    { "id": "ig-3", "url": "https://www.instagram.com/reel/DZ8C0bJuz8-/?igsh=MWppeGNuYm94aWZkbQ==", "notes": "dish unknown until fetched" },
+    { "id": "yt-1", "url": "https://youtube.com/shorts/DY-zJUTHBW0?is=z4mDpZAaMI06hzRZ", "notes": "dish unknown until fetched" },
+    { "id": "yt-2", "url": "https://youtube.com/shorts/AdrDNhsh9Iw?is=g8BrGOFAtizTD6pR", "notes": "dish unknown until fetched" },
+    { "id": "art-1", "url": "https://www.tamingtwins.com/marry-me-chicken/", "notes": "marry me chicken, long-form blog with story preamble" },
+    { "id": "art-2", "url": "https://www.thekitchn.com/tuscan-chicken-recipe-23624913", "notes": "tuscan chicken, editorial recipe page" }
+  ]
+}
