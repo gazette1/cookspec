@@ -33,6 +33,19 @@ interface RawExtraction {
   steps: RawStep[];
   /** Media paths set this when the source shows a dish but no recipe text */
   inferredGuess?: boolean;
+  /** Set when the source is a roundup, an explainer, or otherwise not one recipe */
+  notARecipe?: boolean;
+  reason?: string;
+}
+
+/** Thrown when the source genuinely is not a recipe. Terminal: retrying only
+ *  pressures the model into inventing something. */
+export class NotARecipeError extends Error {
+  readonly terminal = true;
+  constructor(reason: string) {
+    super(reason);
+    this.name = "NotARecipeError";
+  }
 }
 
 export const STRUCTURING_RULES = `You convert recipes into a strict machine-readable DAG for the Cooking for Engineers table notation. Output only JSON.
@@ -48,8 +61,62 @@ Rules:
 - prepNotes: zero to three short whole-recipe preparations that happen before the table (pan prep, oven preheat).
 - Do not invent ingredients. Do not drop any ingredient the source lists.
 - If the source marks a quantity as not stated, do not echo "not stated": put your typical value for this dish in text ("about 1 lb") and set estimated true.
+- Teach the dish from raw ingredients. If the source names a component in a form the cook has to produce ("cooked rice", "cooked pasta", "boiled potatoes", "cooked beans" from dry, "leftover chicken"), list the raw ingredient instead and add the operation that produces it, with its method and time. Keep the prepared form as a plain ingredient when it is something people buy that way: rotisserie chicken, canned or jarred goods, toasted sesame oil, roasted red peppers, store-bought crust, smoked or cured meats. Knife work and simple handling (chopped, diced, sliced, minced, grated, melted, drained) stays on the ingredient line without its own operation.
+- When you add a preparation the source did not spell out, use standard method and timing for that ingredient and set estimated true on its qty.
+- Every operation that applies heat carries a time, a temperature, or a doneness cue in its label. "cook rice" is not acceptable. "simmer covered 18 min", "bake 375°F, 25 min", "sear until browned, 3 min per side" are. If the source gives no timing, use standard timing for that technique.
+
+If the source does not contain one complete recipe, do not invent one. This covers roundups and lists of several recipes, technique or explainer articles, product and category pages, and blurbs that only describe a dish. In that case output exactly {"notARecipe": true, "reason": "<short reason>"} and nothing else.
 
 Output JSON with keys: dish, servings, prepNotes, ingredients, steps.`;
+
+// Staples that are inedible until cooked. If one of these is on the card in
+// raw form, some operation has to cook it, or the card is not a recipe you
+// can follow. Prompt wording alone gets this right most of the time; this
+// turns it into a gate the repair loop can act on.
+const MUST_COOK: { match: RegExp; not: RegExp }[] = [
+  { match: /\b(rice)\b/, not: /(vinegar|flour|paper|wine|milk|noodle|krispies|cooked|syrup|powder)/ },
+  { match: /\b(pasta|spaghetti|macaroni|penne|linguine|fettuccine|lasagna noodles|egg noodles)\b/, not: /(sauce|salad dressing|cooked)/ },
+  { match: /\b(dried|dry)\s+(beans|lentils|chickpeas|peas)\b/, not: /(canned|cooked)/ },
+  { match: /\b(quinoa|pearl barley|farro|bulgur)\b/, not: /cooked/ },
+  { match: /\braw\s+(chicken|beef|pork|turkey|shrimp|fish)\b/, not: /(broth|stock|bouillon)/ },
+  { match: /\b(chicken (breasts?|thighs?|wings?)|ground (beef|turkey|pork)|pork (chops?|shoulder)|steak)\b/, not: /(broth|stock|bouillon|cooked|rotisserie|deli|smoked|cured)/ },
+  { match: /\b(potatoes)\b/, not: /(chips|crisps|flakes|starch|cooked|salad)/ },
+];
+
+const COOK_VERB = /\b(cook|bake|boil|simmer|steam|roast|fry|sear|grill|saute|sauté|braise|poach|broil|pressure|air.fry|microwave|toast|heat|warm|stir.fry|blanch)/i;
+
+/** Every downstream operation label reachable from an ingredient. */
+function downstreamLabels(doc: RecipeDoc, ingredientId: string): string {
+  const labels: string[] = [];
+  const seen = new Set<string>();
+  let frontier = doc.steps.filter((s) => s.inputs.includes(ingredientId)).map((s) => s.id);
+  while (frontier.length > 0) {
+    const next: string[] = [];
+    for (const id of frontier) {
+      if (seen.has(id)) continue;
+      seen.add(id);
+      const step = doc.steps.find((s) => s.id === id);
+      if (!step) continue;
+      labels.push(step.label);
+      for (const s of doc.steps) if (s.inputs.includes(id)) next.push(s.id);
+    }
+    frontier = next;
+  }
+  return labels.join(" ");
+}
+
+export function validateRawStaplesCooked(doc: RecipeDoc): string | null {
+  for (const ing of doc.ingredients) {
+    const name = ing.name.toLowerCase();
+    const rule = MUST_COOK.find((r) => r.match.test(name) && !r.not.test(name));
+    if (!rule) continue;
+    const chain = downstreamLabels(doc, ing.id) + " " + doc.prepNotes.join(" ");
+    if (!COOK_VERB.test(chain)) {
+      return `"${ing.name}" has to be cooked before it can be eaten, but no operation cooks it. Add the operation that cooks it, with its method and time, and keep it in the merge`;
+    }
+  }
+  return null;
+}
 
 export function validateDag(doc: RecipeDoc): string | null {
   const consumers = new Map<string, string[]>();
@@ -191,6 +258,12 @@ export function finalizeExtraction(
   } catch {
     throw new Error("output was not valid JSON");
   }
+  if (raw.notARecipe === true) {
+    const why = raw.reason?.trim();
+    throw new NotARecipeError(
+      `${why ? `This source is not a single recipe: ${why}.` : "This source is not a single recipe."} Paste a link to one recipe.`,
+    );
+  }
   if (!raw.dish || !Array.isArray(raw.ingredients) || !Array.isArray(raw.steps) || raw.steps.length === 0) {
     throw new Error("missing dish, ingredients, or steps");
   }
@@ -210,6 +283,8 @@ export function finalizeExtraction(
   const doc = toRecipeDoc(splitDividedIngredients(raw), slugify(raw.dish), opts.source, inferred);
   const dagError = validateDag(doc);
   if (dagError !== null) throw new Error(dagError);
+  const rawError = validateRawStaplesCooked(doc);
+  if (rawError !== null) throw new Error(rawError);
   return doc;
 }
 
@@ -251,6 +326,7 @@ export async function extractRecipe(opts: {
       const doc = finalizeExtraction(result.content, { source: opts.source, inferred: opts.inferred });
       return { doc, meta: { model: modelsUsed.join(" + "), attempts, usage } };
     } catch (err) {
+      if (err instanceof NotARecipeError) throw err;
       lastError = err instanceof Error ? err.message : String(err);
       user = `${opts.sourceMaterial}\n\nYour previous JSON failed validation: ${lastError}. ${REPAIR_REMINDER}`;
     }

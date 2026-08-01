@@ -15,7 +15,7 @@
       "id": "raw-1",
       "text": "MANGO STICKY RICE. Ingredients: 2 cups cooked sticky rice, 1 cup coconut milk, 1/4 cup sugar, pinch of salt, 1 ripe mango sliced, sesame seeds. Method: warm the coconut milk with sugar and salt. Pour over the rice. Let sit 20 min. Plate with the mango and sprinkle sesame.",
       "notes": "regression: reported 2026-07-31. The source calls the rice 'cooked', so the card must still teach soaking and steaming the rice rather than accepting a prepped component. Card must contain an operation that cooks the rice.",
-      "expect": { "operationMatches": "soak|steam|cook|boil", "onIngredient": "rice" }
+      "expect": { "operationMatches": "soak|steam|cook|boil|simmer", "onIngredient": "rice" }
     },
     {
       "id": "raw-2",

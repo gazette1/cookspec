@@ -453,6 +453,26 @@ Explicit refusals. These matter as much as the positive specs.
 Revision B, 2026-07-31, from Russ after seeing revision A live: the wide view
 must never cut off horizontally.
 
+Revision D, 2026-07-31, from a 1000-item scale eval run after a real user
+compiled a sticky rice recipe and got a card that assumed the rice and mango
+were already prepared. Three rules added to extraction, each measured:
+
+1. Teach from raw. A component the cook has to produce ("cooked rice",
+   "cooked pasta", "boiled potatoes") is listed raw with the operation that
+   produces it. A component people buy prepared (rotisserie chicken, canned
+   goods, toasted sesame oil, roasted red peppers, store-bought crust) stays
+   an ingredient, because "teaching" someone to roast their own red peppers
+   is worse than the source, not better. Enforced by a gate, not just prompt
+   wording: a must-cook staple with no operation cooking it fails validation
+   and goes back through the repair loop.
+2. Heat carries timing. Any operation applying heat states a time, a
+   temperature, or a doneness cue.
+3. Refuse rather than invent. When the source is a roundup, a technique
+   article, a category page, or a blurb, extraction returns notARecipe and
+   the product says so instead of fabricating a recipe. This closes the worst
+   defect the eval found, which was silent invention presented as extraction,
+   in direct violation of Part 1 section 7.
+
 Revision C, 2026-07-31, from Russ correcting revision B: do not compress the
 columns to fit. The board keeps its natural proportions and the whole table
 scales down uniformly until it fits the card, like a drawing reduced onto the

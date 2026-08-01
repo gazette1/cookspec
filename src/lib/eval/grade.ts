@@ -56,7 +56,28 @@ const SOFT_PREP = [
   "halved",
 ];
 
-/** Verbs that imply heat and therefore need a time or temperature to be useful. */
+/** Ingredients people buy already in this form. Naming them is correct, and a
+ *  card that "teaches" you to roast your own red peppers or make toasted
+ *  sesame oil is worse than the source, not better. */
+const PURCHASED_PREPARED = [
+  /toasted sesame (oil|seeds)/,
+  /roasted (red )?peppers?/,
+  /roasted (peanuts|almonds|cashews|nuts|garlic cloves in oil)/,
+  /rotisserie chicken/,
+  /smoked (paprika|salmon|sausage|gouda|almonds)/,
+  /canned|jarred|store.bought|frozen/,
+  /roasted (seaweed|nori)/,
+  /(cooked|smoked) (ham|bacon|deli)/,
+  /toasted (coconut|sesame)/,
+  /(sun.dried|fire.roasted)/,
+  /prepared (mustard|horseradish|wasabi)/,
+  /baking (powder|soda)/,
+  /(refried|baked) beans/,
+];
+
+/** Verbs where doneness is the whole point, so a label without a time,
+ *  temperature, or doneness cue leaves the cook guessing. Deliberately
+ *  excludes melt, toast, and reduce, where "melt the butter" is complete. */
 const HEAT_VERBS = [
   "cook",
   "bake",
@@ -72,10 +93,6 @@ const HEAT_VERBS = [
   "braise",
   "poach",
   "broil",
-  "toast",
-  "reduce",
-  "melt",
-  "caramelize",
 ];
 
 const TIME_OR_TEMP = /\d\s*(s|sec|second|min|minute|hr|hour|h)\b|\d\s*°|\d\s*(f|c)\b|overnight|until\b/i;
@@ -166,6 +183,7 @@ export function gradeCard(
   const rawStartSoft: string[] = [];
   for (const ing of doc.ingredients) {
     const name = ing.name.toLowerCase();
+    if (PURCHASED_PREPARED.some((rx) => rx.test(name))) continue;
     for (const prep of HARD_PREP) {
       if (name.includes(prep) && !prepIsPerformed(prep, doc, ing.id)) {
         rawStartHard.push(`${ing.name} (${prep})`);

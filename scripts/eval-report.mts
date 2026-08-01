@@ -53,6 +53,7 @@ interface Stats {
   rawStartHard: number;
   rawStartSoft: number;
   vagueOps: number;
+  placeholder: number;
   wideBoards: number;
   meanUnresolved: number;
   meanCoverage: number | null;
@@ -82,6 +83,9 @@ function stats(rows: Row[]): Stats {
     rawStartHard: grades.filter((g) => g.rawStartHard.length > 0).length,
     rawStartSoft: grades.filter((g) => g.rawStartSoft.length > 0).length,
     vagueOps: grades.filter((g) => g.vagueOps.length > 0).length,
+    // a card with two or fewer ingredients is almost always a non-recipe page
+    // that produced a placeholder rather than a refusal
+    placeholder: grades.filter((g) => g.ingredients <= 2).length,
     wideBoards: grades.filter((g) => g.columns > 8).length,
     meanUnresolved: mean(grades.map((g) => g.unresolvedRate)),
     meanCoverage: cov.length ? mean(cov) : null,
@@ -106,6 +110,7 @@ function line(label: string, s: Stats): string {
     pct(s.compiled, s.n).padStart(8),
     pct(s.rawStartHard, s.compiled).padStart(9),
     pct(s.vagueOps, s.compiled).padStart(9),
+    pct(s.placeholder, s.compiled).padStart(8),
     (s.meanCoverage === null ? "n/a" : pct(s.meanCoverage, 1)).padStart(9),
     pct(s.meanUnresolved, 1).padStart(9),
     s.meanCols.toFixed(1).padStart(6),
@@ -123,12 +128,12 @@ const out: string[] = [];
 out.push(`SCALE EVAL: ${tag}`);
 out.push("");
 out.push(
-  ["channel".padEnd(12), "n".padStart(5), "compiled".padStart(8), "rawStart".padStart(9), "vagueOp".padStart(9), "coverage".padStart(9), "unresolv".padStart(9), "cols".padStart(6), "secs".padStart(7), "complete".padStart(7), "judgeRaw".padStart(9)].join(" "),
+  ["channel".padEnd(12), "n".padStart(5), "compiled".padStart(8), "rawStart".padStart(9), "vagueOp".padStart(9), "placehld".padStart(8), "coverage".padStart(9), "unresolv".padStart(9), "cols".padStart(6), "secs".padStart(7), "complete".padStart(7), "judgeRaw".padStart(9)].join(" "),
 );
-out.push("-".repeat(100));
+out.push("-".repeat(110));
 const channels = [...new Set(rows.map((r) => r.channel))].sort();
 for (const ch of channels) out.push(line(ch, stats(rows.filter((r) => r.channel === ch))));
-out.push("-".repeat(100));
+out.push("-".repeat(110));
 out.push(line("ALL", overall));
 out.push("");
 out.push(`compiled ${overall.compiled}/${overall.n}, failed ${overall.failed}, retries ${pct(overall.retryRate, 1)}`);
@@ -201,6 +206,7 @@ if (compare) {
   out.push(`  compiled           ${pct(prev.compiled, prev.n)} -> ${pct(overall.compiled, overall.n)}`);
   out.push(`  rawStart failures  ${pct(prev.rawStartHard, prev.compiled)} -> ${pct(overall.rawStartHard, overall.compiled)}`);
   out.push(`  vague operations   ${pct(prev.vagueOps, prev.compiled)} -> ${pct(overall.vagueOps, overall.compiled)}`);
+  out.push(`  placeholder cards  ${pct(prev.placeholder, prev.compiled)} -> ${pct(overall.placeholder, overall.compiled)}`);
   out.push(`  coverage           ${prev.meanCoverage === null ? "n/a" : pct(prev.meanCoverage, 1)} -> ${overall.meanCoverage === null ? "n/a" : pct(overall.meanCoverage, 1)}`);
   if (prev.judged && overall.judged) {
     out.push(`  judge completeness ${d(prev.judgeCompleteness, overall.judgeCompleteness)}`);
