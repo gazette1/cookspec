@@ -10,6 +10,18 @@
     { "id": "yt-1", "url": "https://youtube.com/shorts/DY-zJUTHBW0?is=z4mDpZAaMI06hzRZ", "notes": "dish unknown until fetched" },
     { "id": "yt-2", "url": "https://youtube.com/shorts/AdrDNhsh9Iw?is=g8BrGOFAtizTD6pR", "notes": "dish unknown until fetched" },
     { "id": "art-1", "url": "https://www.tamingtwins.com/marry-me-chicken/", "notes": "marry me chicken, long-form blog with story preamble" },
-    { "id": "art-2", "url": "https://www.thekitchn.com/tuscan-chicken-recipe-23624913", "notes": "tuscan chicken, editorial recipe page" }
+    { "id": "art-2", "url": "https://www.thekitchn.com/tuscan-chicken-recipe-23624913", "notes": "tuscan chicken, editorial recipe page" },
+    {
+      "id": "raw-1",
+      "text": "MANGO STICKY RICE. Ingredients: 2 cups cooked sticky rice, 1 cup coconut milk, 1/4 cup sugar, pinch of salt, 1 ripe mango sliced, sesame seeds. Method: warm the coconut milk with sugar and salt. Pour over the rice. Let sit 20 min. Plate with the mango and sprinkle sesame.",
+      "notes": "regression: reported 2026-07-31. The source calls the rice 'cooked', so the card must still teach soaking and steaming the rice rather than accepting a prepped component. Card must contain an operation that cooks the rice.",
+      "expect": { "operationMatches": "soak|steam|cook|boil", "onIngredient": "rice" }
+    },
+    {
+      "id": "raw-2",
+      "text": "Weeknight chicken and rice bowl: 2 cups cooked jasmine rice, 1 lb shredded rotisserie chicken, 2 tbsp soy sauce, 1 tbsp sesame oil, 2 scallions sliced, 1 tsp chili crisp. Toss everything together and serve warm.",
+      "notes": "regression: two prepped components in one source (cooked rice, shredded rotisserie chicken). The card must teach both, or flag them, rather than assuming a stocked fridge.",
+      "expect": { "operationMatches": "cook|simmer|steam|roast|poach|shred", "onIngredient": "rice" }
+    }
   ]
 }

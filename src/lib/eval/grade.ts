@@ -198,14 +198,25 @@ export function gradeCard(
   let missingIngredients: string[] = [];
   let coverage: number | null = null;
   if (groundTruthIngredients && groundTruthIngredients.length > 0) {
-    const cardSets = doc.ingredients.map((i) => contentWords(i.name));
+    // Source lines carry brand asides and prep clauses ("1 cup sugar (I used
+    // organic cane sugar)") that swamp a naive overlap test and make correct
+    // cards look lossy. Compare against the substantive part of the line, and
+    // treat a card ingredient as present when its head noun appears there.
+    const cards = doc.ingredients.map((i) => {
+      const w = words(i.name).filter((x) => !STOP.has(x));
+      return { set: contentWords(i.name), head: w[w.length - 1] ?? "" };
+    });
     missingIngredients = groundTruthIngredients.filter((line) => {
-      const want = contentWords(line);
-      if (want.size === 0) return false;
-      return !cardSets.some((have) => {
+      const core = line.replace(/\([^)]*\)/g, " ").split(/,/)[0];
+      const want = contentWords(core);
+      const wantFull = contentWords(line);
+      if (want.size === 0 && wantFull.size === 0) return false;
+      return !cards.some((c) => {
+        if (c.head && (want.has(c.head) || wantFull.has(c.head))) return true;
         let hits = 0;
-        for (const w of want) if (have.has(w)) hits += 1;
-        return hits >= 1 && hits / want.size >= 0.34;
+        for (const w of want) if (c.set.has(w)) hits += 1;
+        if (hits >= 2) return true;
+        return want.size > 0 && hits / want.size >= 0.5;
       });
     });
     coverage = 1 - missingIngredients.length / groundTruthIngredients.length;

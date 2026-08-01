@@ -14,6 +14,7 @@ import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } fr
 import { compile } from "../src/lib/pipeline/compile.ts";
 import { gradeCard, type CardGrade } from "../src/lib/eval/grade.ts";
 import { judgeCard, type JudgeVerdict } from "../src/lib/eval/judge.ts";
+import type { RecipeDoc } from "../src/lib/recipe/types.ts";
 
 function loadEnv(): Record<string, string> {
   const out: Record<string, string> = {};
@@ -62,6 +63,9 @@ interface Row {
   costUsd?: number;
   grade?: CardGrade;
   judge?: JudgeVerdict;
+  /** Stored so metric changes can be re-scored without paying to recompile */
+  doc?: RecipeDoc;
+  groundTruth?: string[];
 }
 
 const corpus = JSON.parse(readFileSync(new URL(`../eval/${CORPUS}`, import.meta.url), "utf8")) as {
@@ -112,6 +116,8 @@ async function runOne(item: CorpusItem): Promise<void> {
     row.costUsd = meta.usage.costUsd;
     spent += meta.usage.costUsd;
     row.grade = gradeCard(doc, meta.groundTruthIngredients);
+    row.doc = doc;
+    row.groundTruth = meta.groundTruthIngredients;
 
     if (USE_JUDGE && env.MOONSHOT_API_KEY && Math.random() < JUDGE_RATE) {
       try {

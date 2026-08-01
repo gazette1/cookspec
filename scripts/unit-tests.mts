@@ -5,6 +5,7 @@ import { canonicalizeUrl } from "../src/lib/recipe/canonical.ts";
 import { layoutRecipe } from "../src/lib/recipe/layout.ts";
 import { validateQuantity } from "../src/lib/recipe/validate.ts";
 import { extractJsonLdRecipe } from "../src/lib/pipeline/article.ts";
+import { gradeCard } from "../src/lib/eval/grade.ts";
 import { brownies } from "../src/lib/recipe/fixtures/brownies.ts";
 
 let failures = 0;
@@ -109,6 +110,75 @@ check(
     }
   })(),
   "threw",
+);
+
+// eval grader: the raw-start detector is a headline metric, so it gets tests
+const q = (display: string) => ({ display, provenance: "stated" as const });
+const assumedDoc = {
+  slug: "x",
+  dish: "Bowl",
+  prepNotes: [],
+  ingredients: [
+    { id: "rice", name: "cooked jasmine rice", quantity: q("2 cups") },
+    { id: "onion", name: "chopped onion", quantity: q("1") },
+  ],
+  steps: [{ id: "toss", label: "toss together and serve", inputs: ["rice", "onion"] }],
+};
+const assumedGrade = gradeCard(assumedDoc);
+check(
+  "raw-start flags a cooked ingredient no operation makes",
+  assumedGrade.rawStartHard.length,
+  1,
+);
+check("raw-start treats chopped as soft, not hard", assumedGrade.rawStartSoft.length, 1);
+
+const taughtDoc = {
+  ...assumedDoc,
+  ingredients: [
+    { id: "rice", name: "cooked jasmine rice", quantity: q("2 cups") },
+    { id: "onion", name: "onion", quantity: q("1") },
+  ],
+  steps: [
+    { id: "cook", label: "cook rice, simmer covered 18 min", inputs: ["rice"] },
+    { id: "toss", label: "toss together and serve", inputs: ["cook", "onion"] },
+  ],
+};
+check("raw-start clears when an operation performs it", gradeCard(taughtDoc).rawStartHard.length, 0);
+
+check(
+  "vague heat operation detected",
+  gradeCard({
+    ...assumedDoc,
+    ingredients: [{ id: "rice", name: "rice", quantity: q("2 cups") }],
+    steps: [{ id: "c", label: "cook rice", inputs: ["rice"] }],
+  }).vagueOps.length,
+  1,
+);
+check(
+  "heat operation with a time passes",
+  gradeCard({
+    ...assumedDoc,
+    ingredients: [{ id: "rice", name: "rice", quantity: q("2 cups") }],
+    steps: [{ id: "c", label: "simmer covered 18 min", inputs: ["rice"] }],
+  }).vagueOps.length,
+  0,
+);
+
+// coverage must not punish parenthetical brand asides
+check(
+  "coverage ignores brand asides and prep clauses",
+  gradeCard(
+    {
+      ...assumedDoc,
+      ingredients: [
+        { id: "sugar", name: "sugar", quantity: q("1 cup") },
+        { id: "berries", name: "blueberries", quantity: q("1 cup") },
+      ],
+      steps: [{ id: "mix", label: "mix 2 min", inputs: ["sugar", "berries"] }],
+    },
+    ["1 cup sugar (I used organic cane sugar)", "1 cup fresh or frozen blueberries (if frozen, do not defrost!)"],
+  ).coverage,
+  1,
 );
 
 // JSON-LD parser
