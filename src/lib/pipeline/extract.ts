@@ -65,7 +65,11 @@ Rules:
 - When you add a preparation the source did not spell out, use standard method and timing for that ingredient and set estimated true on its qty.
 - Every operation that applies heat carries a time, a temperature, or a doneness cue in its label. "cook rice" is not acceptable. "simmer covered 18 min", "bake 375°F, 25 min", "sear until browned, 3 min per side" are. If the source gives no timing, use standard timing for that technique.
 
-If the source does not contain one complete recipe, do not invent one. This covers roundups and lists of several recipes, technique or explainer articles, product and category pages, and blurbs that only describe a dish. In that case output exactly {"notARecipe": true, "reason": "<short reason>"} and nothing else.
+If the source is not a recipe at all, do not invent one. That means roundups and lists of several different dishes, technique or explainer articles, product and category pages, event or promo posts, and blurbs that only describe a dish without teaching it. In that case output exactly {"notARecipe": true, "reason": "<short reason>"} and nothing else.
+
+Two things that are still one recipe, so never refuse them:
+- A recipe offering alternate methods for the same dish (oven or air fryer, slow cooker or pressure cooker). Build the card on the primary method and put the alternative in prepNotes.
+- A video caption, transcript, or photo that teaches a dish but leaves quantities or timings unsaid. Extract what is there and mark the gaps estimated. Thin is not the same as absent.
 
 Output JSON with keys: dish, servings, prepNotes, ingredients, steps.`;
 
@@ -74,16 +78,21 @@ Output JSON with keys: dish, servings, prepNotes, ingredients, steps.`;
 // can follow. Prompt wording alone gets this right most of the time; this
 // turns it into a gate the repair loop can act on.
 const MUST_COOK: { match: RegExp; not: RegExp }[] = [
-  { match: /\b(rice)\b/, not: /(vinegar|flour|paper|wine|milk|noodle|krispies|cooked|syrup|powder)/ },
-  { match: /\b(pasta|spaghetti|macaroni|penne|linguine|fettuccine|lasagna noodles|egg noodles)\b/, not: /(sauce|salad dressing|cooked)/ },
-  { match: /\b(dried|dry)\s+(beans|lentils|chickpeas|peas)\b/, not: /(canned|cooked)/ },
-  { match: /\b(quinoa|pearl barley|farro|bulgur)\b/, not: /cooked/ },
+  // "cooked" is not an exclusion here on purpose: a source calling for
+  // "cooked rice" is exactly the case the card has to teach
+  { match: /\b(rice)\b/, not: /(vinegar|flour|paper|wine|milk|noodle|krispies|syrup|powder|pudding|cracker)/ },
+  { match: /\b(pasta|spaghetti|macaroni|penne|linguine|fettuccine|lasagna noodles|egg noodles)\b/, not: /(sauce|salad dressing|water)/ },
+  { match: /\b(dried|dry)\s+(beans|lentils|chickpeas|peas)\b/, not: /(canned)/ },
+  { match: /\b(quinoa|pearl barley|farro|bulgur)\b/, not: /(flour|water)/ },
   { match: /\braw\s+(chicken|beef|pork|turkey|shrimp|fish)\b/, not: /(broth|stock|bouillon)/ },
   { match: /\b(chicken (breasts?|thighs?|wings?)|ground (beef|turkey|pork)|pork (chops?|shoulder)|steak)\b/, not: /(broth|stock|bouillon|cooked|rotisserie|deli|smoked|cured)/ },
-  { match: /\b(potatoes)\b/, not: /(chips|crisps|flakes|starch|cooked|salad)/ },
+  { match: /\b(potatoes)\b/, not: /(chips|crisps|flakes|starch)/ },
 ];
 
-const COOK_VERB = /\b(cook|bake|boil|simmer|steam|roast|fry|sear|grill|saute|sauté|braise|poach|broil|pressure|air.fry|microwave|toast|heat|warm|stir.fry|blanch)/i;
+// Deliberately excludes warm, heat, and toast: they match incidental wording
+// like "pour warm coconut mixture" or "preheat the oven" and would let a card
+// that never cooks the staple slip through.
+const COOK_VERB = /\b(cook|bake|boil|simmer|steam|roast|fry|sear|grill|saute|sauté|braise|poach|broil|pressure.?cook|air.?fry|microwave|stir.?fry|blanch|parboil)/i;
 
 /** Every downstream operation label reachable from an ingredient. */
 function downstreamLabels(doc: RecipeDoc, ingredientId: string): string {
@@ -107,12 +116,15 @@ function downstreamLabels(doc: RecipeDoc, ingredientId: string): string {
 
 export function validateRawStaplesCooked(doc: RecipeDoc): string | null {
   for (const ing of doc.ingredients) {
-    const name = ing.name.toLowerCase();
+    // check the quantity text too, since "2 cups cooked" in the quantity is
+    // the same claim as "cooked rice" in the name
+    const name = `${ing.name} ${ing.quantity.display ?? ""}`.toLowerCase();
     const rule = MUST_COOK.find((r) => r.match.test(name) && !r.not.test(name));
     if (!rule) continue;
-    const chain = downstreamLabels(doc, ing.id) + " " + doc.prepNotes.join(" ");
-    if (!COOK_VERB.test(chain)) {
-      return `"${ing.name}" has to be cooked before it can be eaten, but no operation cooks it. Add the operation that cooks it, with its method and time, and keep it in the merge`;
+    // prepNotes deliberately excluded: pushing a whole cooking stage into a
+    // prep note is the failure, not a pass
+    if (!COOK_VERB.test(downstreamLabels(doc, ing.id))) {
+      return `"${ing.name}" has to be cooked before it can be eaten, but no operation on the table cooks it. Add that operation with its method and time. Do not move it into prepNotes and do not describe the ingredient as already cooked`;
     }
   }
   return null;
@@ -259,7 +271,7 @@ export function finalizeExtraction(
     throw new Error("output was not valid JSON");
   }
   if (raw.notARecipe === true) {
-    const why = raw.reason?.trim();
+    const why = raw.reason?.trim().replace(/\.+$/, "");
     throw new NotARecipeError(
       `${why ? `This source is not a single recipe: ${why}.` : "This source is not a single recipe."} Paste a link to one recipe.`,
     );

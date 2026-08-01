@@ -46,9 +46,14 @@ function load(tag: string): Row[] {
 const mean = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0);
 const pct = (n: number, d: number) => (d ? `${((n / d) * 100).toFixed(1)}%` : "n/a");
 
+/** A refusal is correct behavior on a source that is not one recipe, so it
+ *  must not be counted as a failure. */
+const isRefusal = (r: Row) => Boolean(r.error && /not a single recipe/i.test(r.error));
+
 interface Stats {
   n: number;
   compiled: number;
+  refused: number;
   failed: number;
   rawStartHard: number;
   rawStartSoft: number;
@@ -79,7 +84,8 @@ function stats(rows: Row[]): Stats {
   return {
     n: rows.length,
     compiled: ok.length,
-    failed: rows.filter((r) => !r.ok).length,
+    refused: rows.filter((r) => !r.ok && isRefusal(r)).length,
+    failed: rows.filter((r) => !r.ok && !isRefusal(r)).length,
     rawStartHard: grades.filter((g) => g.rawStartHard.length > 0).length,
     rawStartSoft: grades.filter((g) => g.rawStartSoft.length > 0).length,
     vagueOps: grades.filter((g) => g.vagueOps.length > 0).length,
@@ -108,6 +114,7 @@ function line(label: string, s: Stats): string {
     label.padEnd(12),
     String(s.n).padStart(5),
     pct(s.compiled, s.n).padStart(8),
+    pct(s.refused, s.n).padStart(8),
     pct(s.rawStartHard, s.compiled).padStart(9),
     pct(s.vagueOps, s.compiled).padStart(9),
     pct(s.placeholder, s.compiled).padStart(8),
@@ -128,7 +135,7 @@ const out: string[] = [];
 out.push(`SCALE EVAL: ${tag}`);
 out.push("");
 out.push(
-  ["channel".padEnd(12), "n".padStart(5), "compiled".padStart(8), "rawStart".padStart(9), "vagueOp".padStart(9), "placehld".padStart(8), "coverage".padStart(9), "unresolv".padStart(9), "cols".padStart(6), "secs".padStart(7), "complete".padStart(7), "judgeRaw".padStart(9)].join(" "),
+  ["channel".padEnd(12), "n".padStart(5), "compiled".padStart(8), "refused".padStart(8), "rawStart".padStart(9), "vagueOp".padStart(9), "placehld".padStart(8), "coverage".padStart(9), "unresolv".padStart(9), "cols".padStart(6), "secs".padStart(7), "complete".padStart(7), "judgeRaw".padStart(9)].join(" "),
 );
 out.push("-".repeat(110));
 const channels = [...new Set(rows.map((r) => r.channel))].sort();
@@ -136,7 +143,9 @@ for (const ch of channels) out.push(line(ch, stats(rows.filter((r) => r.channel 
 out.push("-".repeat(110));
 out.push(line("ALL", overall));
 out.push("");
-out.push(`compiled ${overall.compiled}/${overall.n}, failed ${overall.failed}, retries ${pct(overall.retryRate, 1)}`);
+out.push(
+  `compiled ${overall.compiled}/${overall.n}, refused as not-a-recipe ${overall.refused}, failed ${overall.failed}, retries ${pct(overall.retryRate, 1)}`,
+);
 out.push(`mean cost $${overall.meanCost.toFixed(4)} per item`);
 if (overall.judged) {
   out.push(
