@@ -74,6 +74,7 @@ function densityFor(name: string): DensityEntry | undefined {
 }
 
 function expectedGrams(name: string, amount: number, unit: string): { grams: number; source: string } | undefined {
+  if (typeof unit !== "string" || !Number.isFinite(amount)) return undefined;
   const normalized = unit.toLowerCase().trim();
   if (normalized === "oz" || normalized === "ounce" || normalized === "ounces") {
     return { grams: amount * GRAMS_PER_OZ, source: "28.35 g per ounce" };
@@ -101,7 +102,7 @@ function round(grams: number): number {
 }
 
 export function validateQuantity(name: string, raw: RawQuantity): Quantity {
-  const text = raw.text.trim();
+  const text = typeof raw.text === "string" ? raw.text.trim() : "";
   // "650 g" or "6 tsp (30g)" already states a weight; appending it again is noise
   const textStatesGrams = /(^|[\s(])\d+([.,]\d+)?\s*(g|kg|grams?|kilograms?)\b/i.test(text);
   const stated = raw.grams ?? undefined;

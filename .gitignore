@@ -10,3 +10,4 @@ cloudflare-env.d.ts
 next-env.d.ts
 *.tsbuildinfo
 .DS_Store
+eval/.cdx-cache.json

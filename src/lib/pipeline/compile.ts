@@ -16,6 +16,12 @@ export interface CompileResult {
     canonicalUrl?: string;
     canonicalHash?: string;
     elapsedMs: number;
+    /** The text the structurer actually saw. Present for text-bearing sources
+     *  (article, pasted text); absent for media, where there is no
+     *  intermediate text. Used by the eval judge to grade fidelity. */
+    sourceExcerpt?: string;
+    /** Ingredient lines from schema.org data, when the page carried it */
+    groundTruthIngredients?: string[];
   };
 }
 
@@ -33,12 +39,16 @@ export async function compile(input: string, env: CompileEnv): Promise<CompileRe
   const started = Date.now();
 
   if (!isUrl(input)) {
+    const material = input.trim().slice(0, 16000);
     const { doc, meta } = await extractRecipe({
       apiKey: env.deepseekKey,
       fastGeminiKey: env.geminiKey,
-      sourceMaterial: `Convert this recipe:\n\n${input.trim().slice(0, 16000)}`,
+      sourceMaterial: `Convert this recipe:\n\n${material}`,
     });
-    return { doc, meta: { ...meta, sourceType: "text", elapsedMs: Date.now() - started } };
+    return {
+      doc,
+      meta: { ...meta, sourceType: "text", elapsedMs: Date.now() - started, sourceExcerpt: material },
+    };
   }
 
   const canonical = canonicalizeUrl(input);
@@ -99,6 +109,8 @@ async function compileArticle(
       canonicalUrl: canonical.canonicalUrl,
       canonicalHash: await canonicalUrlHash(canonical.canonicalUrl),
       elapsedMs: Date.now() - started,
+      sourceExcerpt: material.slice(0, 12000),
+      groundTruthIngredients: article.kind === "jsonld" ? article.recipe?.recipeIngredient : undefined,
     },
   };
 }

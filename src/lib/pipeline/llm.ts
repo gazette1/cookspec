@@ -58,6 +58,46 @@ export async function deepseekJson(opts: {
   };
 }
 
+// Kimi is not used in the extraction path. Keeping the judge on a different
+// family than the extractor avoids grading a model with itself.
+export async function kimiJson(opts: {
+  apiKey: string;
+  system: string;
+  user: string;
+  maxTokens?: number;
+}): Promise<LlmResult> {
+  const model = "kimi-k3";
+  const res = await fetch("https://api.moonshot.ai/v1/chat/completions", {
+    method: "POST",
+    headers: { "content-type": "application/json", authorization: `Bearer ${opts.apiKey}` },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: opts.system },
+        { role: "user", content: opts.user },
+      ],
+      response_format: { type: "json_object" },
+      max_tokens: opts.maxTokens ?? 1200,
+      // k3 rejects any temperature other than 1
+      temperature: 1,
+    }),
+  });
+  if (!res.ok) throw new Error(`kimi HTTP ${res.status}: ${(await res.text()).slice(0, 200)}`);
+  const data = (await res.json()) as {
+    choices: { message: { content: string } }[];
+    usage?: { prompt_tokens?: number; completion_tokens?: number };
+  };
+  return {
+    content: data.choices[0]?.message?.content ?? "",
+    model,
+    usage: {
+      inputTokens: data.usage?.prompt_tokens ?? 0,
+      outputTokens: data.usage?.completion_tokens ?? 0,
+      costUsd: ((data.usage?.prompt_tokens ?? 0) * 0.6 + (data.usage?.completion_tokens ?? 0) * 2.5) / 1_000_000,
+    },
+  };
+}
+
 export interface GeminiPart {
   text?: string;
   fileData?: { fileUri: string; mimeType?: string };

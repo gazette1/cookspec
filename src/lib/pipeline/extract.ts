@@ -194,6 +194,18 @@ export function finalizeExtraction(
   if (!raw.dish || !Array.isArray(raw.ingredients) || !Array.isArray(raw.steps) || raw.steps.length === 0) {
     throw new Error("missing dish, ingredients, or steps");
   }
+  // a nameless or idless entry corrupts every downstream consumer, so treat it
+  // as a repairable extraction error rather than letting it through
+  for (const i of raw.ingredients) {
+    if (!i || typeof i.id !== "string" || typeof i.name !== "string" || !i.name.trim()) {
+      throw new Error("every ingredient needs a string id and a non-empty name");
+    }
+  }
+  for (const s of raw.steps) {
+    if (!s || typeof s.id !== "string" || typeof s.label !== "string" || !Array.isArray(s.inputs)) {
+      throw new Error("every step needs a string id, a label, and an inputs array");
+    }
+  }
   const inferred = (opts.inferred ?? false) || raw.inferredGuess === true;
   const doc = toRecipeDoc(splitDividedIngredients(raw), slugify(raw.dish), opts.source, inferred);
   const dagError = validateDag(doc);
