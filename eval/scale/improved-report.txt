@@ -1,0 +1,72 @@
+SCALE EVAL: improved
+
+channel          n compiled  refused  rawStart   vagueOp placehld  coverage  unresolv   cols    secs complete  judgeRaw
+--------------------------------------------------------------------------------------------------------------
+article        711    79.9%    18.6%      4.0%     15.5%     0.5%     99.3%     10.3%    4.6     3.6    4.15      6.3%
+caption        146    97.3%     2.1%      9.9%     14.1%     0.0%       n/a     36.4%    4.4     2.7    4.22     10.8%
+reel            30    76.7%    20.0%     21.7%     13.0%     0.0%       n/a     73.4%    4.7    25.4    4.13     12.5%
+tiktok          60    86.7%    10.0%      5.8%     25.0%     5.8%       n/a     67.9%    4.8     9.2    3.79     10.5%
+youtube         52    65.4%    19.2%     11.8%     38.2%     8.8%       n/a     62.9%    5.3    13.1    3.36     36.4%
+--------------------------------------------------------------------------------------------------------------
+ALL            999    82.0%    15.7%      6.0%     16.7%     1.1%     99.3%     22.4%    4.6     4.8    4.09      9.2%
+
+compiled 819/999, refused as not-a-recipe 157, failed 23, retries 10.9%
+mean cost $0.0045 per item
+judge means: fidelity 4.01, completeness 4.09, quantities 4.67, structure 4.86
+judge flags: not starting from raw 20/218 (9.2%), not cookable 11/218 (5.0%)
+
+TOP FAILURE MODES
+     6  compile failure: gemini HTTP 503: {
+  "error": {
+    "code": 503,
+    "message": "The service is currently 
+     3  compile failure: This source is not a single recipe: The provided text is an archive and category page list
+     3  compile failure: This source is not a single recipe: The provided text is a roundup article listing multipl
+     2  compile failure: This source is not a single recipe: The provided text is a recipe roundup listing multiple
+     2  compile failure: This source is not a single recipe: The provided text is a recipe review and article discu
+     2  compile failure: This source is not a single recipe: The provided text is a recipe roundup page listing mul
+     2  compile failure: This source is not a single recipe: The provided text is a meal plan collection page listi
+     2  compile failure: This source is not a single recipe: The provided text is a website privacy policy, not a r
+     2  compile failure: gemini returned no text content
+     1  compile failure: This source is not a single recipe: The source is a roundup article listing multiple Thank
+     1  compile failure: This source is not a single recipe: This is an explainer article about chocolate bloom, no
+     1  compile failure: This source is not a single recipe: The source is a list of ingredients categorized by bod
+    36  assumed already cooked
+     5  assumed already prepared
+     3  assumed already roasted
+     3  assumed already toasted
+     2  assumed already baked
+     1  assumed already fried
+    17  "combine" with no time or temperature
+    11  "bring" with no time or temperature
+    10  "serve" with no time or temperature
+    10  "mix" with no time or temperature
+     9  "add" with no time or temperature
+     8  "cook" with no time or temperature
+     8  "top" with no time or temperature
+     6  "boil" with no time or temperature
+     6  "place" with no time or temperature
+     5  "toss" with no time or temperature
+
+JUDGE, MOST COMMON WORST PROBLEM
+     2  the minute saut time is invented
+     1  the tabasco quantity stated in the
+     1  prep promises a choice between slow
+     1  canned beans are never drained and
+     1  drops the step of tossing the
+     1  steak cooking specifics sear  min
+     1  card drops that the bitters are
+     1  the seasoning paste operation requires hot
+     1  omits the minute brownbutter cooling before
+     1  the  min whisk duration is
+     1  the card omits shredding the chicken
+     1  the minute pasta boil time is
+
+COMPARED WITH baseline
+  compiled           95.6% -> 82.0%
+  rawStart failures  8.0% -> 6.0%
+  vague operations   20.5% -> 16.7%
+  placeholder cards  6.7% -> 1.1%
+  coverage           99.7% -> 99.3%
+  judge completeness 3.73 -> 4.09
+  judge raw failures 16.7% -> 9.2%

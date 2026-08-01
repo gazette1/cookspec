@@ -1,0 +1,63 @@
+SCALE EVAL: baseline
+
+channel          n compiled  rawStart   vagueOp placehld  coverage  unresolv   cols    secs complete  judgeRaw
+--------------------------------------------------------------------------------------------------------------
+article        711    95.6%      6.0%     17.9%     8.5%     99.7%     20.4%    4.4     3.3    3.71     13.8%
+caption        145   100.0%     13.1%     19.3%     0.0%       n/a     35.2%    4.5     2.7    3.97     20.6%
+reel            30   100.0%     20.0%     20.0%     3.3%       n/a     83.1%    4.4    19.1    3.73     36.4%
+tiktok          60   100.0%      8.3%     36.7%     1.7%       n/a     71.0%    4.6     8.1    3.75      5.0%
+youtube         52    75.0%     15.4%     46.2%    10.3%       n/a     62.6%    4.8    24.4    3.31     53.8%
+--------------------------------------------------------------------------------------------------------------
+ALL            998    95.6%      8.1%     20.5%     6.7%     99.7%     29.5%    4.4     4.9    3.73     16.8%
+
+compiled 954/998, failed 44, retries 9.2%
+mean cost $0.0039 per item
+judge means: fidelity 3.85, completeness 3.73, quantities 4.55, structure 4.62
+judge flags: not starting from raw 46/274 (16.8%), not cookable 35/274 (12.8%)
+
+TOP FAILURE MODES
+    18  compile failure: fetch failed
+    14  compile failure: extraction failed after 3 attempts: missing dish, ingredients, or steps
+     3  compile failure: extraction failed after 3 attempts: output was not valid JSON
+     2  compile failure: extraction failed after 3 attempts: recipe has no ingredients
+     2  compile failure: gemini returned no text content
+     1  compile failure: extraction failed after 3 attempts: step boil_beef appears in the inputs of simmer_vegetab
+     1  compile failure: extraction failed after 3 attempts: step finish_pie is never consumed by a later step
+     1  compile failure: extraction failed after 3 attempts: step pressure_cook appears in the inputs of broil_chic
+     1  compile failure: gemini HTTP 400: {
+  "error": {
+    "code": 400,
+    "message": "Request contains an inval
+     1  compile failure: extraction failed after 3 attempts: step drain_fruit is never consumed by a later step
+    66  assumed already cooked
+     5  assumed already prepared
+     5  assumed already roasted
+     5  assumed already toasted
+     3  assumed already baked
+     2  assumed already grilled
+     1  assumed already boiled
+     1  assumed already fried
+    27  "cook" with no time or temperature
+    19  "boil" with no time or temperature
+    18  "combine" with no time or temperature
+    16  "add" with no time or temperature
+    13  "simmer" with no time or temperature
+     9  "serve" with no time or temperature
+     8  "toss" with no time or temperature
+     7  "top" with no time or temperature
+     7  "pour" with no time or temperature
+     7  "slice" with no time or temperature
+
+JUDGE, MOST COMMON WORST PROBLEM
+     3  the source is a roundup of
+     3  the card drops the sources instruction
+     2  the bake step drops the sources
+     2  the card contains no actual recipe
+     2  card drops the sources instruction to
+     2  cooked potatoes are required as an
+     1  omits patting the salmon dry and
+     1  drops the pressurecooker release method quick
+     1  card reserves only  cup pasta
+     1  no operation warms the corn tortillas
+     1  the final operation merges all six
+     1  pan size is unspecified and chilling
